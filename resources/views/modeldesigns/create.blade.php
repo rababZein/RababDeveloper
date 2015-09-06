@@ -1,10 +1,10 @@
 @extends ('layouts.dashboard')
-@section('page_heading','Update Interest')
+@section('page_heading','Add New Model Designs')
 
 @section('section')
 
-    {{ Form::open(array('class' => 'form-inline', 'method' => 'PATCH', 'route' => array('models.update'))) }}         
-                    @if (count($errors) > 0)
+        <form class="form-horizontal" role="form" method="POST" action="{{ url('/modeldesigns/') }}">
+         @if (count($errors) > 0)
                         <div class="alert alert-danger">
                             <strong>Whoops!</strong> There were some problems with your input.<br><br>
                             <ul>
@@ -15,21 +15,23 @@
                         </div>
                     @endif
          <input type="hidden" name="_token" value="{{ csrf_token() }}">
+         
             <div class="form-group has-success">
                <!--  <label class="control-label" for="inputSuccess">Input with success</label> -->
-              <label> Name </label>
-              <input type="text" name="name" value="{{ $model->name }}" class="form-control" id="inputSuccess">
+               <label> Name </label>
+                <input type="text" name="name" class="form-control" id="inputSuccess">
             </div>
-            <br/>
-            <br/>
-            <div class="form-group has-success">
+
+             <div class="form-group has-success">
                <!--  <label class="control-label" for="inputSuccess">Input with success</label> -->
-               <label> Description </label>
-                <textarea name="desc" class="form-control" rows="3">{{ $model->desc }}</textarea>
+               <label> Description</label>
+                <input type="text" name="desc" class="form-control" id="inputSuccess">
             </div>
-            <input type="hidden" name="id" value="{{ $model->id }}">
-            <button> Edit </button>
-        {{ Form::close() }}
+            
+            
+            <button> Add </button>
+        </form>
+        
         <p>For complete documentation, please visit <a href="http://getbootstrap.com/css/#forms">Bootstrap's Form Documentation</a>.</p>
    
 

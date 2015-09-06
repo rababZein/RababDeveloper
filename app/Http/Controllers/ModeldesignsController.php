@@ -6,11 +6,11 @@ use App\Http\Controllers\Controller;
 //use Illuminate\Http\Request;
 use Request;
 use Validator;
-use App\Modelll;
+use Auth;
+use App\Modeldesign;
 
-class ModelllsController extends Controller {
+class ModeldesignsController extends Controller {
 
-	
 	/**
 	 * Display a listing of the resource.
 	 *
@@ -19,9 +19,9 @@ class ModelllsController extends Controller {
 	public function index()
 	{
 		//
-		$models=Modelll::all();
-		var_dump($models); exit();
-		return view('models.index',compact('models'));
+		$models=Modeldesign::all();
+		//var_dump($models); exit();
+		return view('modeldesigns.index',compact('models'));
 	}
 
 	/**
@@ -32,7 +32,7 @@ class ModelllsController extends Controller {
 	public function create()
 	{
 		//
-		return view('models.create');
+		return view('modeldesigns.create');
 	}
 
 	/**
@@ -43,8 +43,10 @@ class ModelllsController extends Controller {
 	public function store()
 	{
 		//
+					//echo "string"; exit();
+
 		$v = Validator::make(Request::all(), [
-        'name' => 'required|max:50|unique:models',
+        'name' => 'required|max:50|unique:modeldesigns',
       
        
         ]);
@@ -54,12 +56,13 @@ class ModelllsController extends Controller {
 	        return redirect()->back()->withErrors($v->errors())
 	        						 ->withInput();
 	    }else{
-			$model = new Modelll;
+			$model = new Modeldesign;
+					//	echo "string"; exit();
+
 		    $model->name = Request::get('name');
 		    $model->desc = Request::get('desc');
 			$model->save();
-			echo "string"; exit();
-			return redirect('models');
+			return redirect('modeldesigns');
 	    }
 	}
 
@@ -83,8 +86,8 @@ class ModelllsController extends Controller {
 	public function edit($id)
 	{
 		//
-		$model=Modelll::find($id);
-		return view('models.edit',compact('model'));
+		$model=Modeldesign::find($id);
+		return view('modeldesigns.edit',compact('model'));
 	}
 
 	/**
@@ -106,11 +109,11 @@ class ModelllsController extends Controller {
 	        						 ->withInput();
 	    }else{
             $id=Request::get('id');
-			$model=Modelll::find($id);
+			$model=Modeldesign::find($id);
 			$model->name = Request::get('name');
 		    $model->desc = Request::get('desc');
 			$model->save();
-			return redirect('models');
+			return redirect('modeldesigns');
 	    }
 	}
 
@@ -124,8 +127,9 @@ class ModelllsController extends Controller {
 	{
 		//
 		$modelId = Request::get('id');
-	    Modelll::where('id',$modelId)->delete();
-	    return redirect("models");
+	    Modeldesign::where('id',$modelId)->delete();
+	    return redirect("modeldesigns");
 	}
+
 
 }

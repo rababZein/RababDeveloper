@@ -110,6 +110,6 @@ Route::resource('/exhibitors','ExhibitorsController');
 
 Route::resource('/halls','HallsController');
 
-Route::resource('/models','ModelllsController');
+Route::resource('/modeldesigns','ModeldesignsController');
 
 
