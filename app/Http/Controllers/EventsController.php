@@ -7,9 +7,10 @@ use App\Http\Controllers\Controller;
 use Request;
 use Validator;
 use Auth;
-use App\Type;
+use App\SeriesEvent;
+use App\Event;
 
-class TypesController extends Controller {
+class EventsController extends Controller {
 
 	/**
 	 * Display a listing of the resource.
@@ -19,8 +20,8 @@ class TypesController extends Controller {
 	public function index()
 	{
 		//
-		$types=Type::all();
-		return view('types.index',compact('types'));
+		$events=Event::all();
+		return view('events.index',compact('events'));
 	}
 
 	/**
@@ -31,7 +32,8 @@ class TypesController extends Controller {
 	public function create()
 	{
 		//
-		return view('types.create');
+		$seriesevents = SeriesEvent::all();
+		return view('events.create',compact('seriesevents'));
 	}
 
 	/**
@@ -43,10 +45,9 @@ class TypesController extends Controller {
 	{
 		//
 		$v = Validator::make(Request::all(), [
-        'name' => 'required|max:50|unique:halls',
-       // 'price'=>'required'
-      
-       
+        'name' => 'required|max:50|unique:events',
+        'type' => 'required',
+        'seriesevents_id' => 'required',
         ]);
        
 	    if ($v->fails())
@@ -54,13 +55,14 @@ class TypesController extends Controller {
 	        return redirect()->back()->withErrors($v->errors())
 	        						 ->withInput();
 	    }else{
-			$type = new Type;
-		    $type->name = Request::get('name');
-		    $type->desc = Request::get('desc');
-		    $type->price = Request::get('price');
-		    $type->size = Request::get('size');
-			$type->save();
-			return redirect('types');
+			$event = new Event;
+		    $event->name = Request::get('name');
+		    $event->desc = Request::get('desc');
+		    $event->type = Request::get('type');
+		    $event->privacy = Request::get('privacy');
+		    $event->seriesevents_id = Request::get('seriesevents_id');
+			$event->save();
+			return redirect('events');
 	    }
 	}
 
@@ -73,8 +75,8 @@ class TypesController extends Controller {
 	public function show($id)
 	{
 		//
-		$type=Type::find($id);
-		return view('types.show',compact('type'));
+		$event=Event::find($id);
+		return view('events.show',compact('event'));
 	}
 
 	/**
@@ -86,8 +88,9 @@ class TypesController extends Controller {
 	public function edit($id)
 	{
 		//
-		$type=Type::find($id);
-		return view('types.edit',compact('type'));
+		$seriesevents = SeriesEvent::all();		
+		$event=Event::find($id);
+		return view('events.edit',compact('seriesevents','event'));
 	}
 
 	/**
@@ -100,7 +103,9 @@ class TypesController extends Controller {
 	{
 		//
 		$v = Validator::make(Request::all(), [
-        'name' => 'required|max:50',       
+        'name' => 'required|max:50',   
+        'type' => 'required',
+        'seriesevents_id' => 'required',   
         ]);
        
 	    if ($v->fails())
@@ -109,13 +114,14 @@ class TypesController extends Controller {
 	        						 ->withInput();
 	    }else{
             $id=Request::get('id');
-			$type=Type::find($id);
-			$type->name = Request::get('name');
-		    $type->desc = Request::get('desc');
-		    $type->price = Request::get('price');
-		    $type->size = Request::get('size');
-			$type->save();
-			return redirect('types');
+			$event = Event::find($id);
+		    $event->name = Request::get('name');
+		    $event->desc = Request::get('desc');
+		    $event->type = Request::get('type');
+		    $event->privacy = Request::get('privacy');
+		    $event->seriesevents_id = Request::get('seriesevents_id');
+			$event->save();
+			return redirect('events');
 	    }
 	}
 
@@ -128,9 +134,9 @@ class TypesController extends Controller {
 	public function destroy($id)
 	{
 		//
-		$typeId = Request::get('id');
-	    Type::where('id',$typeId)->delete();
-	    return redirect("types");
+		$eventId = Request::get('id');
+	    Event::where('id',$eventId)->delete();
+	    return redirect("events");
 	}
 
 }

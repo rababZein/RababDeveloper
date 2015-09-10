@@ -7,9 +7,9 @@ use App\Http\Controllers\Controller;
 use Request;
 use Validator;
 use Auth;
-use App\Type;
+use App\Exhibition;
 
-class TypesController extends Controller {
+class ExhibitionsController extends Controller {
 
 	/**
 	 * Display a listing of the resource.
@@ -19,8 +19,8 @@ class TypesController extends Controller {
 	public function index()
 	{
 		//
-		$types=Type::all();
-		return view('types.index',compact('types'));
+		$exhibitions=Exhibition::all();
+		return view('exhibitions.index',compact('exhibitions'));
 	}
 
 	/**
@@ -31,7 +31,7 @@ class TypesController extends Controller {
 	public function create()
 	{
 		//
-		return view('types.create');
+		return view('exhibitions.create');
 	}
 
 	/**
@@ -42,9 +42,10 @@ class TypesController extends Controller {
 	public function store()
 	{
 		//
+					//echo "string"; exit();
+
 		$v = Validator::make(Request::all(), [
-        'name' => 'required|max:50|unique:halls',
-       // 'price'=>'required'
+        'name' => 'required|max:50|unique:modeldesigns',
       
        
         ]);
@@ -54,13 +55,11 @@ class TypesController extends Controller {
 	        return redirect()->back()->withErrors($v->errors())
 	        						 ->withInput();
 	    }else{
-			$type = new Type;
-		    $type->name = Request::get('name');
-		    $type->desc = Request::get('desc');
-		    $type->price = Request::get('price');
-		    $type->size = Request::get('size');
-			$type->save();
-			return redirect('types');
+			$exhibition = new Exhibition;
+		    $exhibition->name = Request::get('name');
+		    $exhibition->desc = Request::get('desc');
+			$exhibition->save();
+			return redirect('exhibitions');
 	    }
 	}
 
@@ -73,8 +72,8 @@ class TypesController extends Controller {
 	public function show($id)
 	{
 		//
-		$type=Type::find($id);
-		return view('types.show',compact('type'));
+		$exhibition=Exhibition::find($id);
+		return view('exhibitions.show',compact('exhibition'));
 	}
 
 	/**
@@ -86,8 +85,8 @@ class TypesController extends Controller {
 	public function edit($id)
 	{
 		//
-		$type=Type::find($id);
-		return view('types.edit',compact('type'));
+		$exhibition=Exhibition::find($id);
+		return view('exhibitions.edit',compact('exhibition'));
 	}
 
 	/**
@@ -109,13 +108,11 @@ class TypesController extends Controller {
 	        						 ->withInput();
 	    }else{
             $id=Request::get('id');
-			$type=Type::find($id);
-			$type->name = Request::get('name');
-		    $type->desc = Request::get('desc');
-		    $type->price = Request::get('price');
-		    $type->size = Request::get('size');
-			$type->save();
-			return redirect('types');
+			$exhibition=Exhibition::find($id);
+			$exhibition->name = Request::get('name');
+		    $exhibition->desc = Request::get('desc');
+			$exhibition->save();
+			return redirect('exhibitions');
 	    }
 	}
 
@@ -128,9 +125,10 @@ class TypesController extends Controller {
 	public function destroy($id)
 	{
 		//
-		$typeId = Request::get('id');
-	    Type::where('id',$typeId)->delete();
-	    return redirect("types");
+		$exhibitionId = Request::get('id');
+	    Exhibition::where('id',$exhibitionId)->delete();
+	    return redirect("exhibitions");
 	}
+
 
 }

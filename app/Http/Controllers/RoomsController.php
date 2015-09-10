@@ -7,9 +7,11 @@ use App\Http\Controllers\Controller;
 use Request;
 use Validator;
 use Auth;
-use App\Type;
+use App\Room;
+use App\Spot;
+use App\Event;
 
-class TypesController extends Controller {
+class RoomsController extends Controller {
 
 	/**
 	 * Display a listing of the resource.
@@ -19,8 +21,8 @@ class TypesController extends Controller {
 	public function index()
 	{
 		//
-		$types=Type::all();
-		return view('types.index',compact('types'));
+		$rooms=Room::all();
+		return view('rooms.index',compact('rooms'));
 	}
 
 	/**
@@ -31,7 +33,9 @@ class TypesController extends Controller {
 	public function create()
 	{
 		//
-		return view('types.create');
+		$spots=Spot::all();
+		$events=Event::all();
+		return view('rooms.create',compact('spots','events'));
 	}
 
 	/**
@@ -43,8 +47,9 @@ class TypesController extends Controller {
 	{
 		//
 		$v = Validator::make(Request::all(), [
-        'name' => 'required|max:50|unique:halls',
-       // 'price'=>'required'
+        'name' => 'required|max:50|unique:rooms',
+        'spot_id' => 'required',
+        'event_id' => 'required',
       
        
         ]);
@@ -54,13 +59,13 @@ class TypesController extends Controller {
 	        return redirect()->back()->withErrors($v->errors())
 	        						 ->withInput();
 	    }else{
-			$type = new Type;
-		    $type->name = Request::get('name');
-		    $type->desc = Request::get('desc');
-		    $type->price = Request::get('price');
-		    $type->size = Request::get('size');
-			$type->save();
-			return redirect('types');
+			$room = new Room;
+		    $room->name = Request::get('name');
+		    $room->desc = Request::get('desc');
+		    $room->spot_id = Request::get('spot_id');
+		    $room->event_id = Request::get('event_id');
+			$room->save();
+			return redirect('rooms');
 	    }
 	}
 
@@ -73,8 +78,8 @@ class TypesController extends Controller {
 	public function show($id)
 	{
 		//
-		$type=Type::find($id);
-		return view('types.show',compact('type'));
+		$room=Room::find($id);
+		return view('rooms.show',compact('room'));
 	}
 
 	/**
@@ -86,8 +91,10 @@ class TypesController extends Controller {
 	public function edit($id)
 	{
 		//
-		$type=Type::find($id);
-		return view('types.edit',compact('type'));
+		$room=Room::find($id);
+		$spots=Spot::all();
+		$events=Event::all();
+		return view('rooms.edit',compact('room','spots','events'));
 	}
 
 	/**
@@ -100,7 +107,9 @@ class TypesController extends Controller {
 	{
 		//
 		$v = Validator::make(Request::all(), [
-        'name' => 'required|max:50',       
+        'name' => 'required|max:50',  
+        'spot_id' => 'required',
+        'event_id' => 'required',    
         ]);
        
 	    if ($v->fails())
@@ -109,13 +118,13 @@ class TypesController extends Controller {
 	        						 ->withInput();
 	    }else{
             $id=Request::get('id');
-			$type=Type::find($id);
-			$type->name = Request::get('name');
-		    $type->desc = Request::get('desc');
-		    $type->price = Request::get('price');
-		    $type->size = Request::get('size');
-			$type->save();
-			return redirect('types');
+			$room =Room::find($id);
+		    $room->name = Request::get('name');
+		    $room->desc = Request::get('desc');
+		    $room->spot_id = Request::get('spot_id');
+		    $room->event_id = Request::get('event_id');
+			$room->save();
+			return redirect('rooms');
 	    }
 	}
 
@@ -128,9 +137,9 @@ class TypesController extends Controller {
 	public function destroy($id)
 	{
 		//
-		$typeId = Request::get('id');
-	    Type::where('id',$typeId)->delete();
-	    return redirect("types");
+		$roomId = Request::get('id');
+	    Room::where('id',$roomId)->delete();
+	    return redirect("rooms");
 	}
 
 }

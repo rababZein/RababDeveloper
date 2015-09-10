@@ -75,6 +75,8 @@ class ModeldesignsController extends Controller {
 	public function show($id)
 	{
 		//
+		$model=Modeldesign::find($id);
+		return view('modeldesigns.show',compact('model'));
 	}
 
 	/**

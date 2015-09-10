@@ -112,4 +112,16 @@ Route::resource('/halls','HallsController');
 
 Route::resource('/modeldesigns','ModeldesignsController');
 
+Route::resource('/types','TypesController');
 
+Route::resource('/booths','BoothsController');
+
+Route::resource('/exhibitions','ExhibitionsController');
+
+Route::resource('/exhibitionevents','ExhibitioneventsController');
+
+Route::resource('/seriesevents','SeriesEventsController');
+
+Route::resource('/events','EventsController');
+
+Route::resource('/rooms','RoomsController');

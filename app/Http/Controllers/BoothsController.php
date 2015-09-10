@@ -7,9 +7,11 @@ use App\Http\Controllers\Controller;
 use Request;
 use Validator;
 use Auth;
+use App\Booth;
 use App\Type;
+use App\Modeldesign;
 
-class TypesController extends Controller {
+class BoothsController extends Controller {
 
 	/**
 	 * Display a listing of the resource.
@@ -19,8 +21,8 @@ class TypesController extends Controller {
 	public function index()
 	{
 		//
-		$types=Type::all();
-		return view('types.index',compact('types'));
+		$booths=Booth::all();
+		return view('booths.index',compact('booths'));
 	}
 
 	/**
@@ -31,7 +33,9 @@ class TypesController extends Controller {
 	public function create()
 	{
 		//
-		return view('types.create');
+		$types=Type::all();
+		$models=Modeldesign::all();
+		return view('booths.create',compact('types','models'));
 	}
 
 	/**
@@ -44,7 +48,8 @@ class TypesController extends Controller {
 		//
 		$v = Validator::make(Request::all(), [
         'name' => 'required|max:50|unique:halls',
-       // 'price'=>'required'
+        'type_id' => 'required',
+        'modeldesign_id' => 'required',
       
        
         ]);
@@ -54,13 +59,13 @@ class TypesController extends Controller {
 	        return redirect()->back()->withErrors($v->errors())
 	        						 ->withInput();
 	    }else{
-			$type = new Type;
-		    $type->name = Request::get('name');
-		    $type->desc = Request::get('desc');
-		    $type->price = Request::get('price');
-		    $type->size = Request::get('size');
-			$type->save();
-			return redirect('types');
+			$booth = new Booth;
+		    $booth->name = Request::get('name');
+		    $booth->desc = Request::get('desc');
+		    $booth->type_id = Request::get('type_id');
+		    $booth->modeldesign_id = Request::get('modeldesign_id');
+			$booth->save();
+			return redirect('booths');
 	    }
 	}
 
@@ -73,8 +78,8 @@ class TypesController extends Controller {
 	public function show($id)
 	{
 		//
-		$type=Type::find($id);
-		return view('types.show',compact('type'));
+		$booth=Booth::find($id);
+		return view('booths.show',compact('booth'));
 	}
 
 	/**
@@ -86,8 +91,10 @@ class TypesController extends Controller {
 	public function edit($id)
 	{
 		//
-		$type=Type::find($id);
-		return view('types.edit',compact('type'));
+		$booth=Booth::find($id);
+		$types=Type::all();
+		$models=Modeldesign::all();
+		return view('booths.edit',compact('booth','types','models'));
 	}
 
 	/**
@@ -100,7 +107,9 @@ class TypesController extends Controller {
 	{
 		//
 		$v = Validator::make(Request::all(), [
-        'name' => 'required|max:50',       
+        'name' => 'required|max:50',  
+        'type_id' => 'required',
+        'modeldesign_id' => 'required',     
         ]);
        
 	    if ($v->fails())
@@ -109,13 +118,13 @@ class TypesController extends Controller {
 	        						 ->withInput();
 	    }else{
             $id=Request::get('id');
-			$type=Type::find($id);
-			$type->name = Request::get('name');
-		    $type->desc = Request::get('desc');
-		    $type->price = Request::get('price');
-		    $type->size = Request::get('size');
-			$type->save();
-			return redirect('types');
+			$booth=Booth::find($id);
+			$booth->name = Request::get('name');
+		    $booth->desc = Request::get('desc');
+		    $booth->type_id = Request::get('type_id');
+		    $booth->modeldesign_id = Request::get('modeldesign_id');
+			$booth->save();
+			return redirect('booths');
 	    }
 	}
 
@@ -128,9 +137,9 @@ class TypesController extends Controller {
 	public function destroy($id)
 	{
 		//
-		$typeId = Request::get('id');
-	    Type::where('id',$typeId)->delete();
-	    return redirect("types");
+		$boothId = Request::get('id');
+	    Booth::where('id',$boothId)->delete();
+	    return redirect("booths");
 	}
 
 }
