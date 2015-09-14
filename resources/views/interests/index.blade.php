@@ -22,6 +22,8 @@
 				<tr>
 					<th>ID</th>
 					<th>Interest In</th>
+					<th>Edit</th>
+					<th>Delete</th>
 				</tr>
 			</thead>
 			<tbody>
@@ -33,7 +35,8 @@
 				            <td class="text-center">{{ $interest->interest_in }}</td>
 				            
 				            <td class="text-center">
-				            	<a title="Edit Interest" href="/interests/{{$interest->id}}/edit" class="do"><img src="/images/edit.png" width="30px" height="30px">	</a>
+				            	<a title="Edit Interest" href="/interests/{{$interest->id}}/edit" class="do"><img src="/images/edit.png" width="30px" height="30px"></a></td>
+							 <td class="text-center">
 	{{ Form::open(array('class' => 'form-inline', 'method' => 'DELETE', 'route' => array('interests.destroy'))) }}
 						            <input type="hidden" name="_token" value="{{ csrf_token() }}">
 	         						<input type="hidden" name="id" value="{{ $interest->id }}">

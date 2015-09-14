@@ -1,5 +1,5 @@
 @extends('layouts.dashboard')
-@section('page_heading','Tables')
+@section('page_heading','List all activities')
 
 @section('section')
 <div class="col-sm-12">
@@ -15,7 +15,7 @@
 </div>
 <div class="row">
 	<div class="col-sm-12">
-		@section ('cotable_panel_title','Coloured Table')
+		@section ('cotable_panel_title','Activities')
 		@section ('cotable_panel_body')
 		<table class="table table-bordered">
 			<thead>
@@ -23,6 +23,8 @@
 					<th>ID</th>
 					<th>Activity</th>
 					<th>Description</th>
+					<th>Edit</th>
+					<th>Delete</th>
 				</tr>
 			</thead>
 			<tbody>
@@ -34,7 +36,8 @@
 				            <td class="text-center">{{ $activity->activity }}</td>
 				            <td class="text-center">{{ $activity->desc }}</td>
 				            <td class="text-center">
-				            	<a title="Edit Interest" href="/activities/{{$activity->id}}/edit" class="do"><img src="/images/edit.png" width="30px" height="30px">	</a>
+				            	<a title="Edit Interest" href="/activities/{{$activity->id}}/edit" class="do"><img src="/images/edit.png" width="30px" height="30px"></a></td>
+							<td class="text-center">
 	{{ Form::open(array('class' => 'form-inline', 'method' => 'DELETE', 'route' => array('activities.destroy'))) }}
 						            <input type="hidden" name="_token" value="{{ csrf_token() }}">
 	         						<input type="hidden" name="id" value="{{ $activity->id }}">

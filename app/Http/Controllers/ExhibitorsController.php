@@ -213,4 +213,52 @@ class ExhibitorsController extends Controller {
 	}
 
 
+	public function createexhibitorbyadmin(){
+
+		$countries=Country::all();
+		$companies=Company::all();
+		return view('AdminCP.exhibitors.create',compact('countries','companies'));
+
+	}
+
+	public function storeexhibitorbyadmin(){
+
+		$v = Validator::make(Request::all(), [
+        'name' => 'required|max:50',
+        'company'=>'required',
+        ]);
+       
+	    if ($v->fails())
+	    {
+	        return redirect()->back()->withErrors($v->errors())
+	        						 ->withInput();
+	    }else{
+			$exhibitor = new Exhibitor;
+
+	        $exhibitor->company_id=Request::get('company');
+
+		    $exhibitor->country_id = Request::get('country');
+
+		    $exhibitor->city = Request::get('city');
+		    $exhibitor->address = Request::get('address');
+		    $exhibitor->name = Request::get('name');
+		    $exhibitor->desc = Request::get('desc');
+		    $exhibitor->phone = Request::get('phone');
+		    $exhibitor->anotherphone = Request::get('anotherphone');
+
+		    $exhibitor->fax = Request::get('fax');
+			
+		    
+		    $exhibitor->save();
+
+		   
+
+			
+			return redirect('exhibitors');
+	    }
+
+
+	}
+
+
 }

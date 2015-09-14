@@ -8,6 +8,7 @@ use Request;
 use Validator;
 use App\Company;
 use Auth;
+use Mail;
 use App\User;
 use App\Country;
 use App\Exhibitor;
@@ -220,6 +221,71 @@ class CompaniesController extends Controller {
        //var_dump($exhibitors); exit();
        return view('companies.listallexhibitorsofCompany',compact('exhibitors'));
 
+	}
+
+	public function createcompanybyadmin(){
+
+		$countries=Country::all();
+		return view('AdminCP.companies.create',compact('countries'));
+
+	}
+
+	public function storecompanybyadmin(){
+
+
+		$v = Validator::make(Request::all(), [
+        'name' => 'required|max:255',
+		'email' => 'required|email|max:255|unique:users',
+		'password' => 'required|confirmed|min:6',
+
+        ]);
+       
+	    if ($v->fails())
+	    {
+	        return redirect()->back()->withErrors($v->errors())
+	        						 ->withInput();
+	    }else{
+	    	$user= new User;
+			$user->name = Request::get('name');
+		    $user->email = Request::get('email');
+		    $user->type = 'companyuuuuuu';
+		    $user->password =  bcrypt(Request::get('password'));
+			$user->save();
+
+			$company = new Company;
+
+			//$userId=Auth::user()->id;
+	        $company->user_id=$user->id;
+
+		    $company->country_id = Request::get('country');
+
+		    $company->city = Request::get('city');
+		    $company->logo = Request::get('company');
+		    $company->address = Request::get('address');
+		    $company->desc = Request::get('desc');
+		    $company->phone = Request::get('phone');
+		    $company->anotherphone = Request::get('anotherphone');
+
+		    $company->fax = Request::get('fax');
+			$company->facebook = Request::get('facebook');
+			$company->twitter= Request::get('twitter');
+			$company->linkedIn = Request::get('linkedIn');
+			$company->website = Request::get('website');
+		    
+		    $company->save();
+
+		   
+		// Mail::send('emails.welcome', $data, function($message) use ($data)
+  //           {
+  //               $message->from('yoyo80884@gmail.com', "Wavexpo");
+  //               $message->subject("Welcome to Wavexpo Please visit our website to continu you information");
+  //               $message->to($data['email']);
+  //           });
+
+			
+			return redirect('companies');
+
+		}
 	}
 
 }

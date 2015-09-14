@@ -45,7 +45,7 @@ class ExhibitionsController extends Controller {
 					//echo "string"; exit();
 
 		$v = Validator::make(Request::all(), [
-        'name' => 'required|max:50|unique:modeldesigns',
+        'name' => 'required|max:50|unique:exhibitors',
       
        
         ]);

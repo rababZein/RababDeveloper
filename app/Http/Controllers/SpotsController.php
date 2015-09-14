@@ -40,11 +40,23 @@ class SpotsController extends Controller {
 	public function store()
 	{
 		//
+			//
+		$v = Validator::make(Request::all(), [
+        'location' => 'required|max:50|unique:spots',
+           
+        ]);
+       
+	    if ($v->fails())
+	    {
+	        return redirect()->back()->withErrors($v->errors())
+	        						 ->withInput();
+	    }else{
 		    $spot = new Spot;
 			$spot->location = Request::get('location');
 			$spot->desc = Request::get('desc');
 			$spot->save();
 			return redirect('spots');
+		}
 	}
 
 	/**
@@ -56,6 +68,8 @@ class SpotsController extends Controller {
 	public function show($id)
 	{
 		//
+		$spot=Spot::find($id);
+		return view('spots.show',compact('spot'));
 	}
 
 	/**
@@ -80,11 +94,23 @@ class SpotsController extends Controller {
 	public function update($id)
 	{
 		//
-		$spot=Spot::find($id);
-		$spot->location=Request::get('location');
-		$spot->desc=Request::get('desc');
-		$spot->save();
-		return redirect("spots");
+		$v = Validator::make(Request::all(), [
+        	'location' => 'required|max:50|unique:spots',
+           
+        ]);
+       
+	    if ($v->fails())
+	    {
+	        return redirect()->back()->withErrors($v->errors())
+	        						 ->withInput();
+	    }else{
+			$id=Request::get('id');
+			$spot=Spot::find($id);
+			$spot->location=Request::get('location');
+			$spot->desc=Request::get('desc');
+			$spot->save();
+			return redirect("spots");
+	    }
 	}
 
 	/**

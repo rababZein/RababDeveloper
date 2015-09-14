@@ -25,8 +25,8 @@
 					<th>Description</th>
 					<th> Exhibition </th>
 					<th> Exhibitor </th>
-					<th> Delete </th>
 					<th> Edit </th>
+					<th> Delete </th>
 
 				</tr>
 			</thead>

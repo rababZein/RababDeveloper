@@ -17,11 +17,19 @@
          <input type="hidden" name="_token" value="{{ csrf_token() }}">
             <div class="form-group has-success">
                <!--  <label class="control-label" for="inputSuccess">Input with success</label> -->
-              <label> Name </label>
+            <label> Name </label>
               <input type="text" name="name" value="{{ $user->name }}" class="form-control" id="inputSuccess">
             </div>
             <br/>
             <br/>
+            <div class="form-group has-success">
+               <!--  <label class="control-label" for="inputSuccess">Input with success</label> -->
+              <label> Type </label>
+              <input type="text" name="type" value="{{ $user->type }}" class="form-control" id="inputSuccess" disabled>
+            </div>
+            <br/>
+            <br/>
+
 
             <div class="form-group has-success">
                <!--  <label class="control-label" for="inputSuccess">Input with success</label> -->
@@ -35,11 +43,11 @@
            
             <input type="hidden" name="id" value="{{ $user->id }}">
             <button> Edit </button>
-
+            @if($user->type=='regular')
             <a title="Edit General Info" href="/generalinfos/{{$user->id}}/edit" class="do">Edit General Info</a>
             <a title="Edit Professional Info" href="/professionalinfos/{{$user->id}}/edit" class="do">Edit Professional Info</a>
+            @endif
         {{ Form::close() }}
-        <p>For complete documentation, please visit <a href="http://getbootstrap.com/css/#forms">Bootstrap's Form Documentation</a>.</p>
-   
+       
 
 @stop

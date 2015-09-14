@@ -15,5 +15,15 @@ class Booth extends Model {
        return $this->belongsTo('App\Modeldesign');
    }
 
+   public function exhibitor() 
+   {
+       return $this->belongsTo('App\Exhibitor');
+   }
+
+   public function exhibitionevent() 
+   {
+       return $this->belongsTo('App\ExhibitionEvent');
+   }
+
 
 }

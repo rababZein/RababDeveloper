@@ -23,6 +23,8 @@
 					<th>ID</th>
 					<th>Location</th>
 					<th>Descriptiion</th>
+					<th> Edit </th>
+					<th> Delete </th>
 				</tr>
 			</thead>
 			<tbody>
@@ -34,7 +36,8 @@
 				            <td class="text-center">{{ $spot->location }}</td>
 				            <td class="text-center">{{ $spot->desc }}</td>
 				            <td class="text-center">
-				            	<a title="Edit Asset" href="/spots/{{$spot->id}}/edit" class="do"><img src="/images/edit.png" width="30px" height="30px">	</a>
+				            	<a title="Edit Asset" href="/spots/{{$spot->id}}/edit" class="do"><img src="/images/edit.png" width="30px" height="30px"></a></td>
+							 <td class="text-center">
 	{{ Form::open(array('class' => 'form-inline', 'method' => 'DELETE', 'route' => array('spots.destroy'))) }}
 						            <input type="hidden" name="_token" value="{{ csrf_token() }}">
 	         						<input type="hidden" name="id" value="{{ $spot->id }}">

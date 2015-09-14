@@ -88,6 +88,12 @@ Route::controllers([
 
 Route::get('/', 'HomeController@index');
 
+Route::get('/users/listregular','UsersController@listallregular');
+
+Route::get('/users/listadmin','UsersController@listalladmin');
+
+Route::get('/users/listallsuperadmin','UsersController@listallsuperadmin');
+
 Route::resource('/users','UsersController');
 
 Route::resource('/spots','SpotsController');
@@ -102,9 +108,17 @@ Route::resource('/generalinfos','GeneralinfosController');
 
 Route::resource('/professionalinfos','ProfessionalinfosController');
 
+Route::get('/companies/createcompanybyadmin','CompaniesController@createcompanybyadmin');
+
+Route::post('/companies/storecompanybyadmin','CompaniesController@storecompanybyadmin');
+
 Route::resource('/companies','CompaniesController');
 
 Route::get('companies/listallexhibitorsofCompany/{id}','CompaniesController@listallexhibitorsofCompany');
+
+Route::get('/exhibitors/createexhibitorbyadmin','ExhibitorsController@createexhibitorbyadmin');
+
+Route::post('/exhibitors/storeexhibitorbyadmin','ExhibitorsController@storeexhibitorbyadmin');
 
 Route::resource('/exhibitors','ExhibitorsController');
 
@@ -125,3 +139,7 @@ Route::resource('/seriesevents','SeriesEventsController');
 Route::resource('/events','EventsController');
 
 Route::resource('/rooms','RoomsController');
+
+Route::resource('/sections','SectionsController');
+
+Route::resource('/filestorage','FilesController');

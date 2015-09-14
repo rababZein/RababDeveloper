@@ -26,8 +26,8 @@
 					<th> Series Event Name</th>
 					<th> Type </th>
 					<th> Privacy </th>
-					<th> Delete </th>
 					<th> Edit </th>
+					<th> Delete </th>
 
 				</tr>
 			</thead>
@@ -38,9 +38,11 @@
 				        <tr  class="success" id="{{ $event->id }}">
 				            <td class="text-center"><a title="Show event Info" href="/events/{{$event->id}}" class="do">{{ $event->name}}</a></td>
 				            <td class="text-center">{{ $event->desc }}</td>
-                           <td class="text-center"><a title="Show Series event Info" href="/seriesevents/{{$event->seriesevent->id}}" class="do">{{ $event->seriesevent->name }}</a></td>
+                            <td class="text-center"><a title="Show Series event Info" href="/seriesevents/{{$event->series_event->id}}" class="do">{{ $event->series_event->name }}</a></td>
+				            <td class="text-center">{{ $event->type }}</td>
+				            <td class="text-center">{{ $event->privacy }}</td>
 				            <td class="text-center">
-				            	<a title="Edit exhibitionevent Info" href="/exhibitionevents/{{$exhibitionevent->id}}/edit" class="do"><img src="/images/edit.png" width="30px" height="30px"></a></td>
+				            	<a title="Edit event Info" href="/events/{{$event->id}}/edit" class="do"><img src="/images/edit.png" width="30px" height="30px"></a></td>
 							<td class="text-center">
 	{{ Form::open(array('class' => 'form-inline', 'method' => 'DELETE', 'route' => array('events.destroy'))) }}
 						            <input type="hidden" name="_token" value="{{ csrf_token() }}">

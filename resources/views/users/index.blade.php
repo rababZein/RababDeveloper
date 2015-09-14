@@ -22,6 +22,9 @@
 				<tr>
 					<th>ID</th>
 					<th>Name</th>
+					<th>Type</th>
+					<th>Edit</th>
+					<th>Delete</th>
 			
 				</tr>
 			</thead>
@@ -29,20 +32,24 @@
 				
 
 					@foreach ($users as $user)
+					   @if($user->type != 'company')
 				        <tr  class="success" id="{{ $user->id }}">
 				            <td class="text-center">{{ $user->id}}</td>
 				            <td class="text-center">  <a title="Show Profile" href="/users/{{$user->id}}" class="do"> {{ $user->name }} </a></td>
-				            <td class="text-center">
-		                       
-
-				            	<a title="Edit User" href="/users/{{$user->id}}/edit" class="do"><img src="/images/edit.png" width="30px" height="30px">	</a>
+				            <td class="text-center">{{ $user->type}}</td>
+				            <td class="text-center">		                      
+				            	<a title="Edit User" href="/users/{{$user->id}}/edit" class="do"><img src="/images/edit.png" width="30px" height="30px"></a></td>
+							<td class="text-center">
+							
 	{{ Form::open(array('class' => 'form-inline', 'method' => 'DELETE', 'route' => array('users.destroy'))) }}
 						            <input type="hidden" name="_token" value="{{ csrf_token() }}">
 	         						<input type="hidden" name="id" value="{{ $user->id }}">
 						          	<button type="submit" title="Delete User"  ><img src="/images/delete.png" width="30px" height="30px"></button>
         {{ Form::close() }}
+
 				            </td>
 				        </tr>
+				        @endif
 		     		@endforeach
 	
 			</tbody>

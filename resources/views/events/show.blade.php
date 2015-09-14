@@ -12,7 +12,7 @@
 	@include('widgets.alert', array('class'=>'success', 'message'=> $event->desc, 'icon'=> 'user'))
 	@include('widgets.alert', array('class'=>'success', 'message'=> $event->type, 'icon'=> 'user'))
 	@include('widgets.alert', array('class'=>'success', 'message'=> $event->privacy, 'icon'=> 'user'))
-    @include('widgets.alert', array('class'=>'success', 'message'=> $event->seriesevent->name, 'icon'=> 'user'))
+    @include('widgets.alert', array('class'=>'success', 'message'=> $event->series_event->name, 'icon'=> 'user'))
 
 
 	@endsection

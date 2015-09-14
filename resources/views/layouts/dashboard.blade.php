@@ -12,7 +12,7 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a class="navbar-brand" href="{{ url ('') }}">SB Admin v2.0 | Laravel 5</a>
+                <a class="navbar-brand" href="{{ url ('/') }}">Wave XPO</a>
             </div>
             <!-- /.navbar-header -->
 
@@ -258,59 +258,234 @@
                             <a href="{{ url ('forms') }}"><i class="fa fa-edit fa-fw"></i> Forms</a>
                         </li>
                         <li >
-                            <a href="#"><i class="fa fa-wrench fa-fw"></i> UI Elements<span class="fa arrow"></span></a>
+                            <a href="#"><i class="fa fa-wrench fa-fw"></i> SPOTS<span class="fa arrow"></span></a>
                             <ul class="nav nav-second-level">
-                                <li {{ (Request::is('*panels') ? 'class="active"' : '') }}>
-                                    <a href="{{ url ('panels') }}">Panels and Collapsibles</a>
+                                <li {{ (Request::is('*spots') ? 'class="active"' : '') }}>
+                                    <a href="{{ url ('/spots/') }}">List All Spots</a>
                                 </li>
-                                <li {{ (Request::is('*buttons') ? 'class="active"' : '') }}>
-                                    <a href="{{ url ('buttons' ) }}">Buttons</a>
+                                <li {{ (Request::is('*create') ? 'class="active"' : '') }}>
+                                    <a href="{{ url ('/spots/create' ) }}">Add New Spot</a>
+                                </li>                             
+                            </ul>
+                            <!-- /.nav-second-level -->
+                        </li>
+                       
+                        <li >
+                            <a href="#"><i class="fa fa-wrench fa-fw"></i> USERS<span class="fa arrow"></span></a>
+                            <ul class="nav nav-second-level">
+                                <li {{ (Request::is('*users') ? 'class="active"' : '') }}>
+                                    <a href="{{ url ('/users/') }}">List All Users</a>
                                 </li>
-                                <li {{ (Request::is('*notifications') ? 'class="active"' : '') }}>
-                                    <a href="{{ url('notifications') }}">Alerts</a>
+                                <li {{ (Request::is('*create') ? 'class="active"' : '') }}>
+                                    <a href="{{ url ('/users/create' ) }}">Add New User</a>
                                 </li>
-                                <li {{ (Request::is('*typography') ? 'class="active"' : '') }}>
-                                    <a href="{{ url ('typography') }}">Typography</a>
+                                <li {{ (Request::is('*regular') ? 'class="active"' : '') }}>
+                                    <a href="{{ url('/users/listregular') }}">List All Visitors</a>
                                 </li>
-                                <li {{ (Request::is('*icons') ? 'class="active"' : '') }}>
-                                    <a href="{{ url ('icons') }}"> Icons</a>
+                                <li {{ (Request::is('*admin') ? 'class="active"' : '') }}>
+                                    <a href="{{ url ('/users/listadmin') }}">List All Admins</a>
                                 </li>
-                                <li {{ (Request::is('*grid') ? 'class="active"' : '') }}>
-                                    <a href="{{ url ('grid') }}">Grid</a>
+                                <li {{ (Request::is('*super') ? 'class="active"' : '') }}>
+                                    <a href="{{ url ('/users/listallsuperadmin') }}"> List All Super Admins </a>
+                                </li>
+                                 <li >
+                                    <a href="#"> ACTIVIES<span class="fa arrow"></span></a>
+                                    <ul class="nav nav-second-level">
+                                        <li {{ (Request::is('*activities') ? 'class="active"' : '') }}>
+                                            <a href="{{ url ('/activities/') }}">List All Activities</a>
+                                        </li>
+                                        <li {{ (Request::is('*create') ? 'class="active"' : '') }}>
+                                            <a href="{{ url ('/activities/create' ) }}">Add New Activity</a>
+                                        </li>                             
+                                    </ul>
+                            <!-- /.nav-second-level -->
+                                 </li>
+                                 <li >
+                                    <a href="#"> INTERESTS<span class="fa arrow"></span></a>
+                                    <ul class="nav nav-second-level">
+                                        <li {{ (Request::is('*interests') ? 'class="active"' : '') }}>
+                                            <a href="{{ url ('/interests/') }}">List All Interests</a>
+                                        </li>
+                                        <li {{ (Request::is('*create') ? 'class="active"' : '') }}>
+                                            <a href="{{ url ('/interests/create' ) }}">Add New Interest</a>
+                                        </li>                             
+                                    </ul>
+                            <!-- /.nav-second-level -->
+                                 </li>
+                               
+                            </ul>
+                            <!-- /.nav-second-level -->
+                        </li>
+                           <li>
+                            <a href="#"><i class="fa fa-sitemap fa-fw"></i> EXHIBITION <span class="fa arrow"></span></a>
+                            <ul class="nav nav-second-level">
+                                <li {{ (Request::is('*exhibitions') ? 'class="active"' : '') }}>
+                                    <a href="{{ url ('/exhibitions/') }}">List All Exhibitions </a>
+                                </li>
+                                <li {{ (Request::is('*create') ? 'class="active"' : '') }}>
+                                    <a href="{{ url ('/exhibitions/create') }}">Add New Exhibition</a>
+                                </li>
+                                
+                                <li>
+                                    <a href="#">    COMPONENTS  <span class="fa arrow"></span></a>
+                                        <ul class="nav nav-third-level">
+                                         <li>
+                                            <a href="#">HALLs  <span class="fa arrow"></span></a>
+                                                <ul class="nav nav-third-level">
+                                                    <li {{ (Request::is('*halls') ? 'class="active"' : '') }}>
+                                                        <a href="{{ url ('/halls/') }}">List All Halls </a>
+                                                    </li>
+                                                    <li {{ (Request::is('*create') ? 'class="active"' : '') }}>
+                                                        <a href="{{ url ('/halls/create') }}">Add New Hall</a>
+                                                    </li>
+                                                </ul>
+                                          <li>
+                                          <li>
+                                            <a href="#">MODEL DESIGNs  <span class="fa arrow"></span></a>
+                                                <ul class="nav nav-third-level">
+                                                    <li {{ (Request::is('*modeldesigns') ? 'class="active"' : '') }}>
+                                                        <a href="{{ url ('/modeldesigns/') }}">List All Designs </a>
+                                                    </li>
+                                                    <li {{ (Request::is('*create') ? 'class="active"' : '') }}>
+                                                        <a href="{{ url ('/modeldesigns/create') }}">Add New Designs</a>
+                                                    </li>
+                                                </ul>
+                                          <li>
+                                          <li>
+                                            <a href="#">MATERIALS  <span class="fa arrow"></span></a>
+                                                <ul class="nav nav-third-level">
+                                                    <li {{ (Request::is('*types') ? 'class="active"' : '') }}>
+                                                        <a href="{{ url ('/types/') }}">List All Materials </a>
+                                                    </li>
+                                                    <li {{ (Request::is('*create') ? 'class="active"' : '') }}>
+                                                        <a href="{{ url ('/types/create') }}">Add New Material</a>
+                                                    </li>
+                                                </ul>
+                                          <li>
+                                                
+                                        </ul>    
+                                    <!-- /.nav-third-level -->
+                                </li>
+                                <li >
+                                    <a href="#"> EXHIBITORS <span class="fa arrow"></span></a>
+                                    <ul class="nav nav-second-level">
+                                        <li {{ (Request::is('*exhibitors') ? 'class="active"' : '') }}>
+                                            <a href="{{ url ('/exhibitors/') }}">List All Exhibitors</a>
+                                        </li>
+                                        <li {{ (Request::is('*create') ? 'class="active"' : '') }}>
+                                            <a href="{{ url ('/exhibitors/createexhibitorbyadmin' ) }}">Add New Exhibitor</a>
+                                        </li>
+                                
+                               
+                                     </ul>
+                            <!-- /.nav-second-level -->
                                 </li>
                             </ul>
                             <!-- /.nav-second-level -->
                         </li>
+                        
                         <li>
-                            <a href="#"><i class="fa fa-sitemap fa-fw"></i> Multi-Level Dropdown<span class="fa arrow"></span></a>
+                            <a href="#"><i class="fa fa-sitemap fa-fw"></i> COMPANIES <span class="fa arrow"></span></a>
                             <ul class="nav nav-second-level">
-                                <li>
-                                    <a href="#">Second Level Item</a>
+                                <li {{ (Request::is('*companies') ? 'class="active"' : '') }}>
+                                    <a href="{{ url ('/companies/') }}">List All Companies </a>
                                 </li>
-                                <li>
-                                    <a href="#">Second Level Item</a>
+                                <li {{ (Request::is('*createcompanybyadmin') ? 'class="active"' : '') }}>
+                                    <a href="{{ url ('/companies/createcompanybyadmin') }}">Add New Company</a>
                                 </li>
+
                                 <li>
-                                    <a href="#">Third Level <span class="fa arrow"></span></a>
+                                    <a href="#">INDUSTRY <span class="fa arrow"></span></a>
                                     <ul class="nav nav-third-level">
-                                        <li>
-                                            <a href="#">Third Level Item</a>
+                                        <li {{ (Request::is('*industries') ? 'class="active"' : '') }}>
+                                            <a href="{{ url ('/industries/') }}">List All Industries </a>
                                         </li>
-                                        <li>
-                                            <a href="#">Third Level Item</a>
-                                        </li>
-                                        <li>
-                                            <a href="#">Third Level Item</a>
-                                        </li>
-                                        <li>
-                                            <a href="#">Third Level Item</a>
+                                        <li {{ (Request::is('*create') ? 'class="active"' : '') }}>
+                                            <a href="{{ url ('/industries/create') }}">Add New Industry</a>
                                         </li>
                                     </ul>
                                     <!-- /.nav-third-level -->
                                 </li>
+                                <li >
+                                    <a href="#"> EXHIBITORS <span class="fa arrow"></span></a>
+                                    <ul class="nav nav-second-level">
+                                        <li {{ (Request::is('*exhibitors') ? 'class="active"' : '') }}>
+                                            <a href="{{ url ('/exhibitors/') }}">List All Exhibitors</a>
+                                        </li>
+                                        <li {{ (Request::is('*create') ? 'class="active"' : '') }}>
+                                            <a href="{{ url ('/exhibitors/createexhibitorbyadmin' ) }}">Add New Exhibitor</a>
+                                        </li>
+                                
+                               
+                                     </ul>
+                            <!-- /.nav-second-level -->
+                                </li>
                             </ul>
                             <!-- /.nav-second-level -->
                         </li>
+                        <li >
+                            <a href="#"><i class="fa fa-wrench fa-fw"></i>EXHIBITION EVENTS<span class="fa arrow"></span></a>
+                            <ul class="nav nav-second-level">
+                                <li {{ (Request::is('*exhibitionevents') ? 'class="active"' : '') }}>
+                                    <a href="{{ url ('/exhibitionevents/') }}">List All Exhibition Events</a>
+                                </li>
+                                <li {{ (Request::is('*create') ? 'class="active"' : '') }}>
+                                    <a href="{{ url ('/exhibitionevents/create' ) }}">Add New Exhibition Events</a>
+                                </li>                             
+                            </ul>
+                            <!-- /.nav-second-level -->
+                        </li>
+
+                        <li>
+                            <a href="#"><i class="fa fa-wrench fa-fw"></i>BOOTH<span class="fa arrow"></span></a>
+                            <ul class="nav nav-second-level">
+                                <li {{ (Request::is('*booths') ? 'class="active"' : '') }}>
+                                    <a href="{{ url ('/booths/') }}">List All Booths</a>
+                                </li>
+                                <li {{ (Request::is('*create') ? 'class="active"' : '') }}>
+                                    <a href="{{ url ('/booths/create' ) }}">Add New Booth</a>
+                                </li>                             
+                            </ul>
+                            <!-- /.nav-second-level -->
+                        </li>
+
+                        <li>
+                            <a href="#"><i class="fa fa-wrench fa-fw"></i>Event Series<span class="fa arrow"></span></a>
+                            <ul class="nav nav-second-level">
+                                <li {{ (Request::is('*seriesevents') ? 'class="active"' : '') }}>
+                                    <a href="{{ url ('/seriesevents/') }}">List All Event Series</a>
+                                </li>
+                                <li {{ (Request::is('*create') ? 'class="active"' : '') }}>
+                                    <a href="{{ url ('/seriesevents/create' ) }}">Add New Event Series</a>
+                                </li>                             
+                            </ul>
+                            <!-- /.nav-second-level -->
+                        </li>
+                        <li>
+                            <a href="#"><i class="fa fa-wrench fa-fw"></i>EVENTs<span class="fa arrow"></span></a>
+                            <ul class="nav nav-second-level">
+                                <li {{ (Request::is('*events') ? 'class="active"' : '') }}>
+                                    <a href="{{ url ('/events/') }}">List All Event </a>
+                                </li>
+                                <li {{ (Request::is('*create') ? 'class="active"' : '') }}>
+                                    <a href="{{ url ('/events/create' ) }}">Add New Event</a>
+                                </li>                             
+                            </ul>
+                            <!-- /.nav-second-level -->
+                        </li>
+                         <li>
+                            <a href="#"><i class="fa fa-wrench fa-fw"></i>ROOMs<span class="fa arrow"></span></a>
+                            <ul class="nav nav-second-level">
+                                <li {{ (Request::is('*rooms') ? 'class="active"' : '') }}>
+                                    <a href="{{ url ('/rooms/') }}">List All Rooms</a>
+                                </li>
+                                <li {{ (Request::is('*create') ? 'class="active"' : '') }}>
+                                    <a href="{{ url ('/rooms/create' ) }}">Add New Room</a>
+                                </li>                             
+                            </ul>
+                            <!-- /.nav-second-level -->
+                        </li>
+                        
                         <li>
                             <a href="#"><i class="fa fa-files-o fa-fw"></i> Sample Pages<span class="fa arrow"></span></a>
                             <ul class="nav nav-second-level">

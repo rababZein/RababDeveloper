@@ -47,7 +47,7 @@ public function index()
 	{
 		//
 		$v = Validator::make(Request::all(), [
-        'name' => 'required|max:50|unique:seriesevents',
+        'name' => 'required|max:50|unique:series_events',
         'exhibitor_id' => 'required',
         'exhibition_id' => 'required',
       
@@ -59,6 +59,9 @@ public function index()
 	        return redirect()->back()->withErrors($v->errors())
 	        						 ->withInput();
 	    }else{
+
+	    	//echo "string"; exit();
+
 			$seriesevent = new SeriesEvent;
 		    $seriesevent->name = Request::get('name');
 		    $seriesevent->desc = Request::get('desc');
@@ -94,7 +97,7 @@ public function index()
 		$seriesevent=SeriesEvent::find($id);
 		$exhibitions=Exhibition::all();
 		$exhibitors=Exhibitor::all();
-		return view('seriesevents.edit',compact('seriesevent','Exhibitors','exhibitions'));
+		return view('seriesevents.edit',compact('seriesevent','exhibitors','exhibitions'));
 	}
 
 	/**

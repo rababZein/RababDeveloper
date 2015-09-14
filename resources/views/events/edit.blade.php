@@ -48,10 +48,10 @@
              <div class="form-group">
                     <label class="col-md-4 control-label">Privacy </label>
                     <label class="radio-inline">
-                        <input type="radio" name="privacy" id="optionsRadiosInline1" value="regular" checked>Public
+                        <input type="radio" name="privacy" id="optionsRadiosInline1" value="public" checked>Public
                     </label>
                     <label class="radio-inline">
-                        <input type="radio" name="privacy" id="optionsRadiosInline2" value="company">Private
+                        <input type="radio" name="privacy" id="optionsRadiosInline2" value="private">Private
                     </label>
                
                 </div>
@@ -60,13 +60,13 @@
 
 
              <div class="form-group has-success">
-               <label> Series Exhibition </label>
-              <select class="form-control col-md-6" name="seriesexhibition_id">
-              @foreach ($seriesexhibitions as $seriesexhibition)
-                          @if($event->seriesexhibition->id === $seriesexhibition->id)
-                            <option value="{{ $seriesexhibition->id }}" selected="true"> {{ $exhibition->name }}</option>
+               <label> Series Event</label>
+              <select class="form-control col-md-6" name="seriesevent_id">
+              @foreach ($seriesevents as $seriesevent)
+                          @if($event->series_event->id === $seriesevent->id)
+                            <option value="{{ $seriesevent->id }}" selected="true"> {{ $seriesevent->name }}</option>
                           @else
-                            <option value="{{ $seriesexhibition->id }}"> {{ $seriesexhibition->name }}</option>   
+                            <option value="{{ $seriesevent->id }}"> {{ $seriesevent->name }}</option>   
                           @endif 
                   
               @endforeach

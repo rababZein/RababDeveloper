@@ -25,8 +25,8 @@
 					<th>Description</th>
 					<th> Event </th>
 					<th> Spot </th>
-					<th> Delete </th>
 					<th> Edit </th>
+					<th> Delete </th>
 
 				</tr>
 			</thead>
@@ -37,8 +37,8 @@
 				        <tr  class="success" id="{{ $room->id }}">
 				            <td class="text-center"><a title="Show room Info" href="/rooms/{{$room->id}}" class="do">{{ $room->name}}</a></td>
 				            <td class="text-center">{{ $room->desc }}</td>
-							<td class="text-center"><a title="Show Type Info" href="/types/{{$room->event->id}}" class="do">{{ $room->event->name}}</a></td>
-				            <td class="text-center"><a title="Show Model Info" href="/modeldesigns/{{$room->spot->id}}" class="do">{{ $room->spot->location}}</a></td>
+							<td class="text-center"><a title="Show Type Info" href="/events/{{$room->event->id}}" class="do">{{ $room->event->name}}</a></td>
+				            <td class="text-center"><a title="Show Model Info" href="/spots/{{$room->spot->id}}" class="do">{{ $room->spot->location}}</a></td>
 				            <td class="text-center">
 				            	<a title="Edit Room Info" href="/rooms/{{$room->id}}/edit" class="do"><img src="/images/edit.png" width="30px" height="30px"></a></td>
 							<td class="text-center">

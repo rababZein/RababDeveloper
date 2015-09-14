@@ -47,7 +47,7 @@ class EventsController extends Controller {
 		$v = Validator::make(Request::all(), [
         'name' => 'required|max:50|unique:events',
         'type' => 'required',
-        'seriesevents_id' => 'required',
+        'seriesevent_id' => 'required',
         ]);
        
 	    if ($v->fails())
@@ -60,7 +60,7 @@ class EventsController extends Controller {
 		    $event->desc = Request::get('desc');
 		    $event->type = Request::get('type');
 		    $event->privacy = Request::get('privacy');
-		    $event->seriesevents_id = Request::get('seriesevents_id');
+		    $event->series_event_id = Request::get('seriesevent_id');
 			$event->save();
 			return redirect('events');
 	    }
@@ -105,7 +105,7 @@ class EventsController extends Controller {
 		$v = Validator::make(Request::all(), [
         'name' => 'required|max:50',   
         'type' => 'required',
-        'seriesevents_id' => 'required',   
+        'seriesevent_id' => 'required',   
         ]);
        
 	    if ($v->fails())
@@ -119,7 +119,7 @@ class EventsController extends Controller {
 		    $event->desc = Request::get('desc');
 		    $event->type = Request::get('type');
 		    $event->privacy = Request::get('privacy');
-		    $event->seriesevents_id = Request::get('seriesevents_id');
+		    $event->series_event_id = Request::get('seriesevent_id');
 			$event->save();
 			return redirect('events');
 	    }

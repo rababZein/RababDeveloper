@@ -1,5 +1,5 @@
 @extends('layouts.dashboard')
-@section('page_heading','List all Hall')
+@section('page_heading','List all Materials')
 
 @section('section')
 <div class="col-sm-12">
@@ -15,7 +15,7 @@
 </div>
 <div class="row">
 	<div class="col-sm-12">
-		@section ('cotable_panel_title','Coloured Table')
+		@section ('cotable_panel_title','Material')
 		@section ('cotable_panel_body')
 		<table class="table table-bordered">
 			<thead>

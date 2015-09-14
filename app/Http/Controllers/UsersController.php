@@ -8,6 +8,9 @@ use Request;
 use Validator;
 use App\User;
 use Auth;
+use App\Generalinfo;
+use App\Professionalinfo;
+use Mail;
 
 class UsersController extends Controller {
 
@@ -68,6 +71,11 @@ class UsersController extends Controller {
 	public function create()
 	{
 		//
+		if (!$this->adminAuth()){
+			return view('errors.authorization');
+		}
+		return view('users.create');
+
 	}
 
 	/**
@@ -78,6 +86,43 @@ class UsersController extends Controller {
 	public function store()
 	{
 		//
+		$v = Validator::make(Request::all(), [
+        'name' => 'required|max:255',
+		'email' => 'required|email|max:255|unique:users',
+		'password' => 'required|confirmed|min:6',
+      
+       
+        ]);
+       
+	    if ($v->fails())
+	    {
+	        return redirect()->back()->withErrors($v->errors())
+	        						 ->withInput();
+	    }else{
+			$user= new User;
+			$user->name = Request::get('name');
+		    $user->email = Request::get('email');
+		    $user->type = Request::get('type');
+		    $user->password =  bcrypt(Request::get('password'));
+			$user->save();
+			$gInfo = new Generalinfo;
+			$gInfo->user_id=$user->id;
+			$gInfo->save();
+			$pInfo = new Professionalinfo;
+	        $pInfo->user_id=$user->id;
+	        $pInfo->save();
+
+	        $data['email']=Request::get('email');
+	        $data['name']=Request::get('name');
+
+		// Mail::send('emails.welcome', $data, function($message) use ($data)
+  //           {
+  //               $message->from('yoyo80884@gmail.com', "Wavexpo");
+  //               $message->subject("Welcome to Wavexpo Please visit our website to continu you information");
+  //               $message->to($data['email']);
+  //           });
+			return redirect('users');
+	    }
 	}
 
 	/**
@@ -154,6 +199,33 @@ class UsersController extends Controller {
 		$userId = Request::get('id');
 	    User::where('id',$userId)->delete();
 	    return redirect("users");
+	}
+
+	public function listallregular(){
+
+		if (!$this->adminAuth()){
+			return view('errors.authorization');
+		}
+		$users=User::where('type','regular')->get();
+		return view('users.index',compact('users'));
+	}
+
+	public function listalladmin(){
+
+		if (!$this->adminAuth()){
+			return view('errors.authorization');
+		}
+		$users=User::where('type','admin')->get();
+		return view('users.index',compact('users'));
+	}
+
+	public function listallsuperadmin(){
+
+		if (!$this->adminAuth()){
+			return view('errors.authorization');
+		}
+		$users=User::where('type','superadmin')->get();
+		return view('users.index',compact('users'));
 	}
 
 }

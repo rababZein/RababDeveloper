@@ -32,7 +32,7 @@ class CreateGeneralinfosTable extends Migration {
 
 			$table->string('howhearaboutus','100');
 
-			$table->integer('country_id')->unsigned();
+			$table->integer('country_id')->unsigned()->nullable();
 			$table->foreign('country_id')->references('id')->on('countries')->onDelete('cascade');
 
 		    $table->string('city','30');

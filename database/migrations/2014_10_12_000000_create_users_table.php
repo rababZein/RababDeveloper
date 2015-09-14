@@ -18,7 +18,7 @@ class CreateUsersTable extends Migration {
 			$table->string('name');
 			$table->string('email')->unique();
 			$table->string('password', 60);
-			$table->enum('type', ['admin', 'company','regular'])->default('regular');
+			$table->enum('type', ['admin', 'super admin','company','regular'])->default('regular');
             $table->boolean('isspam')->default(0);
 			$table->rememberToken();
 			$table->timestamps();

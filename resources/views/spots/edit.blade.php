@@ -3,7 +3,7 @@
 
 @section('section')
 
-        <form class="form-horizontal" role="form" method="POST" action="{{ url('/spots/') }}">
+    {{ Form::open(array('class' => 'form-horizontal', 'method' => 'PATCH', 'route' => array('spots.update'))) }}         
          @if (count($errors) > 0)
                         <div class="alert alert-danger">
                             <strong>Whoops!</strong> There were some problems with your input.<br><br>
@@ -27,9 +27,9 @@
 <!--                 <input type="text" name="desc" class="form-control" id="inputError">
  -->                <textarea name="desc" class="form-control" rows="3">{{ $spot->desc }}</textarea>
             </div>
+            <input type="hidden" name="id" value="{{ $spot->id }}" >
             <button> Add </button>
-        </form>
-        
+{{ Form::close()}}        
         <p>For complete documentation, please visit <a href="http://getbootstrap.com/css/#forms">Bootstrap's Form Documentation</a>.</p>
    
 

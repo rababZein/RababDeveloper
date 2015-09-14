@@ -57,7 +57,7 @@
               <label> Exhibitor </label>
               <select class="form-control" name="exhibitor_id">
                   @foreach ($exhibitors as $exhibitor)
-                    @if($seriesevent->modeldesign->id === $exhibitor->id)
+                    @if($seriesevent->exhibitor->id === $exhibitor->id)
                       <option value="{{ $exhibitor->id }}" selected="true"> {{ $exhibitor->name }}</option>
                     @else
                       <option value="{{ $exhibitor->id }}"> {{ $exhibitor->name }}</option>
@@ -68,7 +68,7 @@
 
             
            
-            <input type="hidden" name="id" value="{{ $booth->id }}">
+            <input type="hidden" name="id" value="{{ $seriesevent->id }}">
             <button> Edit </button>
     {{ Form::close() }}
         <p>For complete documentation, please visit <a href="http://getbootstrap.com/css/#forms">Bootstrap's Form Documentation</a>.</p>

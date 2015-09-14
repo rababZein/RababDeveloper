@@ -1,5 +1,5 @@
 @extends ('layouts.dashboard')
-@section('page_heading','Step 2 General Info')
+@section('page_heading','Create Series Event')
 
 @section('section')
 
