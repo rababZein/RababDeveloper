@@ -11,6 +11,7 @@ use Auth;
 use App\Generalinfo;
 use App\Professionalinfo;
 use Mail;
+use App\Tracklogin;
 
 class UsersController extends Controller {
 
@@ -135,7 +136,7 @@ class UsersController extends Controller {
 	{
 		
 		//authorization
-		if (!$this->adminAuth() || !$this->userAuth(Auth::User()->id)){
+		if (!$this->adminAuth() && !$this->userAuth($id)){
 			return view('errors.404');
 		}
 	    $user=User::find($id);
@@ -151,8 +152,9 @@ class UsersController extends Controller {
 	 */
 	public function edit($id)
 	{
+
 		//authorization
-		if (!$this->adminAuth() || !$this->userAuth(Auth::User()->id)){
+		if (!$this->adminAuth() && !$this->userAuth($id)){
 			return view('errors.404');
 		}
 		$user=User::find($id);
@@ -226,6 +228,17 @@ class UsersController extends Controller {
 		}
 		$users=User::where('type','superadmin')->get();
 		return view('users.index',compact('users'));
+	}
+
+	public function loginhistory($id){
+			//authorization
+		if (!$this->userAuth($id)){
+			return view('errors.404');
+		}
+		$tracklogins=Tracklogin::where('user_id','=',Auth::User()->id)->orderBy('created_at','desc')->get();
+		return view('tracklogins.index',compact('tracklogins'));
+	
+
 	}
 
 }

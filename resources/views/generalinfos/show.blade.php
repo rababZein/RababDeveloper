@@ -8,7 +8,9 @@
 
 	@section ('alert1_panel_title','Basic Info ')
 	@section ('alert1_panel_body')
+	@if(!empty($user[0]->country->name))
 	@include('widgets.alert', array('class'=>'success', 'message'=> $user[0]->country->name, 'icon'=> 'user'))
+	@endif
 	@include('widgets.alert', array('class'=>'info', 'message'=> $user[0]->city ,'icon'=> 'glyphicon glyphicon-search'))
 	@include('widgets.alert', array('class'=>'warning', 'message'=> $user[0]->dob,'icon'=> 'glyphicon glyphicon-cog'))
 	@include('widgets.alert', array('class'=>'success', 'message'=> $user[0]->image, 'icon'=> 'user'))

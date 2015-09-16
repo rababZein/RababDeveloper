@@ -1,5 +1,8 @@
 <?php namespace App\Http\Controllers;
 
+use App\ExhibitionEvent;
+use App\Tracklogin;
+use Auth;
 class HomeController extends Controller {
 
 	/*
@@ -30,7 +33,10 @@ class HomeController extends Controller {
 	 */
 	public function index()
 	{
-		return view('home');
+		$upcomingexhibitionevents=ExhibitionEvent::where('start_time','>',date("Y-m-d H:i:s"))->take(4)->get();
+		$currentlyexhibitionevents=ExhibitionEvent::where('start_time','<',date("Y-m-d H:i:s"))->where('end_time','>',date("Y-m-d H:i:s"))->take(4)->get();
+		$tracklogins=Tracklogin::where('user_id','=',Auth::User()->id)->orderBy('created_at','desc')->take(2)->get();
+		return view('home',compact('upcomingexhibitionevents','currentlyexhibitionevents','tracklogins'));
 	}
 
 }

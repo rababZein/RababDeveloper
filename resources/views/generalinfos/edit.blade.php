@@ -21,11 +21,15 @@
               <label> Country </label>
               <select class="form-control" name="country">
                   @foreach ($countries as $country)
-                    @if($user[0]->country->id === $country->id)
-                      <option value="{{ $country->id }}" selected="true"> {{ $country->name }}</option>
+                    @if(!empty($user[0]->country->name))
+                      @if($user[0]->country->id === $country->id)
+                        <option value="{{ $country->id }}" selected="true"> {{ $country->name }}</option>
+                      @else
+                        <option value="{{ $country->id }}"> {{ $country->name }}</option>
+                      @endif 
                     @else
-                      <option value="{{ $country->id }}"> {{ $country->name }}</option>
-                    @endif   
+                         
+                    @endif  
                   @endforeach
               </select>
               </div>

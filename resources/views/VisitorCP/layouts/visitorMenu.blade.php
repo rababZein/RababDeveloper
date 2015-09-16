@@ -1,7 +1,3 @@
-@extends('layouts.plane')
-
-@section('body')
-
 <div id="wrapper">
 
         <!-- Navigation -->
@@ -217,9 +213,9 @@
                         <i class="fa fa-user fa-fw"></i>  <i class="fa fa-caret-down"></i>
                     </a>
                     <ul class="dropdown-menu dropdown-user">
-                        <li><a href="/users/{{ Auth::User()->id }}"><i class="fa fa-user fa-fw"></i> User Profile</a>
+                        <li><a href="#"><i class="fa fa-user fa-fw"></i> User Profile</a>
                         </li>
-                        <li><a href="/users/{{Auth::User()->id}}/edit"><i class="fa fa-gear fa-fw"></i> Settings</a>
+                        <li><a href="#"><i class="fa fa-gear fa-fw"></i> Settings</a>
                         </li>
                         <li class="divider"></li>
                         <li><a href="{{ url('/auth/logout') }}"><i class="fa fa-sign-out fa-fw"></i> Logout</a>
@@ -244,41 +240,20 @@
                             </span>
                             </div>
                             <!-- /input-group -->
-                         
                         </li>
-                        <li {{ (Request::is('*users') ? 'class="active"' : '') }}>
-                            <a href="/users/{{ Auth::User()->id }}"><i class="fa fa-dashboard fa-fw"></i> Basic Info</a>
+                        <li {{ (Request::is('/') ? 'class="active"' : '') }}>
+                            <a href="{{ url ('') }}"><i class="fa fa-dashboard fa-fw"></i> Dashboard</a>
                         </li>
-
-                        <li {{ (Request::is('*generalinfos') ? 'class="active"' : '') }}>
-                            <a href="/generalinfos/{{ Auth::User()->id }}"><i class="fa fa-dashboard fa-fw"></i> General Info</a>
-                        </li>
-
-                         <li {{ (Request::is('*professionalinfos') ? 'class="active"' : '') }}>
-                            <a href="/professionalinfos/{{ Auth::User()->id }}"><i class="fa fa-dashboard fa-fw"></i> Professional Info</a>
-                        </li>
-
-                        <li>
-                            <a href="#"><i class="fa fa-edit fa-fw"></i>Setting<span class="fa arrow"></span></a>
-                            <ul class="nav nav-second-level">
-                                <li {{ (Request::is('*users') ? 'class="active"' : '') }}>
-                                    <a href="/users/{{Auth::User()->id}}/edit">Edit Your Basic Info </a>
-                                </li>
-                                <li {{ (Request::is('*generalinfos') ? 'class="active"' : '') }}>
-                                    <a href="/generalinfos/{{Auth::User()->id}}/edit">Edit Your General Info</a>
-                                </li>
-                                <li {{ (Request::is('*professionalinfos') ? 'class="active"' : '') }}>
-                                    <a href="/professionalinfos/{{Auth::User()->id}}/edit">Edit Your Professional Info</a>
-                                </li>                              
-                            </ul>
+                        <li {{ (Request::is('*charts') ? 'class="active"' : '') }}>
+                            <a href="{{ url ('charts') }}"><i class="fa fa-bar-chart-o fa-fw"></i> Charts</a>
                             <!-- /.nav-second-level -->
                         </li>
-                       
-                       
+                        <li {{ (Request::is('*tables') ? 'class="active"' : '') }}>
+                            <a href="{{ url ('tables') }}"><i class="fa fa-table fa-fw"></i> Tables</a>
+                        </li>
                         <li {{ (Request::is('*forms') ? 'class="active"' : '') }}>
                             <a href="{{ url ('forms') }}"><i class="fa fa-edit fa-fw"></i> Forms</a>
                         </li>
-@if(Auth::User()->type=='admin'||Auth::User()->type=='super admin')  
                          <li>
                             <a href="#"><i class="fa fa-wrench fa-fw"></i>SECTIONs<span class="fa arrow"></span></a>
                             <ul class="nav nav-second-level">
@@ -535,7 +510,6 @@
                         <li {{ (Request::is('*documentation') ? 'class="active"' : '') }}>
                             <a href="{{ url ('documentation') }}"><i class="fa fa-file-word-o fa-fw"></i> Documentation</a>
                         </li>
-@endif                        
                     </ul>
                 </div>
                 <!-- /.sidebar-collapse -->
@@ -544,20 +518,16 @@
         </nav>
 
         <div id="page-wrapper">
-             <div class="row">
+			 <div class="row">
                 <div class="col-lg-12">
                     <h1 class="page-header">@yield('page_heading')</h1>
                 </div>
                 <!-- /.col-lg-12 -->
            </div>
-            <div class="row">  
-                @yield('section')
+			<div class="row">  
+				@yield('section')
 
             </div>
             <!-- /#page-wrapper -->
         </div>
     </div>
-
-
-
-@stop

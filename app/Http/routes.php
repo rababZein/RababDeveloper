@@ -88,6 +88,8 @@ Route::controllers([
 
 Route::get('/', 'HomeController@index');
 
+Route::get('users/loginhistory/{id}','UsersController@loginhistory');
+
 Route::get('/users/listregular','UsersController@listallregular');
 
 Route::get('/users/listadmin','UsersController@listalladmin');
@@ -143,3 +145,4 @@ Route::resource('/rooms','RoomsController');
 Route::resource('/sections','SectionsController');
 
 Route::resource('/filestorage','FilesController');
+

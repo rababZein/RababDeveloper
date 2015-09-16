@@ -135,6 +135,7 @@ class GeneralinfosController extends Controller {
 			return view('errors.404');
 		}
 		$user=Generalinfo::where('user_id',$id)->get();
+		//var_dump($user[0]); exit();
 		return view('generalinfos.show',compact('user'));
 	}
 
