@@ -31,6 +31,9 @@ class CreateBoothsTable extends Migration {
 			$table->integer('exhibition_event_id')->unsigned();
 			$table->foreign('exhibition_event_id')->references('id')->on('exhibition_events')->onDelete('cascade');
 			
+			$table->integer('spot_id')->unsigned();
+			$table->foreign('spot_id')->references('id')->on('spots')->onDelete('cascade');
+			
 			$table->timestamps();
 		});
 	}

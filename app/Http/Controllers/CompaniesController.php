@@ -12,6 +12,7 @@ use Mail;
 use App\User;
 use App\Country;
 use App\Exhibitor;
+use App\Booth;
 
 class CompaniesController extends Controller {
 
@@ -215,10 +216,9 @@ class CompaniesController extends Controller {
 
 
 	public function listallexhibitorsofCompany($id){
+
        $companyId = $id;       
-       //echo $companyId; exit();
        $exhibitors=Exhibitor::where('company_id',$companyId)->get();
-       //var_dump($exhibitors); exit();
        return view('companies.listallexhibitorsofCompany',compact('exhibitors'));
 
 	}
@@ -286,6 +286,61 @@ class CompaniesController extends Controller {
 			return redirect('companies');
 
 		}
+	}
+
+	public function showprofile($id){
+
+
+		$user=User::find($id);
+		$company=Company::where('user_id',$user->id)->get();
+		$company=$company[0];
+		return view('companies.show',compact('company'));
+
+	}
+
+	public function showexhibitorsofcompanybyuserid($id){
+
+	   $user=User::find($id);
+	   $company=Company::where('user_id',$user->id)->get();
+	   $company=$company[0];	
+
+	   $companyId = $company->id;       
+       $exhibitors=Exhibitor::where('company_id',$companyId)->get();
+       return view('companies.listallexhibitorsofCompany',compact('exhibitors'));
+
+
+	}
+
+	public function listboothsofcompanyinthisevent($id){
+
+	   if(!$this->companyAuth($id))	{
+
+	   		return view('errors.404');
+
+	   }
+
+		   $user=User::find($id);
+		   $company=Company::where('user_id',$user->id)->get();
+		   $company=$company[0];	
+
+		   $companyId = $company->id;       
+	       $exhibitors=Exhibitor::where('company_id',$companyId)->get();	
+
+	       $booths=array();
+	       $i=0;
+
+	       foreach ($exhibitors as $exhibitor) {
+
+		       	$booths=Booth::where('exhibitor_id',$exhibitor->id)->get();
+		       	$booths[$i]=$booths[0];
+		       	$i++;
+
+
+	       }
+	      // var_dump($booths); exit();
+	       return view('booths.index',compact('booths'));
+
+     
 	}
 
 }

@@ -7,13 +7,50 @@ use App\Http\Controllers\Controller;
 use Request;
 use Validator;
 use Auth;
+use App\User;
+use App\Company;
 use App\Booth;
 use App\Type;
 use App\Modeldesign;
 use App\Exhibitor;
 use App\ExhibitionEvent;
+use App\Systemtrack;
 
 class BoothsController extends Controller {
+
+	//check user login or not
+	public function __construct()
+	{
+		$this->middleware('auth');
+	}
+
+
+	/**
+	 * Authorize admin
+	 * @param  integer $user_id
+	 * @return Response
+	 */
+	private function adminAuth()
+	{		
+		if (Auth::User()->type !="admin" && Auth::User()->type !="super admin"){
+			return false;
+		}
+		return true;
+	}
+
+	/**
+	 * Authorize user can view the page
+	 * @param  integer $user_id
+	 * @return Response
+	 */
+	private function companyAuth($id)
+	{		
+		if (Auth::User()->id !=$id ){
+			return false;
+		}
+		return true;
+	}
+
 
 	/**
 	 * Display a listing of the resource.
@@ -86,6 +123,15 @@ class BoothsController extends Controller {
 	{
 		//
 		$booth=Booth::find($id);
+
+		$systemtrack=new Systemtrack;
+        $systemtrack->user_id=Auth::User()->id;
+        $systemtrack->spot_id=$booth->spot_id;
+        $systemtrack->do=Auth::User()->name.' '.'visit'.' '.$booth->name.' '.'at'.' '.date("Y-m-d H:i:s");
+        $systemtrack->comein_at=date("Y-m-d H:i:s");
+
+        $systemtrack->save();
+
 		return view('booths.show',compact('booth'));
 	}
 
@@ -98,10 +144,39 @@ class BoothsController extends Controller {
 	public function edit($id)
 	{
 		//
-		$booth=Booth::find($id);
-		$types=Type::all();
-		$models=Modeldesign::all();
-		return view('booths.edit',compact('booth','types','models'));
+		if($this->adminAuth()){
+
+			$booth=Booth::find($id);
+			$types=Type::all();
+			$models=Modeldesign::all();
+			return view('booths.edit',compact('booth','types','models'));
+
+		}else {
+			
+			if (Auth::User()->type=='company') {
+
+			   $user=User::find(Auth::User()->id);
+			   $company=Company::where('user_id',$user->id)->get();
+			   $company=$company[0];	
+			   $companyId = $company->id;
+			   $booth=Booth::find($id);
+			   $exhibitor=Exhibitor::where('company_id',$companyId)->where('id',$booth->exhibitor_id)->get();	
+               if (!empty($exhibitor[0])) {
+               		$types=Type::all();
+					$models=Modeldesign::all();
+					return view('booths.edit',compact('booth','types','models'));
+               }else{
+
+               		return view('errors.404');
+               }
+
+
+
+			}else{
+
+				return view('errors.404');
+			}
+		}
 	}
 
 	/**

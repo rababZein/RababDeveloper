@@ -11,6 +11,7 @@ use App\Exhibition;
 use App\ExhibitionEvent;
 use App\Hall;
 use App\ExhibitionEventHall;
+use App\Booth;
 
 class ExhibitioneventsController extends Controller {
 
@@ -157,6 +158,15 @@ class ExhibitioneventsController extends Controller {
 	    ExhibitionEvent::where('id',$exhibitioneventId)->delete();
 	    return redirect("exhibitionevents");
 	}
+
+	public function listbooths($id){
+
+		$booths=Booth::where('exhibition_event_id',$id)->get();
+		return view('VisitorCP.exhibitionevents.listbooths',compact('booths'));
+
+	}
+
+	
 
 
 

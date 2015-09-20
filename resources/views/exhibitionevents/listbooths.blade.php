@@ -32,6 +32,7 @@
 			</thead>
 			<tbody>
 				
+
 					@foreach ($booths as $booth)
 				        <tr  class="success" id="{{ $booth->id }}">
 				            <td class="text-center"><a title="Show booth Info" href="/booths/{{$booth->id}}" class="do">{{ $booth->name}}</a></td>

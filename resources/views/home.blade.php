@@ -11,11 +11,11 @@
                     <div class="panel panel-primary">
                         <div class="panel-heading">
                             <div class="row">
-                                <div class="col-xs-3">
-                                    <i class="fa fa-tasks fa-5x"></i>
+                                <div class="col-xs-3"><a href="/exhibitionevents/listbooths/{{$exhibitionevent->id}}">
+                                   <i class="fa fa-tasks fa-5x"></i></a>
                                 </div>
                                 <div class="col-xs-9 text-right">
-                                    <div class="huge">{{$exhibitionevent->name}}</div>
+                                    <div class="huge">  {{$exhibitionevent->name}}</div>
                                     <div>{{$exhibitionevent->start_time}}</div>
                                 </div>
                             </div>
@@ -44,8 +44,8 @@
                     <div class="panel panel-green">
                         <div class="panel-heading">
                             <div class="row">
-                                <div class="col-xs-3">
-                                    <i class="fa fa-tasks fa-5x"></i>
+                                <div class="col-xs-3"><a href="/exhibitionevents/listbooths/{{$exhibitionevent->id}}">
+                                    <i class="fa fa-tasks fa-5x"></i></a>
                                 </div>
                                 <div class="col-xs-9 text-right">
                                     <div class="huge">{{$exhibitionevent->name}}</div>
@@ -200,7 +200,7 @@
                      
                         
                             <div class="list-group">
-                               
+                               @if(!empty($tracklogins[1]))
                                 <a href="#" class="list-group-item">
                                     <i class="fa fa-twitter fa-fw"></i> Last Visit 
                                     <span class="pull-right text-muted small"><em>{{$tracklogins[1]->login_at}}</em>
@@ -224,24 +224,54 @@
                                             $diff = $date2->diff($date1);
 
                                             // Call the format method on the DateInterval-object
-                                            echo $diff->format('%h hours %m mintues');
+                                            echo $diff->format('%h hours %i mintues %s secounds');
 
                                     ?></em>
                                     </span>
                                 </a>
-                                
+                               @else
+                               Welcome With your first vist ^_^ 
+                               @endif
                             </div>
+
+      
                             <!-- /.list-group -->
                             <a href="/users/loginhistory/{{Auth::User()->id}}" class="btn btn-default btn-block">View All History</a>
                         
                         <!-- /.panel-body -->
+
+                            <div class="list-group">
+                               @foreach($systemtracks as $systemtrack)
+                                <a href="#" class="list-group-item">
+                                    <i class="fa fa-twitter fa-fw"></i> {{$systemtrack->do}} 
+                                    <span class="pull-right text-muted small"><em>From: <?php 
+                                            $date1 = new DateTime(date("Y-m-d H:i:s"));
+                                            $date2 = new DateTime($systemtrack->comein_at);
+
+                                            // The diff-methods returns a new DateInterval-object...
+                                            $diff = $date2->diff($date1);
+
+                                            // Call the format method on the DateInterval-object
+                                            echo $diff->format('%d day %h hours %i mintues %s secounds');
+
+                                    ?><br/></em>
+                                    </span>
+                                </a>
+                               @endforeach
+                               
+                            </div>
+
+                           <a href="/systemtracks/userhistory/{{Auth::User()->id}}" class="btn btn-default btn-block">View All History</a>
+
                   
                     @endsection
                     @include('widgets.panel', array('header'=>true, 'as'=>'pane1'))
                       
                     
                     <!-- /.panel -->
-                    @section ('pane3_panel_title', 'Chat')
+                 
+                @if(Auth::User()->type=='company')
+                    @section ('pane3_panel_title', 'Event You Booked Booths in it')
                     @section ('pane3_panel_body')
                          <div class="btn-group pull-right margin-inverse-top">
                                 <button type="button" class="btn btn-default btn-xs dropdown-toggle" data-toggle="dropdown">
@@ -278,6 +308,8 @@
                             </div>      
                         </div>
                         <!-- /.panel-heading -->
+                        @if(!empty($exhibitionevents))  
+                        @foreach($exhibitionevents as $exhibitionevent)
                         <div class="panel-body">
                             <ul class="chat">
                                 <li class="left clearfix">
@@ -286,80 +318,43 @@
                                     </span>
                                     <div class="chat-body clearfix">
                                         <div class="header">
-                                            <strong class="primary-font">Jack Sparrow</strong>
+                                            <strong class="primary-font"><a href="companies/listboothsofcompanyinthisevent/{{Auth::User()->id}}"> {{$exhibitionevent->name}}</a></strong>
                                             <small class="pull-right text-muted">
-                                                <i class="fa fa-clock-o fa-fw"></i> 12 mins ago
+                                                <i class="fa fa-clock-o fa-fw"></i><?php 
+                                                    $date1 = new DateTime(date("Y-m-d H:i:s"));
+                                                    $date2 = new DateTime($exhibitionevent->start_time);
+
+                                                    // The diff-methods returns a new DateInterval-object...
+                                                    $diff = $date2->diff($date1);
+
+                                                    // Call the format method on the DateInterval-object
+                                                    echo $diff->format('%d day %h hours %i mintues %s secounds');
+
+                                                ?>
                                             </small>
                                         </div>
                                         <p>
-                                            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur bibendum ornare dolor, quis ullamcorper ligula sodales.
+                                            {{$exhibitionevent->desc}}
                                         </p>
                                     </div>
                                 </li>
-                                <li class="right clearfix">
-                                    <span class="chat-img pull-right">
-                                        <img src="http://placehold.it/50/FA6F57/fff" alt="User Avatar" class="img-circle" />
-                                    </span>
-                                    <div class="chat-body clearfix">
-                                        <div class="header">
-                                            <small class=" text-muted">
-                                                <i class="fa fa-clock-o fa-fw"></i> 13 mins ago</small>
-                                            <strong class="pull-right primary-font">Bhaumik Patel</strong>
-                                        </div>
-                                        <p>
-                                            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur bibendum ornare dolor, quis ullamcorper ligula sodales.
-                                        </p>
-                                    </div>
-                                </li>
-                                <li class="left clearfix">
-                                    <span class="chat-img pull-left">
-                                        <img src="http://placehold.it/50/55C1E7/fff" alt="User Avatar" class="img-circle" />
-                                    </span>
-                                    <div class="chat-body clearfix">
-                                        <div class="header">
-                                            <strong class="primary-font">Jack Sparrow</strong>
-                                            <small class="pull-right text-muted">
-                                                <i class="fa fa-clock-o fa-fw"></i> 14 mins ago</small>
-                                        </div>
-                                        <p>
-                                            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur bibendum ornare dolor, quis ullamcorper ligula sodales.
-                                        </p>
-                                    </div>
-                                </li>
-                                <li class="right clearfix">
-                                    <span class="chat-img pull-right">
-                                        <img src="http://placehold.it/50/FA6F57/fff" alt="User Avatar" class="img-circle" />
-                                    </span>
-                                    <div class="chat-body clearfix">
-                                        <div class="header">
-                                            <small class=" text-muted">
-                                                <i class="fa fa-clock-o fa-fw"></i> 15 mins ago</small>
-                                            <strong class="pull-right primary-font">Bhaumik Patel</strong>
-                                        </div>
-                                        <p>
-                                            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur bibendum ornare dolor, quis ullamcorper ligula sodales.
-                                        </p>
-                                    </div>
-                                </li>
+                                
                             </ul>
                         </div>
+                        @endforeach
+                        @endif
                         <!-- /.panel-body -->
-                        <div class="panel-footer">
-                            <div class="input-group">
-                                <input id="btn-input" type="text" class="form-control input-sm" placeholder="Type your message here..." />
-                                <span class="input-group-btn">
-                                    <button class="btn btn-warning btn-sm" id="btn-chat">
-                                        Send
-                                    </button>
-                                </span>
-                            </div>
-                        </div>
+                        
                         <!-- /.panel-footer -->
                     </div>
                     <!-- /.panel .chat-panel -->
                     @endsection
+                   
                     @include('widgets.panel', array('header'=>true, 'as'=>'pane3'))
                 </div>
+            @endif    
+
+      
 
                 <!-- /.col-lg-4 -->
             

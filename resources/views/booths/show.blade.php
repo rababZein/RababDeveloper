@@ -1,6 +1,6 @@
 @extends ('layouts.dashboard')
 
-@section ('page_heading',$exhibitor->name.' '.'Profile' )
+@section ('page_heading',$booth->name.' '.'Profile' )
 
 @section('section')
 </div>

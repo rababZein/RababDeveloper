@@ -246,6 +246,7 @@
                             <!-- /input-group -->
                          
                         </li>
+@if(Auth::User()->type=='admin'||Auth::User()->type=='super admin'||Auth::User()->type=='regular')
                         <li {{ (Request::is('*users') ? 'class="active"' : '') }}>
                             <a href="/users/{{ Auth::User()->id }}"><i class="fa fa-dashboard fa-fw"></i> Basic Info</a>
                         </li>
@@ -274,10 +275,21 @@
                             <!-- /.nav-second-level -->
                         </li>
                        
-                       
-                        <li {{ (Request::is('*forms') ? 'class="active"' : '') }}>
-                            <a href="{{ url ('forms') }}"><i class="fa fa-edit fa-fw"></i> Forms</a>
+@endif
+
+@if(Auth::User()->type=='company')
+
+                        <li {{ (Request::is('*showprofile') ? 'class="active"' : '') }}>
+                            <a href="/companies/showprofile/{{ Auth::User()->id }}"><i class="fa fa-dashboard fa-fw"></i> Profile Info</a>
                         </li>
+
+                         <li {{ (Request::is('*showprofile') ? 'class="active"' : '') }}>
+                            <a href="/companies/showexhibitorsofcompanybyuserid/{{ Auth::User()->id }}"><i class="fa fa-dashboard fa-fw"></i> Show {{Auth::User()->name}}'s Exhibitors </a>
+                        </li>
+
+
+@endif
+
 @if(Auth::User()->type=='admin'||Auth::User()->type=='super admin')  
                          <li>
                             <a href="#"><i class="fa fa-wrench fa-fw"></i>SECTIONs<span class="fa arrow"></span></a>

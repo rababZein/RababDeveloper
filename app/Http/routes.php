@@ -110,6 +110,12 @@ Route::resource('/generalinfos','GeneralinfosController');
 
 Route::resource('/professionalinfos','ProfessionalinfosController');
 
+Route::get('/companies/listboothsofcompanyinthisevent/{id}','CompaniesController@listboothsofcompanyinthisevent');
+
+Route::get('/companies/showexhibitorsofcompanybyuserid/{id}','CompaniesController@showexhibitorsofcompanybyuserid');
+
+Route::get('/companies/showprofile/{id}','CompaniesController@showprofile');
+
 Route::get('/companies/createcompanybyadmin','CompaniesController@createcompanybyadmin');
 
 Route::post('/companies/storecompanybyadmin','CompaniesController@storecompanybyadmin');
@@ -134,6 +140,8 @@ Route::resource('/booths','BoothsController');
 
 Route::resource('/exhibitions','ExhibitionsController');
 
+Route::get('/exhibitionevents/listbooths/{id}','ExhibitioneventsController@listbooths');
+
 Route::resource('/exhibitionevents','ExhibitioneventsController');
 
 Route::resource('/seriesevents','SeriesEventsController');
@@ -146,3 +154,4 @@ Route::resource('/sections','SectionsController');
 
 Route::resource('/filestorage','FilesController');
 
+Route::get('/systemtracks/userhistory/{id}','SystemtracksController@userhistory');

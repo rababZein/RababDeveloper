@@ -16,17 +16,19 @@ class CreateSystemtracksTable extends Migration {
 		{
 			$table->increments('id');
 
+			$table->string('do','200')->nullable();
+
 			$table->integer('spot_id')->unsigned();
 			$table->foreign('spot_id')->references('id')->on('spots')->onDelete('cascade');
 
-			$table->integer('activity_id')->unsigned();
+			$table->integer('activity_id')->unsigned()->nullable();
 			$table->foreign('activity_id')->references('id')->on('activities')->onDelete('cascade');
 			
 			$table->integer('user_id')->unsigned();
 			$table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
 			
-			$table->timestamp('comein_at');
-			$table->dateTime('leave_at');
+			$table->timestamp('comein_at')->nullable();
+			$table->dateTime('leave_at')->nullable();
 			
 			$table->timestamps();
 		});

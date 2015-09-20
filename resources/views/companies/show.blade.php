@@ -1,3 +1,5 @@
+
+
 @extends ('layouts.dashboard')
 
 @section ('page_heading',$company->user->name.' '.'Profile' )
@@ -10,7 +12,9 @@
 	@section ('alert1_panel_title','Basic Info ')
 	@section ('alert1_panel_body')
 	@include('widgets.alert', array('class'=>'success', 'message'=> $company->user->name, 'icon'=> 'user'))
-	@include('widgets.alert', array('class'=>'success', 'message'=> $company->country->name, 'icon'=> 'user'))
+@if(!empty($company->country))
+	@include('widgets.alert', array('class'=>'success', 'message'=>  $company->country->name, 'icon'=> 'user'))
+@endif	
 	@include('widgets.alert', array('class'=>'info', 'message'=> $company->city ,'icon'=> 'glyphicon glyphicon-search'))
 	@include('widgets.alert', array('class'=>'warning', 'message'=> $company->logo,'icon'=> 'glyphicon glyphicon-cog'))
 	@include('widgets.alert', array('class'=>'success', 'message'=> $company->desc, 'icon'=> 'user'))
