@@ -227,6 +227,7 @@
                     </ul>
                     <!-- /.dropdown-user -->
                 </li>
+                <li> <a href="/users/{{ Auth::User()->id }}"> Welcome {{Auth::User()->name}}</a></li>
                 <!-- /.dropdown -->
             </ul>
             <!-- /.navbar-top-links -->
@@ -285,6 +286,10 @@
 
                          <li {{ (Request::is('*showprofile') ? 'class="active"' : '') }}>
                             <a href="/companies/showexhibitorsofcompanybyuserid/{{ Auth::User()->id }}"><i class="fa fa-dashboard fa-fw"></i> Show {{Auth::User()->name}}'s Exhibitors </a>
+                        </li>
+
+                        <li {{ (Request::is('*create') ? 'class="active"' : '') }}>
+                            <a href="{{ url ('/exhibitors/createexhibitorbyadmin' ) }}"><i class="fa fa-edit fa-fw"> </i> Add New Exhibitor</a>
                         </li>
 
 
@@ -533,13 +538,19 @@
                         </li>
                         
                         <li>
-                            <a href="#"><i class="fa fa-files-o fa-fw"></i> Sample Pages<span class="fa arrow"></span></a>
+                            <a href="#"><i class="fa fa-files-o fa-fw"></i> Reports <span class="fa arrow"></span></a>
                             <ul class="nav nav-second-level">
-                                <li {{ (Request::is('*blank') ? 'class="active"' : '') }}>
-                                    <a href="{{ url ('blank') }}">Blank Page</a>
+                                <li {{ (Request::is('*loginhistoryforall') ? 'class="active"' : '') }}>
+                                    <a href="/users/loginhistoryforall">Login Track Report</a>
                                 </li>
-                                <li>
-                                    <a href="{{ url ('login') }}">Login Page</a>
+                                <li {{ (Request::is('*alluserhistory') ? 'class="active"' : '') }}>
+                                    <a href="/systemtracks/alluserhistory">System Track Report</a>
+                                </li>
+                                <li {{ (Request::is('*eventsreport') ? 'class="active"' : '') }}>
+                                    <a href="/exhibitionevents/eventsreport">Exhibition Events Report</a>
+                                </li>
+                                <li {{ (Request::is('*boothsreport') ? 'class="active"' : '') }}>
+                                    <a href="/booths/boothsreport">Booth Report</a>
                                 </li>
                             </ul>
                             <!-- /.nav-second-level -->

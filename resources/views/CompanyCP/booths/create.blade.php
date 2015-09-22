@@ -1,3 +1,4 @@
+
 @extends ('layouts.dashboard')
 @section('page_heading','Add New Booth')
 
@@ -28,7 +29,7 @@
                 <textarea name="desc" class="form-control" id="inputSuccess"></textarea>
             </div>
 
-            <div class="form-group has-success">
+             <div class="form-group has-success">
               <label> Location </label>
               <select class="form-control col-md-6" name="spot_id">
               @foreach ($spots as $spot)
@@ -43,8 +44,39 @@
              </select>
            </div>
 
+             <div class="form-group has-success">
+               <label> Exhibitor </label>
+              <select class="form-control col-md-6" name="exhibitor">
+              @foreach ($exhibitors as $exhibitor)
+                          @if(old('exhibitor') === $exhibitor->id)
+                            <option value="{{ $exhibitor->id }}" selected="true"> {{ $exhibitor->name }}</option>
+                          @else
+                            <option value="{{ $exhibitor->id }}"> {{ $exhibitor->name }}</option>   
+                          @endif 
+                  
+              @endforeach
+            
+            </select>
+           </div>
+
 
             <div class="form-group has-success">
+               <label> Exhibition Event </label>
+              <select class="form-control col-md-6" name="exhibitionevent">
+              @foreach ($exhibitionevents as $exhibitionevent)
+                          @if(old('exhibitionevent') === $exhibitionevent->id)
+                            <option value="{{ $exhibitionevent->id }}" selected="true"> {{ $exhibitionevent->name }}</option>
+                          @elseif($exhibitioneventId === $exhibitionevent->id)
+                            <option value="{{ $exhibitionevent->id }}" selected="true"> {{ $exhibitionevent->name }}</option>
+                          @endif 
+                  
+              @endforeach
+            
+            </select>
+           </div>
+
+
+          <div class="form-group has-success">
                <label> Type </label>
               <select class="form-control col-md-6" name="type_id">
               @foreach ($types as $type)
@@ -59,6 +91,7 @@
             </select>
            </div>
 
+           
          
              <div class="form-group has-success">
                <label> Model </label>

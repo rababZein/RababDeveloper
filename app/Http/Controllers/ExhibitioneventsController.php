@@ -12,6 +12,7 @@ use App\ExhibitionEvent;
 use App\Hall;
 use App\ExhibitionEventHall;
 use App\Booth;
+use App\Systemtrack;
 
 class ExhibitioneventsController extends Controller {
 
@@ -87,7 +88,21 @@ class ExhibitioneventsController extends Controller {
 	public function show($id)
 	{
 		//
+
 		$exhibitionevent=ExhibitionEvent::find($id);
+
+		// $systemtrack=new Systemtrack;
+  //       $systemtrack->user_id=Auth::User()->id;
+  //     //  $systemtrack->spot_id=$booth->spot_id;
+  //       $systemtrack->do=Auth::User()->name.' '.'visit'.' '.$exhibitionevent->name.' Event '.'at'.' '.date("Y-m-d H:i:s");
+  //       $systemtrack->comein_at=date("Y-m-d H:i:s");
+
+  //       $systemtrack->type='exhibitionevent';
+  //       $systemtrack->type_id=$id;
+
+  //       $systemtrack->save();
+
+
 		return view('exhibitionevents.show',compact('exhibitionevent'));
 	}
 
@@ -161,13 +176,49 @@ class ExhibitioneventsController extends Controller {
 
 	public function listbooths($id){
 
+
+
+
 		$booths=Booth::where('exhibition_event_id',$id)->get();
+
+		$systemtrack=new Systemtrack;
+        $systemtrack->user_id=Auth::User()->id;
+      //  $systemtrack->spot_id=$booth->spot_id;
+        $systemtrack->do=Auth::User()->name.' '.'visit'.' '.$booths[0]->exhibition_event->name.' Event '.'at'.' '.date("Y-m-d H:i:s");
+        $systemtrack->comein_at=date("Y-m-d H:i:s");
+
+        $systemtrack->type='exhibitionevent';
+        $systemtrack->type_id=$id;
+
+        $systemtrack->save();
+
+
 		return view('VisitorCP.exhibitionevents.listbooths',compact('booths'));
 
 	}
 
 	
+    public function eventsreport(){
 
+    	$exhibitionevents=ExhibitionEvent::all();
+    	$booths=array();
+    	$i=0;
+        foreach ($exhibitionevents as $exhibitionevent) {
+
+			$booths[$i]=Booth::where('exhibition_event_id',$exhibitionevent->id)
+							->count();
+				
+			$data=$exhibitionevent->name;
+		   // $allvisitors[$i]=Systemtrack::where('do','LIKE', "%$data%")->count();
+      		$allvisitors[$i]=Systemtrack::where('type','exhibitionevent')->where('type_id',$exhibitionevent->id)->count();
+
+			$i++;
+		}
+
+
+    	return view('AdminCP.reports.exhibitionevents.eventreport',compact('exhibitionevents','booths','allvisitors'));
+
+    }
 
 
 

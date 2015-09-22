@@ -21,21 +21,21 @@ class CreateGeneralinfosTable extends Migration {
 
 			$table->string('image','100')->nullable();
 
-            $table->dateTime('dob');
+            $table->dateTime('dob')->nullable();
 
             $table->longText('address')->nullable();
 
-			$table->string('phone','20');
+			$table->string('phone','20')->nullable();
 			$table->string('anotherphone','20')->nullable();
 
 			$table->string('skypename','30')->nullable();
 
-			$table->string('howhearaboutus','100');
+			$table->string('howhearaboutus','100')->nullable();
 
 			$table->integer('country_id')->unsigned()->nullable();
 			$table->foreign('country_id')->references('id')->on('countries')->onDelete('cascade');
 
-		    $table->string('city','30');
+		    $table->string('city','30')->nullable();
 
 			$table->integer('user_id')->unsigned();
 			$table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');

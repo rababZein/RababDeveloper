@@ -18,7 +18,11 @@ class CreateSystemtracksTable extends Migration {
 
 			$table->string('do','200')->nullable();
 
-			$table->integer('spot_id')->unsigned();
+			$table->string('type','20');
+
+			$table->integer('type_id');
+
+			$table->integer('spot_id')->unsigned()->nullable();
 			$table->foreign('spot_id')->references('id')->on('spots')->onDelete('cascade');
 
 			$table->integer('activity_id')->unsigned()->nullable();

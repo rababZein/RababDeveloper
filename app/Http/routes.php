@@ -88,6 +88,8 @@ Route::controllers([
 
 Route::get('/', 'HomeController@index');
 
+Route::get('/users/loginhistoryforall','UsersController@loginhistoryforall');
+
 Route::get('users/loginhistory/{id}','UsersController@loginhistory');
 
 Route::get('/users/listregular','UsersController@listallregular');
@@ -136,9 +138,15 @@ Route::resource('/modeldesigns','ModeldesignsController');
 
 Route::resource('/types','TypesController');
 
+Route::get('/booths/boothsreport','BoothsController@boothsreport');
+
+Route::get('/booths/bookBooth/{id}','BoothsController@bookBooth');
+
 Route::resource('/booths','BoothsController');
 
 Route::resource('/exhibitions','ExhibitionsController');
+
+Route::get('/exhibitionevents/eventsreport','ExhibitioneventsController@eventsreport');
 
 Route::get('/exhibitionevents/listbooths/{id}','ExhibitioneventsController@listbooths');
 
@@ -155,3 +163,5 @@ Route::resource('/sections','SectionsController');
 Route::resource('/filestorage','FilesController');
 
 Route::get('/systemtracks/userhistory/{id}','SystemtracksController@userhistory');
+
+Route::get('/systemtracks/alluserhistory','SystemtracksController@alluserhistory');

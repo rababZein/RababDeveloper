@@ -15,6 +15,7 @@ use App\Modeldesign;
 use App\Exhibitor;
 use App\ExhibitionEvent;
 use App\Systemtrack;
+use App\Spot;
 
 class BoothsController extends Controller {
 
@@ -33,6 +34,16 @@ class BoothsController extends Controller {
 	private function adminAuth()
 	{		
 		if (Auth::User()->type !="admin" && Auth::User()->type !="super admin"){
+			return false;
+		}
+		return true;
+	}
+
+
+
+	private function checkCompanyType()
+	{		
+		if (Auth::User()->type !="company"){
 			return false;
 		}
 		return true;
@@ -74,9 +85,10 @@ class BoothsController extends Controller {
 		//
 		$exhibitors=Exhibitor::all();
 		$exhibitionevents=ExhibitionEvent::all();
+		$spots=Spot::all();
 		$types=Type::all();
 		$models=Modeldesign::all();
-		return view('booths.create',compact('types','models','exhibitors','exhibitionevents'));
+		return view('booths.create',compact('types','models','exhibitors','exhibitionevents','spots'));
 	}
 
 	/**
@@ -101,13 +113,15 @@ class BoothsController extends Controller {
 	        return redirect()->back()->withErrors($v->errors())
 	        						 ->withInput();
 	    }else{
+
 			$booth = new Booth;
 		    $booth->name = Request::get('name');
 		    $booth->desc = Request::get('desc');
 		    $booth->type_id = Request::get('type_id');
 		    $booth->modeldesign_id = Request::get('modeldesign_id');
 		    $booth->exhibitor_id = Request::get('exhibitor');
-		    $booth->exhibitionevent_id = Request::get('exhibitionevent');
+		    $booth->exhibition_event_id = Request::get('exhibitionevent');
+			$booth->spot_id=Request::get('spot_id');
 			$booth->save();
 			return redirect('booths');
 	    }
@@ -127,9 +141,10 @@ class BoothsController extends Controller {
 		$systemtrack=new Systemtrack;
         $systemtrack->user_id=Auth::User()->id;
         $systemtrack->spot_id=$booth->spot_id;
-        $systemtrack->do=Auth::User()->name.' '.'visit'.' '.$booth->name.' '.'at'.' '.date("Y-m-d H:i:s");
+        $systemtrack->do=Auth::User()->name.' '.'visit'.' '.$booth->name.' Booth '.'at'.' '.date("Y-m-d H:i:s");
         $systemtrack->comein_at=date("Y-m-d H:i:s");
-
+        $systemtrack->type='booth';
+        $systemtrack->type_id=$id;
         $systemtrack->save();
 
 		return view('booths.show',compact('booth'));
@@ -226,6 +241,46 @@ class BoothsController extends Controller {
 		$boothId = Request::get('id');
 	    Booth::where('id',$boothId)->delete();
 	    return redirect("booths");
+	}
+
+
+	public function bookBooth($id){
+
+		if(!$this->adminAuth()&&!$this->checkCompanyType()){
+				return view('errors.404');
+		}
+
+        $exhibitioneventId=$id;
+        $checExEv=ExhibitionEvent::find($exhibitioneventId);
+        if (date("Y-m-d H:i:s") > $checExEv->start_time ) {
+        		return view('errors.404');
+        }
+		$exhibitors=Exhibitor::all();
+		$exhibitionevents=ExhibitionEvent::all();
+		$types=Type::all();
+		$models=Modeldesign::all();
+		$spots=Spot::all();
+		return view('CompanyCP.booths.create',compact('types','models','exhibitors','exhibitionevents','exhibitioneventId','spots'));
+	
+
+	}
+
+	public function boothsreport(){
+
+		$exhibitionevents=ExhibitionEvent::all();
+		$booths=Booth::all();
+		$i=0;
+		foreach ($booths as $booth) {
+			$data=$booth->name;
+		    //$allvisitors[$i]=Systemtrack::where('do','LIKE', "%$data%")->count();
+		    $allvisitors[$i]=Systemtrack::where('type','booth')->where('type_id',$booth->id)->count();
+
+
+			$i++;
+		}
+		return view('AdminCP.reports.booths.boothreport',compact('exhibitionevents','booths','allvisitors'));
+
+
 	}
 
 	

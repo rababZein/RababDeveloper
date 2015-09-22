@@ -8,6 +8,9 @@ use App\User;
 use App\Company;
 use App\Exhibitor;
 use App\Booth;
+//use Route;
+
+use Illuminate\Routing\Route;
 
 class HomeController extends Controller {
 
@@ -37,8 +40,13 @@ class HomeController extends Controller {
 	 *
 	 * @return Response
 	 */
-	public function index()
+	public function index(Route $route)
 	{
+
+ //echo $route->getActionName();
+
+
+	//	 exit();
 		$upcomingexhibitionevents=ExhibitionEvent::where('start_time','>',date("Y-m-d H:i:s"))->take(4)->get();
 		$currentlyexhibitionevents=ExhibitionEvent::where('start_time','<',date("Y-m-d H:i:s"))->where('end_time','>',date("Y-m-d H:i:s"))->take(4)->get();
 		$tracklogins=Tracklogin::where('user_id','=',Auth::User()->id)->orderBy('created_at','desc')->take(2)->get();
@@ -72,9 +80,29 @@ class HomeController extends Controller {
             }
 
            // var_dump($exhibitionevents[0]); exit();
+            $upcomingcompanyevents=array();
+            $currentlycompanyevents=array();
+            $finishedcompanyevents=array();
+            $i=0;
+            foreach ($exhibitionevents as $exhibitionevent) {
+
+            	if ($exhibitionevent->start_time > date("Y-m-d H:i:s")) {
+            		 $upcomingcompanyevents[$i]=$exhibitionevent;
+            		 $i++;
+            	}elseif ($exhibitionevent->start_time < date("Y-m-d H:i:s") && $exhibitionevent->end_time > date("Y-m-d H:i:s") ) {
+            		 $currentlycompanyevents[$i]=$exhibitionevent;
+            		 $i++;
+            	}else{
+            		$finishedcompanyevents[$i]=$exhibitionevent;
+            		$i++;
+
+            	}
+
+            }
+
 	    }
 
-		return view('home',compact('upcomingexhibitionevents','currentlyexhibitionevents','tracklogins','systemtracks','exhibitionevents'));
+		return view('home',compact('upcomingexhibitionevents','currentlyexhibitionevents','tracklogins','systemtracks','upcomingcompanyevents','currentlycompanyevents','finishedcompanyevents'));
 	}
 
 }

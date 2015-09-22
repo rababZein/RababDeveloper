@@ -29,7 +29,15 @@ class ExhibitorsController extends Controller {
 	 */
 	private function adminAuth()
 	{		
-		if (Auth::User()->type !="admin"){
+		if (Auth::User()->type !="admin" && Auth::User()->type !="super admin" ){
+			return false;
+		}
+		return true;
+	}
+
+	private function checkCompanyType()
+	{		
+		if (Auth::User()->type !="company"){
 			return false;
 		}
 		return true;
@@ -71,6 +79,9 @@ class ExhibitorsController extends Controller {
 	public function create()
 	{
 		//
+		if(!$this->adminAuth()&&!$this->checkCompanyType()){
+				return view('errors.404');
+		}
 		$countries=Country::all();
 		return view('exhibitors.create',compact('countries'));
 	}

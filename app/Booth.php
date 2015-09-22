@@ -20,7 +20,7 @@ class Booth extends Model {
        return $this->belongsTo('App\Exhibitor');
    }
 
-   public function exhibitionevent() 
+   public function exhibition_event() 
    {
        return $this->belongsTo('App\ExhibitionEvent');
    }

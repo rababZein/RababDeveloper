@@ -28,6 +28,21 @@
                 <textarea name="desc" class="form-control" id="inputSuccess"></textarea>
             </div>
 
+            <div class="form-group has-success">
+              <label> Location </label>
+              <select class="form-control col-md-6" name="spot_id">
+              @foreach ($spots as $spot)
+                          @if(old('spot_id') === $spot->id)
+                            <option value="{{ $spot->id }}" selected="true"> {{ $spot->location }}</option>
+                          @else
+                            <option value="{{ $spot->id }}"> {{ $spot->location }}</option>   
+                          @endif 
+                  
+              @endforeach
+            
+             </select>
+           </div>
+
              <div class="form-group has-success">
                <label> Exhibitor </label>
               <select class="form-control col-md-6" name="exhibitor">

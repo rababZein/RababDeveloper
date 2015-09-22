@@ -241,4 +241,17 @@ class UsersController extends Controller {
 
 	}
 
+	public function loginhistoryforall(){
+
+		if (!$this->adminAuth()){
+			return view('errors.404');
+		}
+		$users=User::all();
+		$tracklogins=Tracklogin::find(Auth::User()->id)->orderBy('created_at','desc')->get();
+		return view('AdminCP.reports.tracklogins.index',compact('tracklogins','users'));
+	
+	}
+
+
+
 }
