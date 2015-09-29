@@ -1,3 +1,47 @@
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>  
+
+<meta name="_token" content="{{ app('Illuminate\Encryption\Encrypter')->encrypt(csrf_token()) }}" />
+
+
+<script type="text/javascript">
+
+window.onload = function() {
+    
+            $.ajaxSetup({
+                headers: {
+                    'X-XSRF-Token': $('meta[name="_token"]').attr('content')
+                }
+            });
+
+ };
+
+    
+window.onbeforeunload = function () {
+
+  $.ajax({
+        url: '/home/outFromSystem' ,
+        type: 'POST',
+        data: {  
+             
+            },
+        success: function(result) {
+                    console.log(result);
+                  },
+        error: function(jqXHR, textStatus, errorThrown) {
+            console.log(errorThrown);
+               }
+
+
+
+
+
+    });
+        
+   
+};
+
+</script>
+
 @extends('layouts.plane')
 
 @section('body')

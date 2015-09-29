@@ -14,6 +14,8 @@ use App\ExhibitionEventHall;
 use App\Booth;
 use App\Systemtrack;
 
+use Session;
+
 class ExhibitioneventsController extends Controller {
 
 	/**
@@ -191,6 +193,11 @@ class ExhibitioneventsController extends Controller {
         $systemtrack->type_id=$id;
 
         $systemtrack->save();
+
+        //save  exhibition event id  in session
+
+        Session::put('event_id', $id);
+        Session::put('systemtrack_event_id',$systemtrack->id);
 
 
 		return view('VisitorCP.exhibitionevents.listbooths',compact('booths'));

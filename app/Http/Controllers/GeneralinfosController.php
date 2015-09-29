@@ -11,6 +11,9 @@ use Auth;
 use App\UserInterest;
 use App\Interest;
 use App\Country;
+use Session;
+use App\Systemtrack;
+
 
 class GeneralinfosController extends Controller {
 
@@ -18,6 +21,34 @@ class GeneralinfosController extends Controller {
 	public function __construct()
 	{
 		$this->middleware('auth');
+
+
+		// Checking event_id key exist in session.
+		if (Session::has('event_id')) {
+
+		   $eventId=Session::get('event_id'); 
+		   $systemtrackId=Session::get('systemtrack_event_id');
+		   $systemtrack = Systemtrack::find($systemtrackId);
+		   $systemtrack->leave_at=date("Y-m-d H:i:s");
+		   $systemtrack->save();
+		   Session::forget('event_id');
+		 //  Session::forget('systemtrack_id');
+
+		}
+
+		if (Session::has('booth_id')) {
+		  
+		   $boothId=Session::get('booth_id');
+		   $systemtrackId=Session::get('systemtrack_booth_id');
+
+		   $systemtrack = Systemtrack::find($systemtrackId);
+		   $systemtrack->leave_at=date("Y-m-d H:i:s");
+		   $systemtrack->save();
+		   Session::forget('booth_id');
+		  // Session::forget('systemtrack_id');
+
+
+		}
 	}
 
 

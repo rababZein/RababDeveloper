@@ -1,6 +1,9 @@
+
+
 @extends('layouts.dashboard')
 @section('page_heading','Exhibition Events')
 @section('section')
+
             @if(Auth::User()->type!='regular')
             <!-- /.row -->
             <div class="col-sm-12">

@@ -17,12 +17,15 @@ use App\ExhibitionEvent;
 use App\Systemtrack;
 use App\Spot;
 
+use Session;
+
 class BoothsController extends Controller {
 
-	//check user login or not
+	 //check user login or not
 	public function __construct()
 	{
 		$this->middleware('auth');
+	
 	}
 
 
@@ -146,6 +149,9 @@ class BoothsController extends Controller {
         $systemtrack->type='booth';
         $systemtrack->type_id=$id;
         $systemtrack->save();
+
+        Session::put('booth_id', $id);
+        Session::put('systemtrack_booth_id',$systemtrack->id);
 
 		return view('booths.show',compact('booth'));
 	}

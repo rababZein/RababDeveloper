@@ -8,12 +8,21 @@ use App\User;
 use App\Company;
 use App\Exhibitor;
 use App\Booth;
-//use Route;
+use Session;
 
 use Illuminate\Routing\Route;
 
+use DateTime;
+
+use Illuminate\Support\Facades\DB;
+use Illuminate\Database\Eloquent\Model as Eloquent;
+
+
+
 class HomeController extends Controller {
 
+protected $auth;
+    
 	/*
 	|--------------------------------------------------------------------------
 	| Home Controller
@@ -30,9 +39,63 @@ class HomeController extends Controller {
 	 *
 	 * @return void
 	 */
+	 //check user login or not
 	public function __construct()
 	{
+       
 		$this->middleware('auth');
+
+		if (Session::has('booth_id')) {
+		  
+		   $boothId=Session::get('booth_id');
+		   $systemtrackId=Session::get('systemtrack_booth_id');
+
+		   $systemtrack = Systemtrack::find($systemtrackId);
+		   $systemtrack->leave_at=date("Y-m-d H:i:s");
+		   $systemtrack->save();
+		   Session::forget('booth_id');
+		  // Session::forget('systemtrack_id');
+
+
+		}
+
+		// Checking event_id key exist in session.
+
+		if (Session::has('event_id')) {
+
+
+
+		   $eventId=Session::get('event_id'); 
+
+		   if (Session::has('booth_id')) {
+
+				$boothId=Session::get('booth_id');
+				$booth=Booth::find($boothId);
+
+				if ($booth->exhibition_event_id != $eventId) {
+
+					   $systemtrackId=Session::get('systemtrack_event_id');
+					   $systemtrack = Systemtrack::find($systemtrackId);
+					   $systemtrack->leave_at=date("Y-m-d H:i:s");
+					   $systemtrack->save();
+					   Session::forget('event_id');
+				}
+			
+		   }else{
+
+		   		$systemtrackId=Session::get('systemtrack_event_id');
+			    $systemtrack = Systemtrack::find($systemtrackId);
+			    $systemtrack->leave_at=date("Y-m-d H:i:s");
+			    $systemtrack->save();
+			    Session::forget('event_id');
+
+
+		   }
+		   
+
+		}
+
+		
 	}
 
 	/**
@@ -103,6 +166,68 @@ class HomeController extends Controller {
 	    }
 
 		return view('home',compact('upcomingexhibitionevents','currentlyexhibitionevents','tracklogins','systemtracks','upcomingcompanyevents','currentlycompanyevents','finishedcompanyevents'));
+	}
+
+	public function outFromSystem(){
+
+
+
+		$date1 = new DateTime(Session::get('sessionstart'));
+        $date2 = new DateTime(date("Y-m-d H:i:s"));
+        $diff = $date2->diff($date1);
+
+   //     echo $diff->format('%h hours %i mintues %s secounds');
+
+	   // echo $diff->i; 
+
+
+		if($diff->i > 10){
+
+				// Checking event_id key exist in session.
+				if (Session::has('event_id')) {
+
+				   $eventId=Session::get('event_id'); 
+				   $systemtrackId=Session::get('systemtrack_event_id');
+				   $systemtrack = Systemtrack::find($systemtrackId);
+				   $systemtrack->leave_at=date("Y-m-d H:i:s");
+				   $systemtrack->save();
+				   Session::forget('event_id');
+				 //  Session::forget('systemtrack_id');
+
+				}
+
+				if (Session::has('booth_id')) {
+				  
+				   $boothId=Session::get('booth_id');
+				   $systemtrackId=Session::get('systemtrack_booth_id');
+
+				   $systemtrack = Systemtrack::find($systemtrackId);
+				   $systemtrack->leave_at=date("Y-m-d H:i:s");
+				   $systemtrack->save();
+				   Session::forget('booth_id');
+				  // Session::forget('systemtrack_id');
+
+
+				}
+				$userId=Auth::user()->id;
+
+				$now = new DateTime();
+
+				$maxLogin=DB::table('tracklogins')
+		                        ->where('user_id', $userId)
+		          			    ->max('login_at');
+
+			    DB::table('tracklogins')
+			        ->where('user_id', $userId)
+			        ->where('login_at', $maxLogin) 
+			        ->update(['logout_at' => $now]);
+
+			 
+			   Auth::logout();
+
+			}
+   
+
 	}
 
 }

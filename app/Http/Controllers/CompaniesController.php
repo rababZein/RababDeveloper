@@ -13,13 +13,27 @@ use App\User;
 use App\Country;
 use App\Exhibitor;
 use App\Booth;
+use Session;
+use App\Systemtrack;
 
 class CompaniesController extends Controller {
 
+	
 	//check user login or not
 	public function __construct()
 	{
 		$this->middleware('auth');
+		// Checking event_id key exist in session.
+		if (Session::has('event_id')) {
+			
+		   $eventId=Session::get('event_id'); 
+		   $systemtrackId=Session::get('systemtrack_id');
+		   $systemtrack = Systemtrack::find($systemtrackId);
+		   $systemtrack->leave_at=date("Y-m-d H:i:s");
+		   $systemtrack->save();
+		   Session::forget('event_id');
+
+		}
 	}
 
 

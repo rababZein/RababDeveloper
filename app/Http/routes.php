@@ -85,6 +85,8 @@ Route::controllers([
 	'password' => 'Auth\PasswordController',
 ]);
 
+Route::post('/home/outFromSystem','HomeController@outFromSystem');
+
 
 Route::get('/', 'HomeController@index');
 
