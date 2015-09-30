@@ -114,7 +114,7 @@ protected $auth;
 		$currentlyexhibitionevents=ExhibitionEvent::where('start_time','<',date("Y-m-d H:i:s"))->where('end_time','>',date("Y-m-d H:i:s"))->take(4)->get();
 		$tracklogins=Tracklogin::where('user_id','=',Auth::User()->id)->orderBy('created_at','desc')->take(2)->get();
 		
-		$systemtracks=Systemtrack::where('user_id',Auth::User()->id)->get();
+		$systemtracks=Systemtrack::where('user_id','=',Auth::User()->id)->orderBy('created_at','desc')->take(5)->get();
 
 		if(Auth::User()->type=='company'){
 			$user=User::find(Auth::User()->id);

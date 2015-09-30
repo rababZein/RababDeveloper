@@ -6,12 +6,49 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 
 use App\Systemtrack;
-
+use Session;
+use App\Booth;
+use App\ExhibitionEvent;
 use Auth;
 
 use App\User;
 
 class SystemtracksController extends Controller {
+
+	 //check user login or not
+	public function __construct()
+	{
+		$this->middleware('auth');
+
+
+		// Checking event_id key exist in session.
+		if (Session::has('event_id')) {
+
+		   $eventId=Session::get('event_id'); 
+		   $systemtrackId=Session::get('systemtrack_event_id');
+		   $systemtrack = Systemtrack::find($systemtrackId);
+		   $systemtrack->leave_at=date("Y-m-d H:i:s");
+		   $systemtrack->save();
+		   Session::forget('event_id');
+		 //  Session::forget('systemtrack_id');
+
+		}
+
+		if (Session::has('booth_id')) {
+		  
+		   $boothId=Session::get('booth_id');
+		   $systemtrackId=Session::get('systemtrack_booth_id');
+
+		   $systemtrack = Systemtrack::find($systemtrackId);
+		   $systemtrack->leave_at=date("Y-m-d H:i:s");
+		   $systemtrack->save();
+		   Session::forget('booth_id');
+		  // Session::forget('systemtrack_id');
+
+
+		}
+	}
+
 
 
 	private function adminAuth()
@@ -128,9 +165,35 @@ class SystemtracksController extends Controller {
 		}
 		$users=User::all();
 		$systemtracks=Systemtrack::all();
-		return view('AdminCP.reports.systemtracks.index',compact('systemtracks','users'));
+		return view('AdminCP.reports.systemtracks.user',compact('systemtracks','users'));
 	
 		
+	}
+
+
+	public function exhibitionevent(){
+
+		if (!$this->adminAuth()){
+			return view('errors.404');
+		}
+		$users=User::all();
+		$exhibitionevents=ExhibitionEvent::all();
+		$systemtracks=Systemtrack::where('type','exhibitionevent')->get();
+	    return view('AdminCP.reports.systemtracks.exhibitionevent',compact('exhibitionevents','systemtracks','users'));
+
+	}
+
+
+	public function booth(){
+
+		if (!$this->adminAuth()){
+			return view('errors.404');
+		}
+		$users=User::all();
+		$booths=Booth::all();
+		$systemtracks=Systemtrack::where('type','booth')->get();
+	    return view('AdminCP.reports.systemtracks.booth',compact('booths','systemtracks','users'));
+
 	}
 
 }

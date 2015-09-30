@@ -167,3 +167,7 @@ Route::resource('/filestorage','FilesController');
 Route::get('/systemtracks/userhistory/{id}','SystemtracksController@userhistory');
 
 Route::get('/systemtracks/alluserhistory','SystemtracksController@alluserhistory');
+
+Route::get('/systemtracks/exhibitionevent','SystemtracksController@exhibitionevent');
+
+Route::get('/systemtracks/booth','SystemtracksController@booth');

@@ -588,7 +588,13 @@ window.onbeforeunload = function () {
                                     <a href="/users/loginhistoryforall">Login Track Report</a>
                                 </li>
                                 <li {{ (Request::is('*alluserhistory') ? 'class="active"' : '') }}>
-                                    <a href="/systemtracks/alluserhistory">System Track Report</a>
+                                    <a href="/systemtracks/alluserhistory">Users Track Report</a>
+                                </li>
+                                 <li {{ (Request::is('*event') ? 'class="active"' : '') }}>
+                                    <a href="/systemtracks/exhibitionevent">Events Track Report</a>
+                                </li>
+                                 <li {{ (Request::is('*booth') ? 'class="active"' : '') }}>
+                                    <a href="/systemtracks/booth">Booths Track Report</a>
                                 </li>
                                 <li {{ (Request::is('*eventsreport') ? 'class="active"' : '') }}>
                                     <a href="/exhibitionevents/eventsreport">Exhibition Events Report</a>
