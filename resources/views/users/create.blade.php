@@ -48,12 +48,21 @@
 
              <div class="form-group">
                     <label class="col-md-4 control-label">Register as </label>
+                    @if(old('type')!='admin')
                     <label class="radio-inline">
                         <input type="radio" name="type" id="optionsRadiosInline1" value="regular" checked> Visitor
                     </label>
                     <label class="radio-inline">
-                        <input type="radio" name="type" id="optionsRadiosInline2" value="admin">Admin
+                        <input type="radio" name="type" id="optionsRadiosInline2" value="admin" >Admin
                     </label>
+                    @else
+                     <label class="radio-inline">
+                        <input type="radio" name="type" id="optionsRadiosInline1" value="regular" > Visitor
+                    </label>
+                    <label class="radio-inline">
+                        <input type="radio" name="type" id="optionsRadiosInline2" value="admin" checked>Admin
+                    </label>
+                    @endif
                    
                
             </div>  

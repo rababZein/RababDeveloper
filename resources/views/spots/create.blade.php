@@ -18,14 +18,14 @@
             <div class="form-group has-success">
                <!--  <label class="control-label" for="inputSuccess">Input with success</label> -->
                <label> Location </label>
-                <input type="text" name="location" class="form-control" id="inputSuccess">
+                <input type="text" name="location" class="form-control" id="inputSuccess" value="{{old('location')}}">
             </div>
             
             <div class="form-group has-error">
                 <!-- <label class="control-label" for="inputError">Input with error</label> -->
                 <label> Description </label>
 <!--                 <input type="text" name="desc" class="form-control" id="inputError">
- -->                <textarea name="desc" class="form-control" rows="3"></textarea>
+ -->                <textarea name="desc" class="form-control" rows="3">{{old('desc')}}</textarea>
             </div>
             <button> Add </button>
         </form>

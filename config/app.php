@@ -148,6 +148,8 @@ return [
 
 		'Illuminate\Html\HtmlServiceProvider',
 
+		// 'Collective\Html\HtmlServiceProvider',
+
 
 
 	],
@@ -199,6 +201,9 @@ return [
 		'View'      => 'Illuminate\Support\Facades\View',
 		'Form'=> 'Illuminate\Html\FormFacade',
 		'HTML'=> 'Illuminate\Html\HtmlFacade',
+
+		// 'Form' => 'Collective\Html\FormFacade',
+  //       'Html' => 'Collective\Html\HtmlFacade',
 		
 
 	],

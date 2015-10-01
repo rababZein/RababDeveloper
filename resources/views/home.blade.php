@@ -237,24 +237,25 @@
                 @if(Auth::User()->type=='company')
                     @section ('pane3_panel_title', 'Event You Booked Booths in it')
                     @section ('pane3_panel_body')
+
                          <div class="btn-group pull-right margin-inverse-top">
                                 <button type="button" class="btn btn-default btn-xs dropdown-toggle" data-toggle="dropdown">
                                     <i class="fa fa-chevron-down"></i>
                                 </button>
                                 <ul class="dropdown-menu slidedown">
                                     <li>
-                                        <a href="#">
-                                            <i class="fa fa-refresh fa-fw"></i> Refresh
+                                        <a id="finished">
+                                            <i class="fa fa-refresh fa-fw"></i> Finished 
                                         </a>
                                     </li>
                                     <li>
-                                        <a href="#">
-                                            <i class="fa fa-check-circle fa-fw"></i> Available
+                                        <a id="currently">
+                                            <i class="fa fa-check-circle fa-fw"></i> Currently
                                         </a>
                                     </li>
                                     <li>
-                                        <a href="#">
-                                            <i class="fa fa-times fa-fw"></i> Busy
+                                        <a id="upcoming">
+                                            <i class="fa fa-times fa-fw"></i> Upcoming
                                         </a>
                                     </li>
                                     <li>
@@ -276,9 +277,10 @@
                         <!-- /.panel-heading -->
 
                         <!--Upcoming-->
-                        
+                        <div id="Uevent">
+                    
                         @if(!empty($upcomingcompanyevents))  
-                        <h1>upcomingcompanyevent</h1>
+                        <p><B> Upcoming Events </B></p>
                         @foreach($upcomingcompanyevents as $upcomingcompanyevent)
                         <div class="panel-body">
                             <ul class="chat">
@@ -313,11 +315,13 @@
                         </div>
                         @endforeach
                         @endif
-
+                        </div>
                         <!--Currently-->
+                        <div id="Cevent">
                         
-                        @if(!empty($currentlycompanyevents))  
-                        <h1>currentlycompanyevents</h1>
+                        @if(!empty($currentlycompanyevents)) 
+                        <p><B> Currently Events </B></p> 
+                        
                         @foreach($currentlycompanyevents as $currentlycompanyevent)
 
                         <div class="panel-body">
@@ -353,11 +357,12 @@
                         </div>
                         @endforeach
                         @endif
-
+                        </div>
                         <!--Finished-->
-
+                        <div id='Fevent'>
                         @if(!empty($finishedcompanyevents))  
-                        <h1>finishedcompanyevents</h1>
+
+                        <p><B> Finished Events </B></p>
                         @foreach($finishedcompanyevents as $finishedcompanyevent)
                         <div class="panel-body">
                             <ul class="chat">
@@ -392,6 +397,7 @@
                         </div>
                         @endforeach
                         @endif
+                        </div>
                         <!-- /.panel-body -->
                         
                         <!-- /.panel-footer -->
@@ -405,6 +411,35 @@
 
       
 
-                <!-- /.col-lg-4 -->
+               <!-- /.col-lg-4 -->
+
+<script type="text/javascript">
+
+$('#Uevent').hide();
+
+$('#Fevent').hide();
+    
+$( document ).ready(function() {
+    $('#finished').click(function(){
+
+           $('#Fevent').show();
+           $('#Uevent').hide();
+           $('#Cevent').hide();
+    });
+    $('#currently').click(function(){
+
+           $('#Fevent').hide();
+           $('#Uevent').hide();
+           $('#Cevent').show();
+    });
+    $('#upcoming').click(function(){
+
+           $('#Fevent').hide();
+           $('#Uevent').show();
+           $('#Cevent').hide();
+    });
+});
+</script>
             
 @stop
+

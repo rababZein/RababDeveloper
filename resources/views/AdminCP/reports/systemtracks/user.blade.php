@@ -1,18 +1,7 @@
 @extends('layouts.dashboard')
 @section('page_heading','System History')
 
-
-
 @section('section')
-<!-- DataTables CSS -->
-<link rel="stylesheet" type="text/css" href="//cdn.datatables.net/1.10.9/css/jquery.dataTables.css">
-  
-<!-- jQuery -->
-<script type="text/javascript" charset="utf8" src="//code.jquery.com/jquery-1.10.2.min.js"></script>
-  
-<!-- DataTables -->
-<script type="text/javascript" charset="utf8" src="//cdn.datatables.net/1.10.9/js/jquery.dataTables.js"></script>
-
 <div class="col-sm-12">
 <div class="row">
 	
@@ -30,7 +19,7 @@
 		@section ('cotable_panel_body')
 		@foreach($users as $user)
 			<h1> {{$user->name}} is {{$user->type}}</h1>
-			<table id="table_id" class="table table-bordered display">
+			<table class="table table-bordered">
 				<thead>
 					<tr>
 					    <th> User </th>
@@ -72,9 +61,3 @@
 </div>
 </div>
 @stop
-<script type="text/javascript">
-	
-$(document).ready( function () {
-    $('#table_id').DataTable();
-} );
-</script>

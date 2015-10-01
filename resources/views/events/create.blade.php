@@ -19,31 +19,42 @@
             <div class="form-group has-success">
                <!--  <label class="control-label" for="inputSuccess">Input with success</label> -->
                <label> Event Name</label>
-                <input type="text" name="name" class="form-control" id="inputSuccess">
+                <input type="text" name="name" class="form-control" id="inputSuccess" value="{{old('name')}}">
             </div>
 
               <div class="form-group has-success">
                <!--  <label class="control-label" for="inputSuccess">Input with success</label> -->
                <label> Description</label>
-                <textarea name="desc" class="form-control" id="inputSuccess"></textarea>
+                <textarea name="desc" class="form-control" id="inputSuccess">{{old('desc')}}</textarea>
             </div>
 
             <div class="form-group has-success">
                <!--  <label class="control-label" for="inputSuccess">Input with success</label> -->
                <label> Type</label>
-                <input type="string" name="type" class="form-control" id="inputSuccess">
+                <input type="string" name="type" class="form-control" id="inputSuccess" value="{{old('type')}}">
             </div>
 
 
 
              <div class="form-group">
                     <label class="col-md-4 control-label">Privacy </label>
+                    @if(old('privacy') != 'privacy')
                     <label class="radio-inline">
                         <input type="radio" name="privacy" id="optionsRadiosInline1" value="public" checked>Public
                     </label>
                     <label class="radio-inline">
                         <input type="radio" name="privacy" id="optionsRadiosInline2" value="privacy">Private
                     </label>
+                    @else
+
+                    <label class="radio-inline">
+                        <input type="radio" name="privacy" id="optionsRadiosInline1" value="public" >Public
+                    </label>
+                    <label class="radio-inline">
+                        <input type="radio" name="privacy" id="optionsRadiosInline2" value="privacy" checked>Private
+                    </label>
+
+                    @endif
                
                 </div>
             

@@ -8,6 +8,7 @@ use App\Spot;
 use Request;
 use Session;
 use App\Systemtrack;
+use Validator;
 
 class SpotsController extends Controller {
 
@@ -45,13 +46,14 @@ class SpotsController extends Controller {
 
 		}
 	}
-	}
+	
 
 	/**
 	 * Display a listing of the resource.
 	 *
 	 * @return Response
 	 */
+
 	public function index()
 	{
 		//
@@ -133,7 +135,7 @@ class SpotsController extends Controller {
 	{
 		//
 		$v = Validator::make(Request::all(), [
-        	'location' => 'required|max:50|unique:spots',
+        	'location' => 'required|max:50',
            
         ]);
        

@@ -19,13 +19,13 @@
             <div class="form-group has-success">
                <!--  <label class="control-label" for="inputSuccess">Input with success</label> -->
                <label> Name </label>
-                <input type="text" name="name" class="form-control" id="inputSuccess">
+                <input type="text" name="name" class="form-control" id="inputSuccess" value="{{old('name')}}">
             </div>
 
              <div class="form-group has-success">
                <!--  <label class="control-label" for="inputSuccess">Input with success</label> -->
                <label> Description</label>
-                <input type="text" name="desc" class="form-control" id="inputSuccess">
+                <input type="text" name="desc" class="form-control" id="inputSuccess" value="{{old('desc')}}">
             </div>
             
             

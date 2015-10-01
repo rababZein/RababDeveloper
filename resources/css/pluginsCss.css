@@ -1,0 +1,181 @@
+@import "demo2.css";
+@import "style8.css";
+@import "jquery.mCustomScrollbar.css";
+@import "main.css";
+
+.main {
+    
+    position: relative;
+}
+
+h1 {
+    font-family:  'Droid Serif Thai', serif;
+    font-size: 60px;
+    line-height: 1.125;
+    margin-bottom: 10px;
+    letter-spacing: -3px;
+}
+
+@media (min-width: 800px) {
+    h1 {
+        font-size: 80px;
+    }
+}
+h3 {
+
+}
+
+@media (min-width: 800px) {
+    h3 {
+        font-size: 23px;
+    }
+}
+p {
+    font-size: 18px;
+    line-height: 28px;
+    font-family:  'Jeju Hallasan', cursive;
+    font-weight: normal;
+}
+
+.onePage-nav {
+    display: none;
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    height: 100%;
+    list-style: none;
+    z-index: 997;
+}
+
+@media (min-width: 500px) and (min-height: 375px) {
+    .onePage-nav {
+        display: block;
+    }
+}
+.onePage-nav:before {
+    border-left: 2px solid rgba(255, 255, 255, 0.3);
+    content: "";
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    height: 100%;
+    left: 49px;
+}
+
+.dot-onePage-nav {
+    list-style: none;
+    position: relative;
+    z-index: 5;
+}
+
+.dot-onePage-nav a {
+    display: inline-block;
+    background: #ddd;
+    width: 20px;
+    height: 20px;
+    border-radius: 100%;
+    vertical-align: middle;
+}
+
+.dot-onePage-nav a:hover {
+    -webkit-transition: all 0.15s ease-in-out;
+    transition: all 0.15s ease-in-out;
+    background-color: #e53333;
+    -webkit-transform: scale(2);
+    -ms-transform: scale(2);
+    transform: scale(2);
+}
+
+.dot-onePage-nav a.active {
+    background-color: #e53333;
+    -webkit-transform: scale(2);
+    -ms-transform: scale(2);
+    transform: scale(2);
+}
+
+.dot-onePage-nav li {
+    margin: 25px 0;
+}
+
+.dot-onePage-nav li span {
+    opacity: 0;
+    position: fixed;
+    vertical-align: middle;
+    color: #fff;
+    background: #000;
+    padding: 2px 7px;
+    margin-top: -4px;
+    margin-left: 25px;
+    border-radius: 4px;
+    -webkit-transition: opacity 0.3s ease-in-out;
+    transition: opacity 0.3s ease-in-out;
+    font-size: 14px;
+}
+
+.dot-onePage-nav li span b {
+    display: block;
+    font-size: 18px;
+    line-height: 1;
+    margin-bottom: 5px;
+}
+
+.dot-onePage-nav li a:hover + span {
+    opacity: 1;
+}
+
+.page-block {
+    background-size: cover;
+}
+
+.content {
+    width: 70%;
+    margin: 0 auto;
+    padding: 3em 0;
+    color: #fff;
+}
+
+#one {
+    background-position: fixed;
+
+}
+
+#two {
+    background: #1f6377 center fixed;
+    margin-top: 3em;
+
+}
+
+#three {
+    background: url('../images/61.jpg') no-repeat center fixed;
+    background-size: cover;
+    margin-top: 3em;
+    width: 100%;
+    height: 100%;
+    
+}
+
+#four {
+    background: #fff no-repeat center center fixed;
+    background-size: cover;
+    margin-top: 10px;
+}
+
+#five {
+   
+}
+
+#six {
+    background: url(https://unsplash.it/1800/900?image=319) no-repeat center center fixed;
+}
+
+#seven {
+    background: url(https://unsplash.it/1800/900?image=668) no-repeat center center fixed;
+}
+
+#eight {
+    background: url(https://unsplash.it/1800/900?image=625) no-repeat center center fixed;
+}
+
+
+

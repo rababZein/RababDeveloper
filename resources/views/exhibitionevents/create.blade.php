@@ -19,25 +19,25 @@
             <div class="form-group has-success">
                <!--  <label class="control-label" for="inputSuccess">Input with success</label> -->
                <label> Exhibition Event Name</label>
-                <input type="text" name="name" class="form-control" id="inputSuccess">
+                <input type="text" name="name" class="form-control" id="inputSuccess" value="{{old('name')}}">
             </div>
 
               <div class="form-group has-success">
                <!--  <label class="control-label" for="inputSuccess">Input with success</label> -->
                <label> Description</label>
-                <textarea name="desc" class="form-control" id="inputSuccess"></textarea>
+                <textarea name="desc" class="form-control" id="inputSuccess">{{old('desc')}}</textarea>
             </div>
 
             <div class="form-group has-success">
                <!--  <label class="control-label" for="inputSuccess">Input with success</label> -->
                <label> Start Time</label>
-                <input type="date" name="start_time" class="form-control" id="inputSuccess">
+                <input type="date" name="start_time" class="form-control" id="inputSuccess" value="{{old('start_time')}}">
             </div>
             
              <div class="form-group has-success">
                <!--  <label class="control-label" for="inputSuccess">Input with success</label> -->
                <label> End Time</label>
-                <input type="date" name="end_time" class="form-control" id="inputSuccess">
+                <input type="date" name="end_time" class="form-control" id="inputSuccess" value="{{old('end_time')}}">
             </div>
 
 

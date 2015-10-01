@@ -19,13 +19,13 @@
             <div class="form-group has-success">
                <!--  <label class="control-label" for="inputSuccess">Input with success</label> -->
                <label> Exhibitor Name</label>
-                <input type="text" name="name" class="form-control" id="inputSuccess">
+                <input type="text" name="name" class="form-control" id="inputSuccess" value="{{old('name')}}">
             </div>
 
               <div class="form-group has-success">
                <!--  <label class="control-label" for="inputSuccess">Input with success</label> -->
                <label> Description</label>
-                <input type="text" name="desc" class="form-control" id="inputSuccess">
+                <input type="text" name="desc" class="form-control" id="inputSuccess" value="{{old('desc')}}">
             </div>
 
 
@@ -48,26 +48,26 @@
             <div class="form-group has-success">
                <!--  <label class="control-label" for="inputSuccess">Input with success</label> -->
                <label> city</label>
-                <input type="text" name="city" class="form-control" id="inputSuccess">
+                <input type="text" name="city" class="form-control" id="inputSuccess" value="{{old('city')}}">
             </div>
 
              <div class="form-group has-error">
                 <!-- <label class="control-label" for="inputError">Input with error</label> -->
                 <label> address </label>
-                <textarea name="address" class="form-control" rows="3"></textarea>
+                <textarea name="address" class="form-control" rows="3">{{old('address')}}</textarea>
             </div>
 
              <div class="form-group has-success">
                <!--  <label class="control-label" for="inputSuccess">Input with success</label> -->
                <label> phone</label>
-                <input type="number" name="phone" class="form-control" id="inputSuccess">
+                <input type="number" name="phone" class="form-control" id="inputSuccess" value="{{old('phone')}}">
              </div>
 
              
              <div class="form-group has-success">
                <!--  <label class="control-label" for="inputSuccess">Input with success</label> -->
                <label> Another phone</label>
-                <input type="number" name="anotherphone" class="form-control" id="inputSuccess">
+                <input type="number" name="anotherphone" class="form-control" id="inputSuccess" value="{{old('anotherphone')}}">
              </div>
 
 
@@ -77,7 +77,7 @@
            <div class="form-group has-success">
                <!--  <label class="control-label" for="inputSuccess">Input with success</label> -->
                <label> fax </label>
-                <input type="text" name="fax" class="form-control" id="inputSuccess">
+                <input type="text" name="fax" class="form-control" id="inputSuccess" value="{{old('fax')}}">
              </div>
 
 
