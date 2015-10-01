@@ -73,7 +73,7 @@ protected $auth;
 				$booth=Booth::find($boothId);
 
 				if ($booth->exhibition_event_id != $eventId) {
-
+//echo "cc"; exit();
 					   $systemtrackId=Session::get('systemtrack_event_id');
 					   $systemtrack = Systemtrack::find($systemtrackId);
 					   $systemtrack->leave_at=date("Y-m-d H:i:s");

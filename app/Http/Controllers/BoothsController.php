@@ -289,6 +289,30 @@ class BoothsController extends Controller {
 
 	}
 
+
+	public function showboothAjax(){
+
+		$boothId = Request::get('boothId');
+
+		$booth=Booth::find($boothId);
+
+		$systemtrack=new Systemtrack;
+        $systemtrack->user_id=Auth::User()->id;
+        $systemtrack->spot_id=$booth->spot_id;
+        $systemtrack->do=Auth::User()->name.' '.'visit'.' '.$booth->name.' Booth '.'at'.' '.date("Y-m-d H:i:s");
+        $systemtrack->comein_at=date("Y-m-d H:i:s");
+        $systemtrack->type='booth';
+        $systemtrack->type_id=$boothId;
+        $systemtrack->save();
+
+        Session::put('booth_id', $boothId);
+        Session::put('systemtrack_booth_id',$systemtrack->id);
+
+         echo json_encode($booth);
+
+
+	}
+
 	
 
 }

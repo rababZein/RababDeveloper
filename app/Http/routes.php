@@ -140,6 +140,8 @@ Route::resource('/modeldesigns','ModeldesignsController');
 
 Route::resource('/types','TypesController');
 
+Route::post('/booths/showboothAjax','BoothsController@showboothAjax');
+
 Route::get('/booths/boothsreport','BoothsController@boothsreport');
 
 Route::get('/booths/bookBooth/{id}','BoothsController@bookBooth');

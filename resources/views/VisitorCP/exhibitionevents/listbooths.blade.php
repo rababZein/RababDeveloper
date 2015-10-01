@@ -1,3 +1,9 @@
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>  
+
+<meta name="_token" content="{{ app('Illuminate\Encryption\Encrypter')->encrypt(csrf_token()) }}" />
+
+
+
 @extends('layouts.dashboard')
 @section('page_heading','Booth !')
 
@@ -23,6 +29,8 @@
 					
 					<th>Booth  Name</th>
 					<th>Description</th>
+
+					
 					
 
 				</tr>
@@ -32,9 +40,14 @@
 
 					@foreach ($booths as $booth)
 				        <tr  class="success" id="{{ $booth->id }}">
-				            <td class="text-center"><a title="Show booth Info" href="/booths/{{$booth->id}}" class="do">{{ $booth->name}}</a></td>
-				            <td class="text-center">{{ $booth->desc }}</td>
-							
+<!-- 				            <td class="text-center"><a title="Show booth Info" href="/booths/{{$booth->id}}" class="do">{{ $booth->name}}</a></td>
+ -->				            
+<!-- 				                <td class="text-center"><button  title="Show booth Info" class="do" onclick="showbooth('{{$booth->id}}');">{{ $booth->name}}</button></td>
+ --><td class="text-center"><a  onclick="showbooth({{$booth->id}});" > {{ $booth->name}} </a></td>
+ 								<td class="text-center">{{ $booth->desc }}</td>
+                      
+
+				
 				        </tr>
 		     		@endforeach
 	
@@ -45,4 +58,56 @@
 	</div>
 </div>
 </div>
+<script type="text/javascript">
+	
+
+
+
+	
+
+
+	window.onload = function() {
+    
+            $.ajaxSetup({
+                headers: {
+                    'X-XSRF-Token': $('meta[name="_token"]').attr('content')
+                }
+            });
+
+    };
+
+
+    function showbooth(boothId){
+
+		//alert(boothId);
+
+		$.ajax({
+        url: '/booths/showboothAjax' ,
+        type: 'POST',
+        data: {  boothId:boothId
+             
+            },
+        success: function(result) {
+                    // console.log(result);
+
+                    // alert(result['name']);
+                    var obj = jQuery.parseJSON(result);
+                    alert(obj.name)
+
+
+                  },
+        error: function(jqXHR, textStatus, errorThrown) {
+            console.log(errorThrown);
+               }
+
+
+
+
+
+    });
+	}
+
+
+
+</script>
 @stop
