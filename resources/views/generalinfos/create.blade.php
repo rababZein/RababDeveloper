@@ -37,37 +37,37 @@
             <div class="form-group has-success">
                <!--  <label class="control-label" for="inputSuccess">Input with success</label> -->
                <label> city</label>
-                <input type="text" name="city" class="form-control" id="inputSuccess">
+                <input type="text" name="city" class="form-control" id="inputSuccess" value="{{old('city')}}">
             </div>
 
              <div class="form-group has-error">
                 <!-- <label class="control-label" for="inputError">Input with error</label> -->
                 <label> address </label>
-                <textarea name="address" class="form-control" rows="3"></textarea>
+                <textarea name="address" class="form-control" rows="3">{{old('address')}}</textarea>
             </div>
 
              <div class="form-group has-success">
                <!--  <label class="control-label" for="inputSuccess">Input with success</label> -->
                <label> phone</label>
-                <input type="number" name="phone" class="form-control" id="inputSuccess">
+                <input type="number" name="phone" class="form-control" id="inputSuccess" value="{{old('phone')}}">
              </div>
 
              <div class="form-group has-success">
                <!--  <label class="control-label" for="inputSuccess">Input with success</label> -->
                <label> skypename</label>
-                <input type="text" name="skypename" class="form-control" id="inputSuccess">
+                <input type="text" name="skypename" class="form-control" id="inputSuccess" value="{{old('skypename')}}">
              </div>
 
               <div class="form-group has-success">
                <!--  <label class="control-label" for="inputSuccess">Input with success</label> -->
                <label> DOB</label>
-                <input type="text" name="dob" class="form-control" id="inputSuccess">
+                <input type="text" name="dob" class="form-control" id="inputSuccess" value="{{old('dob')}}">
              </div>
 
                 <div class="form-group has-success">
                <!--  <label class="control-label" for="inputSuccess">Input with success</label> -->
                <label> How Hear about us !?</label>
-                <input type="text" name="howhearaboutus" class="form-control" id="inputSuccess">
+                <input type="text" name="howhearaboutus" class="form-control" id="inputSuccess" value="{{old('howhearaboutus')}}">
              </div>
 
 
@@ -83,7 +83,7 @@
                           @endif 
                   
               @endforeach
-            ]
+            
             </select>
            </div>
 
