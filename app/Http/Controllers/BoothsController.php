@@ -283,11 +283,12 @@ class BoothsController extends Controller {
 			$data=$booth->name;
 		    //$allvisitors[$i]=Systemtrack::where('do','LIKE', "%$data%")->count();
 		    $allvisitors[$i]=Systemtrack::where('type','booth')->where('type_id',$booth->id)->count();
+		    $uniquevisit[$i]=Systemtrack::where('type','booth')->where('type_id',$booth->id)->distinct('user_id')->count('user_id');
 
 
 			$i++;
 		}
-		return view('AdminCP.reports.booths.boothreport',compact('exhibitionevents','booths','allvisitors'));
+		return view('AdminCP.reports.booths.boothreport',compact('exhibitionevents','booths','allvisitors','uniquevisit'));
 
 
 	}
