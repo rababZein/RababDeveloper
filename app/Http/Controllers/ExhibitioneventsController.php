@@ -18,6 +18,13 @@ use Session;
 
 class ExhibitioneventsController extends Controller {
 
+	public function __construct()
+	{
+		//check user login or not
+		$this->middleware('auth');
+	
+	}
+
 	/**
 	 * Display a listing of the resource.
 	 *
@@ -218,12 +225,12 @@ class ExhibitioneventsController extends Controller {
 			$data=$exhibitionevent->name;
 		   // $allvisitors[$i]=Systemtrack::where('do','LIKE', "%$data%")->count();
       		$allvisitors[$i]=Systemtrack::where('type','exhibitionevent')->where('type_id',$exhibitionevent->id)->count();
-
+            $uniquevisit[$i]=Systemtrack::where('type','exhibitionevent')->where('type_id',$exhibitionevent->id)->distinct('user_id')->count('user_id');
 			$i++;
 		}
 
-
-    	return view('AdminCP.reports.exhibitionevents.eventreport',compact('exhibitionevents','booths','allvisitors'));
+		//var_dump($uniquevisit); exit();
+    	return view('AdminCP.reports.exhibitionevents.eventreport',compact('exhibitionevents','booths','allvisitors','uniquevisit'));
 
     }
 

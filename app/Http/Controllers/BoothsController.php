@@ -21,10 +21,13 @@ use Session;
 
 class BoothsController extends Controller {
 
-	 //check user login or not
+	 
 	public function __construct()
 	{
+		//check user login or not
 		$this->middleware('auth');
+
+
 	
 	}
 
@@ -292,6 +295,22 @@ class BoothsController extends Controller {
 
 	public function showboothAjax(){
 
+
+	    //log out from last booth
+		if (Session::has('booth_id')) {
+		  
+		   $boothId=Session::get('booth_id');
+		   $systemtrackId=Session::get('systemtrack_booth_id');
+
+		   $systemtrack = Systemtrack::find($systemtrackId);
+		   $systemtrack->leave_at=date("Y-m-d H:i:s");
+		   $systemtrack->save();
+		   Session::forget('booth_id');
+		  // Session::forget('systemtrack_id');
+
+
+		}
+
 		$boothId = Request::get('boothId');
 
 		$booth=Booth::find($boothId);
@@ -308,7 +327,14 @@ class BoothsController extends Controller {
         Session::put('booth_id', $boothId);
         Session::put('systemtrack_booth_id',$systemtrack->id);
 
-         echo json_encode($booth);
+        // echo json_encode($booth);
+
+         //echo "yarab far7a";
+
+        $result = $booth;
+		$result2 = $booth->exhibitor->name;
+
+		echo json_encode(array("value" => $result, "value2" => $result2));
 
 
 	}

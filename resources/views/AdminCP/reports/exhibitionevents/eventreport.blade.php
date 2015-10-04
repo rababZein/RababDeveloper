@@ -24,7 +24,8 @@
 					
 					<th> Exhibition Name</th>
 					<th> # of Booths </th>
-					<th> # of Visitors </th>
+					<th> # of Recurrincy Visitors </th>
+					<th> # of Unique Visitors </th>
 					<th> Start Time </th>
 					<th> End Time </th>
 					
@@ -39,6 +40,7 @@
 				            <td class="text-center"><a title="Show exhibitionevent Info" href="/exhibitionevents/{{$exhibitionevent->id}}" class="do">{{ $exhibitionevent->name}}</a></td>
 							<td class="text-center">{{ $booths[$i] }}</td>
 							<td class="text-center">{{ $allvisitors[$i] }}</td>
+							<td class="text-center">{{ $uniquevisit[$i] }}</td>
 							<td class="text-center">{{ $exhibitionevent->start_time}}</td>
 				            <td class="text-center">{{ $exhibitionevent->end_time}}</td>
 				           

@@ -58,13 +58,24 @@
 	</div>
 </div>
 </div>
+<div class="col-lg-4" >
+    
+    @section ('pane1_panel_title', 'Show Booth')
+    @section ('pane1_panel_body')
+    	<div id="showbooth">
+    		
+    	</div>
+
+    	<div id='expected_gain'></div>
+
+    	<div id="house_price"></div>
+
+  
+    @endsection
+    @include('widgets.panel', array('header'=>true, 'as'=>'pane1'))
+</div>                     
+      
 <script type="text/javascript">
-	
-
-
-
-	
-
 
 	window.onload = function() {
     
@@ -79,32 +90,27 @@
 
     function showbooth(boothId){
 
-		//alert(boothId);
-
+		showboothDiv = document.getElementById('showbooth');
+		showboothDiv.innerHTML='';
 		$.ajax({
-        url: '/booths/showboothAjax' ,
-        type: 'POST',
-        data: {  boothId:boothId
-             
-            },
-        success: function(result) {
-                    // console.log(result);
+	        url: '/booths/showboothAjax' ,
+	        type: 'POST',
+	        data: {  boothId:boothId
+	             
+	            },
+	        success: function(response) {
+	                  
+	                    var obj = jQuery.parseJSON(response);
+	                   //console.log(obj);
+	                   
 
-                    // alert(result['name']);
-                    var obj = jQuery.parseJSON(result);
-                    alert(obj.name)
+	                   	showboothDiv.innerHTML='Booth Name : '+obj.value.name+'<br/>'+'Booth Description : '+obj.value.desc+'<br/>'+'Exhibitor : '+obj.value2;
+	                  },
+	        error: function(jqXHR, textStatus, errorThrown) {
+	            console.log(errorThrown);
+	               }
 
-
-                  },
-        error: function(jqXHR, textStatus, errorThrown) {
-            console.log(errorThrown);
-               }
-
-
-
-
-
-    });
+        });
 	}
 
 

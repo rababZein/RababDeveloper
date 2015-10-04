@@ -17,7 +17,7 @@ window.onload = function() {
 
     
 window.onbeforeunload = function () {
-
+alert('yarab');
   $.ajax({
         url: '/home/outFromSystem' ,
         type: 'POST',
@@ -46,6 +46,7 @@ window.onbeforeunload = function () {
 
 @section('body')
 
+{{Session::put('timer', date("Y-m-d H:i:s"))}}
 <div id="wrapper">
 
         <!-- Navigation -->

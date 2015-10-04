@@ -42,6 +42,9 @@ protected $auth;
 	 //check user login or not
 	public function __construct()
 	{
+
+
+		//echo "yarab far7a"; 
        
 		$this->middleware('auth');
 
@@ -67,21 +70,21 @@ protected $auth;
 
 		   $eventId=Session::get('event_id'); 
 
-		   if (Session::has('booth_id')) {
+		  //  if (Session::has('booth_id')) {
 
-				$boothId=Session::get('booth_id');
-				$booth=Booth::find($boothId);
+				// $boothId=Session::get('booth_id');
+				// $booth=Booth::find($boothId);
 
-				if ($booth->exhibition_event_id != $eventId) {
-//echo "cc"; exit();
-					   $systemtrackId=Session::get('systemtrack_event_id');
-					   $systemtrack = Systemtrack::find($systemtrackId);
-					   $systemtrack->leave_at=date("Y-m-d H:i:s");
-					   $systemtrack->save();
-					   Session::forget('event_id');
-				}
+				// if ($booth->exhibition_event_id != $eventId) {
+
+				// 	   $systemtrackId=Session::get('systemtrack_event_id');
+				// 	   $systemtrack = Systemtrack::find($systemtrackId);
+				// 	   $systemtrack->leave_at=date("Y-m-d H:i:s");
+				// 	   $systemtrack->save();
+				// 	   Session::forget('event_id');
+				// }
 			
-		   }else{
+		  //  }else{
 
 		   		$systemtrackId=Session::get('systemtrack_event_id');
 			    $systemtrack = Systemtrack::find($systemtrackId);
@@ -90,10 +93,13 @@ protected $auth;
 			    Session::forget('event_id');
 
 
-		   }
+		 //  }
 		   
 
 		}
+
+
+
 
 		
 	}
@@ -174,14 +180,15 @@ protected $auth;
 
 		$date1 = new DateTime(Session::get('sessionstart'));
         $date2 = new DateTime(date("Y-m-d H:i:s"));
-        $diff = $date2->diff($date1);
-
+        $date3 = new DateTime(Session::get('timer'));
+        $diff1 = $date2->diff($date1); //login
+        $diff2 = $date2->diff($date3); //refresh
    //     echo $diff->format('%h hours %i mintues %s secounds');
 
 	   // echo $diff->i; 
 
 
-		if($diff->i > 10){
+		if($diff1->i > 1 ){
 
 				// Checking event_id key exist in session.
 				if (Session::has('event_id')) {
