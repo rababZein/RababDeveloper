@@ -55,9 +55,81 @@
 				</tbody>
 			</table>
 		@endforeach	
+
+
+<div class="form-group has-success">
+              <label> Exhibition Event </label>
+              <select id="drop" class="form-control col-md-6" name="country">
+              		<option value="0" >Please Select Exhibition Event</option>                  
+              	@foreach($exhibitionevents as $exhibitionevent)
+                    <option value="{{ $exhibitionevent->id }}" > {{$exhibitionevent->name}}</option>                  
+                @endforeach
+            
+            </select>
+</div>
+<table id="booths" class="table table-bordered">
+				<thead>
+					<tr>
+					    <th> User </th>
+					    <th> Comein at </th>
+					    <th> Leave at </th>						
+						<th> Duration </th>
+					</tr>
+				</thead>
+				<tbody>
+
+				</tbody>
+</table>
+<?php $systemtracks ;?>
+<?php $systemtrack_users ;?>
+<?php $users ;?>
 		@endsection
 		@include('widgets.panel', array('header'=>true, 'as'=>'cotable'))
 	</div>
 </div>
 </div>
+
+<script type="text/javascript">
+	
+	var systemtracks= <?php echo json_encode($systemtracks ); ?>;
+	var systemtrack_users= <?php echo json_encode($systemtrack_users); ?>;
+	//console.log(systemtrack_users[0]);
+	$(document).ready(function(){
+
+
+		 $("#drop").change(function () {
+
+	           jQuery("#booths tbody").empty();
+	      
+	           for (var i=0; i < systemtrack_users.length; i++) {
+	           	 // console.log(systemtracks[i]);
+		           	if (systemtrack_users[i].type_id==this.value) {
+		           	
+				            $("#booths").find('tbody')
+						    .append($('<tr>')
+						        .append($('<td>')
+						          .text(systemtrack_users[i].name)
+						            
+						        ).append($('<td>')
+						            
+						          .text(systemtrack_users[i].comein_at)
+						            
+						        ).append($('<td>')
+						            
+						          .text(systemtrack_users[i].leave_at)
+						            
+						        )
+						    );  
+		           	}
+
+
+	           }
+            
+
+         });
+	});
+
+
+
+</script>
 @stop

@@ -11,6 +11,7 @@ use App\Booth;
 use App\ExhibitionEvent;
 use Auth;
 
+use DB;
 use App\User;
 
 class SystemtracksController extends Controller {
@@ -179,7 +180,21 @@ class SystemtracksController extends Controller {
 		$users=User::all();
 		$exhibitionevents=ExhibitionEvent::all();
 		$systemtracks=Systemtrack::where('type','exhibitionevent')->get();
-	    return view('AdminCP.reports.systemtracks.exhibitionevent',compact('exhibitionevents','systemtracks','users'));
+		//$i=0;
+		//echo sizeof($systemtracks); exit();
+		//for ($i=0; $i < sizeof($systemtracks); $i++) { 
+			# code...
+		
+		// 	# code...
+			$systemtrack_users = DB::table('systemtracks')
+                                    ->join('users', 'users.id', '=', 'systemtracks.user_id')->get();
+
+		
+		//}
+	//    var_dump($systemtrack_users); exit();
+	    
+
+	    return view('AdminCP.reports.systemtracks.exhibitionevent',compact('exhibitionevents','systemtracks','users','systemtrack_users'));
 
 	}
 

@@ -17,7 +17,7 @@
 	<div class="col-sm-12">
 		@section ('cotable_panel_title','Booths Report  ')
 		@section ('cotable_panel_body')
-		@foreach($exhibitionevents as $exhibitionevent)
+	<!-- 	@foreach($exhibitionevents as $exhibitionevent)
 		<h1>{{$exhibitionevent->name}}</h1>
 		<table class="table table-bordered">
 			<thead>
@@ -40,20 +40,20 @@
 				            <td class="text-center">{{ $uniquevisit[$i] }}</td>
 
 				        </tr>
-				      @endif  
+				      @endif 
+				    <?php $i++;?>   
 		     		@endforeach
 	
 			</tbody>
 		</table>	
-		@endforeach
+		@endforeach -->
 
 		<div class="form-group has-success">
-               <label> Exhibition Event </label>
+              <label> Exhibition Event </label>
               <select id="drop" class="form-control col-md-6" name="country">
+              		<option value="0" >Please Select Exhibition Event</option>                  
               	@foreach($exhibitionevents as $exhibitionevent)
-                            <option value="{{ $exhibitionevent->id }}" > {{$exhibitionevent->name}}</option>
-                        
-                  
+                    <option value="{{ $exhibitionevent->id }}" > {{$exhibitionevent->name}}</option>                  
                 @endforeach
             
             </select>
@@ -91,17 +91,37 @@
 
 
 		 $("#drop").change(function () {
-      alert( this.value);
-    //  alert(recurrencyvisits.length)
-           var newRow = "<tr>";
-           var newcolum='<td>';
-           var endnewRow = "</tr>";
-           var endnewcolum='</td>';
-           for (var i=0; i < booths.length; i++) {
-           	console.log(booths[i]);
-           }
-           jQuery("#booths tbody").append(newRowContent);
-        
+
+	           jQuery("#booths tbody").empty();
+	        
+	           for (var i=0; i < booths.length; i++) {
+	           	
+		           	if (booths[i].exhibition_event_id==this.value) {
+		           	
+				            $("#booths").find('tbody')
+						    .append($('<tr>')
+						        .append($('<td>')
+						            .append($('<a>')
+						            	.attr('href', '/booths/'+booths[i].id)
+						            	.attr('title','Show booth Info')
+						                .text(booths[i].name)
+						            )
+						        ).append($('<td>')
+						            
+						                .text(recurrencyvisits[i])
+						            
+						        ).append($('<td>')
+						            
+						                .text(uniquevisits[i])
+						            
+						        )
+						    );  
+		           	}
+
+
+	           }
+            
+
          });
 	});
 </script>
