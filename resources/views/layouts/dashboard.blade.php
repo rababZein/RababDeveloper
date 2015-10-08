@@ -16,29 +16,29 @@ window.onload = function() {
  };
 
     
-window.onbeforeunload = function () {
-alert('yarab');
-  $.ajax({
-        url: '/home/outFromSystem' ,
-        type: 'POST',
-        data: {  
+// window.onbeforeunload = function () {
+// alert('yarab');
+//   $.ajax({
+//         url: '/home/outFromSystem' ,
+//         type: 'POST',
+//         data: {  
              
-            },
-        success: function(result) {
-                    console.log(result);
-                  },
-        error: function(jqXHR, textStatus, errorThrown) {
-            console.log(errorThrown);
-               }
+//             },
+//         success: function(result) {
+//                     console.log(result);
+//                   },
+//         error: function(jqXHR, textStatus, errorThrown) {
+//             console.log(errorThrown);
+//                }
 
 
 
 
 
-    });
+//     });
         
    
-};
+// };
 
 </script>
 
@@ -47,6 +47,7 @@ alert('yarab');
 @section('body')
 
 {{Session::put('timer', date("Y-m-d H:i:s"))}}
+{{ Session::put('sessiontimer', date("Y-m-d H:i:s"))}}
 <div id="wrapper">
 
         <!-- Navigation -->
