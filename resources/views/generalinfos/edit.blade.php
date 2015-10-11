@@ -28,7 +28,7 @@
                         <option value="{{ $country->id }}"> {{ $country->name }}</option>
                       @endif 
                     @else
-                         
+                       <option value="{{ $country->id }}"> {{ $country->name }}</option>  
                     @endif  
                   @endforeach
               </select>
@@ -37,7 +37,9 @@
             <div class="form-group has-success">
                <!--  <label class="control-label" for="inputSuccess">Input with success</label> -->
               <label> City </label>
-              <input type="text" name="city" value="{{ $user[0]->city }}" class="form-control" id="inputSuccess">
+              <input type="text" name="city" value="<?php if (!empty($user[0]->city)) {
+              echo $user[0]->city;
+              } ?> " class="form-control" id="inputSuccess">
             </div>
             <br/>
             <br/>
@@ -45,7 +47,9 @@
              <div class="form-group has-success">
                <!--  <label class="control-label" for="inputSuccess">Input with success</label> -->
               <label> Date of Birth </label>
-              <input type="text" name="dob" value="{{ $user[0]->dob }}" class="form-control" id="inputSuccess">
+              <input type="text" name="dob" value="<?php if (!empty($user[0]->dob)) {
+              echo $user[0]->dob;
+              } ?> "  class="form-control" id="inputSuccess">
             </div>
             <br/>
             <br/>
@@ -53,7 +57,9 @@
             <div class="form-group has-success">
                <!--  <label class="control-label" for="inputSuccess">Input with success</label> -->
               <label> Image </label>
-              <input type="text" name="image" value="{{ $user[0]->image }}" class="form-control" id="inputSuccess">
+              <input type="text" name="image" value="<?php if (!empty($user[0]->image)) {
+              echo $user[0]->image;
+              } ?> "  class="form-control" id="inputSuccess">
             </div>
             <br/>
             <br/>
@@ -61,7 +67,9 @@
              <div class="form-group has-success">
                <!--  <label class="control-label" for="inputSuccess">Input with success</label> -->
               <label> address </label>
-              <input type="text" name="address" value="{{ $user[0]->address }}" class="form-control" id="inputSuccess">
+              <input type="text" name="address" value="<?php if (!empty($user[0]->address)) {
+              echo $user[0]->address;
+              } ?> " class="form-control" id="inputSuccess">
             </div>
             <br/>
             <br/>
@@ -69,7 +77,9 @@
             <div class="form-group has-success">
                <!--  <label class="control-label" for="inputSuccess">Input with success</label> -->
               <label> Phone </label>
-              <input type="text" name="phone" value="{{ $user[0]->phone }}" class="form-control" id="inputSuccess">
+              <input type="text" name="phone" value="<?php if (!empty($user[0]->phone)) {
+              echo $user[0]->phone;
+              } ?> "  class="form-control" id="inputSuccess">
             </div>
             <br/>
             <br/>
@@ -77,7 +87,9 @@
              <div class="form-group has-success">
                <!--  <label class="control-label" for="inputSuccess">Input with success</label> -->
               <label> Another phone </label>
-              <input type="text" name="anotherphone" value="{{ $user[0]->anotherphone }}" class="form-control" id="inputSuccess">
+              <input type="text" name="anotherphone" value="<?php if (!empty($user[0]->anotherphone)) {
+              echo $user[0]->anotherphone;
+              } ?> "  class="form-control" id="inputSuccess">
             </div>
             <br/>
             <br/>
@@ -85,7 +97,9 @@
             <div class="form-group has-success">
                <!--  <label class="control-label" for="inputSuccess">Input with success</label> -->
               <label> Email </label>
-              <input type="text" name="skypename" value="{{ $user[0]->skypename }}" class="form-control" id="inputSuccess">
+              <input type="text" name="skypename" value="<?php if (!empty($user[0]->skypename)) {
+              echo $user[0]->skypename;
+              } ?> "  class="form-control" id="inputSuccess">
             </div>
             <br/>
             <br/>
@@ -93,7 +107,9 @@
              <div class="form-group has-success">
                <!--  <label class="control-label" for="inputSuccess">Input with success</label> -->
               <label> How Hear about us !?</label>
-              <input type="text" name="howhearaboutus" value="{{ $user[0]->howhearaboutus }}" class="form-control" id="inputSuccess">
+              <input type="text" name="howhearaboutus" value="<?php if (!empty($user[0]->howhearaboutus)) {
+              echo $user[0]->howhearaboutus;
+              } ?> "  class="form-control" id="inputSuccess">
             </div>
             <br/>
             <br/>
@@ -103,11 +119,16 @@
               <label> Interest </label>
               <select class="form-control" name="interest">
                   @foreach ($interests as $interest)
-                    @if($userinterest[0]->interest->id === $interest->id)
-                      <option value="{{ $interest->id }}" selected="true"> {{ $interest->interest_in }}</option>
+                    @if(!empty($user[0]->country->name))
+                      @if($userinterest[0]->interest->id === $interest->id)
+                        <option value="{{ $interest->id }}" selected="true"> {{ $interest->interest_in }}</option>
+                      @else
+                        <option value="{{ $interest->id }}"> {{ $interest->interest_in }}</option>
+                      @endif   
                     @else
-                      <option value="{{ $interest->id }}"> {{ $interest->interest_in }}</option>
-                    @endif   
+                        <option value="{{ $interest->id }}"> {{ $interest->interest_in }}</option>
+
+                    @endif
                   @endforeach
               </select>
               </div>

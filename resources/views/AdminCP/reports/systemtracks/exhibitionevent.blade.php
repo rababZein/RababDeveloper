@@ -17,7 +17,7 @@
 	<div class="col-sm-12">
 		@section ('cotable_panel_title','sections')
 		@section ('cotable_panel_body')
-		@foreach($exhibitionevents as $exhibitionevent)
+		<!-- @foreach($exhibitionevents as $exhibitionevent)
 			<h1> {{$exhibitionevent->name}} </h1>
 			<table class="table table-bordered">
 				<thead>
@@ -55,7 +55,7 @@
 				</tbody>
 			</table>
 		@endforeach	
-
+ -->
 
 <div class="form-group has-success">
               <label> Exhibition Event </label>
@@ -73,7 +73,7 @@
 					    <th> User </th>
 					    <th> Comein at </th>
 					    <th> Leave at </th>						
-						<th> Duration </th>
+						<!-- <th> Duration </th> -->
 					</tr>
 				</thead>
 				<tbody>

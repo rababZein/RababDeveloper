@@ -1,7 +1,10 @@
+
+
 @extends('layouts.dashboard')
-@section('page_heading','System History')
+
 
 @section('section')
+
 <div class="col-sm-12">
 <div class="row">
 	
@@ -15,9 +18,8 @@
 </div>
 <div class="row">
 	<div class="col-sm-12">
-		@section ('cotable_panel_title','sections')
-		@section ('cotable_panel_body')
-		@foreach($booths as $booth)
+		
+	<!-- 	@foreach($booths as $booth)
 			<h1> {{$booth->name}}</h1>
 			<table class="table table-bordered">
 				<thead>
@@ -54,10 +56,120 @@
 		
 				</tbody>
 			</table>
-		@endforeach	
-		@endsection
-		@include('widgets.panel', array('header'=>true, 'as'=>'cotable'))
+		@endforeach	 -->
+
+
+<!-- select exhibition event -->	
+<div class="form-group has-success">
+              <label> Exhibition Event </label>
+              <select id="event" class="form-control col-md-6" name="event">
+              		<option value="0" >Please Select Exhibition Event</option>                  
+              	@foreach($exhibitionevents as $exhibitionevent)
+                    <option value="{{ $exhibitionevent->id }}" > {{$exhibitionevent->name}}</option>                  
+                @endforeach
+            
+              </select>
+</div>	
+
+<br/>
+<div id="booth" class="form-group has-success"></div>
+
+<table    id="booths" class="table table-bordered display">
+				<thead>
+					<tr>
+					    <th> User </th>
+					    <th> Do </th>
+					    <th> Comein at </th>
+					    <th> Leave at </th>						
+						<!-- <th> Duration </th> -->
+					</tr>
+				</thead>
+				<tbody>
+
+				</tbody>
+</table>
+
 	</div>
 </div>
 </div>
+
+<?php $booths; ?>
+<?php $systemtrack_users ;?>
+
+
+<script type="text/javascript">
+
+var booths= <?php echo json_encode($booths ); ?>;
+var systemtrack_users= <?php echo json_encode($systemtrack_users); ?>;
+	
+$(document).ready(function(){
+
+
+		 $("#event").change(function () {
+
+		 	//alert(this.value);
+		 	$("#booth").empty();
+		 	var div = document.getElementById('booth');
+		 	var sel = document.createElement('select');
+			var newlabel = document.createElement("Label");
+			newlabel.innerHTML = "Booth";
+			div.appendChild(newlabel);
+
+		 	sel.className='form-control col-md-6';
+		 	sel.name='selectbooth';
+		 	sel.id='selectbooth';
+			var opt = null;
+			opt = document.createElement('option');
+			opt.value = 0;
+		    opt.innerHTML = 'Select Booth';
+		    sel.appendChild(opt);
+			for(i = 0; i<booths.length; i++) { 
+
+			    opt = document.createElement('option');
+
+			    if(booths[i].exhibition_event_id == this.value){
+				    opt.value = booths[i].id;
+				    opt.innerHTML = booths[i].name;
+				    sel.appendChild(opt);
+			    }
+			}
+
+			sel.onchange=function(){
+					for (var i=0; i < systemtrack_users.length; i++) {
+		           	if (systemtrack_users[i].type_id==this.value) {
+		           	
+				            $("#booths").find('tbody')
+						    .append($('<tr>')
+						        .append($('<td>')
+						          .text(systemtrack_users[i].name)
+						            
+						        ).append($('<td>')
+						            
+						          .text(systemtrack_users[i].do)
+						            
+						        ).append($('<td>')
+						            
+						          .text(systemtrack_users[i].comein_at)
+						            
+						        ).append($('<td>')
+						            
+						          .text(systemtrack_users[i].leave_at)
+						            
+						        )
+						    );  
+		           	}
+
+
+	           }
+
+			};
+
+			div.appendChild(sel);
+
+		 });
+
+		
+});		 	
+
+</script>
 @stop

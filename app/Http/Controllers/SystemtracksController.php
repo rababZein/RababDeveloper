@@ -180,19 +180,11 @@ class SystemtracksController extends Controller {
 		$users=User::all();
 		$exhibitionevents=ExhibitionEvent::all();
 		$systemtracks=Systemtrack::where('type','exhibitionevent')->get();
-		//$i=0;
-		//echo sizeof($systemtracks); exit();
-		//for ($i=0; $i < sizeof($systemtracks); $i++) { 
-			# code...
-		
-		// 	# code...
-			$systemtrack_users = DB::table('systemtracks')
+
+	    $systemtrack_users = DB::table('systemtracks')->where('systemtracks.type','exhibitionevent')
                                     ->join('users', 'users.id', '=', 'systemtracks.user_id')->get();
 
-		
-		//}
-	//    var_dump($systemtrack_users); exit();
-	    
+	
 
 	    return view('AdminCP.reports.systemtracks.exhibitionevent',compact('exhibitionevents','systemtracks','users','systemtrack_users'));
 
@@ -204,10 +196,14 @@ class SystemtracksController extends Controller {
 		if (!$this->adminAuth()){
 			return view('errors.404');
 		}
+		$exhibitionevents=ExhibitionEvent::all();
 		$users=User::all();
 		$booths=Booth::all();
 		$systemtracks=Systemtrack::where('type','booth')->get();
-	    return view('AdminCP.reports.systemtracks.booth',compact('booths','systemtracks','users'));
+		$systemtrack_users = DB::table('systemtracks')->where('systemtracks.type','booth')
+                                    ->join('users', 'users.id', '=', 'systemtracks.user_id')->get();
+
+	    return view('AdminCP.reports.systemtracks.booth',compact('booths','systemtracks','users','exhibitionevents','systemtrack_users'));
 
 	}
 

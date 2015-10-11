@@ -15,30 +15,38 @@ window.onload = function() {
 
  };
 
+
+//  window.onbeforeunload = function () {
+//     //return "Do you really want to close?";
+//     alert('yarab far7a');
+// };
+
     
-// window.onbeforeunload = function () {
-// alert('yarab');
-//   $.ajax({
-//         url: '/home/outFromSystem' ,
-//         type: 'POST',
-//         data: {  
+window.onbeforeunload = function () {
+
+ //alert('jj'); 
+
+  $.ajax({
+        url: '/home/outFromSystem' ,
+        type: 'POST',
+        data: {  
              
-//             },
-//         success: function(result) {
-//                     console.log(result);
-//                   },
-//         error: function(jqXHR, textStatus, errorThrown) {
-//             console.log(errorThrown);
-//                }
+            },
+        success: function(result) {
+                    console.log(result);
+                  },
+        error: function(jqXHR, textStatus, errorThrown) {
+            console.log(errorThrown);
+               }
 
 
 
 
 
-//     });
+    });
         
    
-// };
+}
 
 </script>
 

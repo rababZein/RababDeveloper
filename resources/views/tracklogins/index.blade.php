@@ -1,5 +1,5 @@
 @extends('layouts.dashboard')
-@section('page_heading','Your History')
+@section('page_heading','History')
 
 @section('section')
 <div class="col-sm-12">

@@ -187,8 +187,7 @@ protected $auth;
 
 	   // echo $diff->i; 
 
-
-		if($diff1->i > 1 ){
+		//if($diff1->i > 1 ){
 
 				// Checking event_id key exist in session.
 				if (Session::has('event_id')) {
@@ -232,7 +231,7 @@ protected $auth;
 			 
 			   Auth::logout();
 
-			}
+
    
 
 	}
