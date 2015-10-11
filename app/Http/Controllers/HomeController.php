@@ -176,7 +176,7 @@ protected $auth;
 
 	public function outFromSystem(){
 
-
+ignore_user_abort(true);
 
 		$date1 = new DateTime(Session::get('sessionstart'));
         $date2 = new DateTime(date("Y-m-d H:i:s"));
@@ -188,7 +188,8 @@ protected $auth;
 	   // echo $diff->i; 
 
 		//if($diff1->i > 1 ){
-
+         ob_flush();
+if (connection_status()!= CONNECTION_NORMAL) {
 				// Checking event_id key exist in session.
 				if (Session::has('event_id')) {
 
@@ -232,7 +233,7 @@ protected $auth;
 			   Auth::logout();
 
 
-   
+}   
 
 	}
 
