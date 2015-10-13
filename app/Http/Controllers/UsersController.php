@@ -14,7 +14,7 @@ use Mail;
 use App\Tracklogin;
 use App\Systemtrack;
 use Session;
-
+use DB;
 
 class UsersController extends Controller {
 
@@ -273,13 +273,42 @@ class UsersController extends Controller {
 	}
 
 	public function loginhistoryforall(){
-
+// 		$type='company';
+// 		$tracklogins = DB::table('tracklogins')
+//                                     ->join('users', 'users.id', '=', 'tracklogins.user_id')->where('users.type',$type)->get();
+// var_dump($tracklogins);
+//                                     exit();
 		if (!$this->adminAuth()){
 			return view('errors.404');
 		}
 		$users=User::all();
 		$tracklogins=Tracklogin::find(Auth::User()->id)->orderBy('created_at','desc')->get();
 		return view('AdminCP.reports.tracklogins.index',compact('tracklogins','users'));
+	
+	}
+
+
+	public function ajaxsearchForloginhistory(){
+
+		$type=Request::get('data');
+//         $users=User::all();
+		if ($type=='all') {
+			# code...
+			//$tracklogins=Tracklogin::orderBy('created_at','desc')->get();
+			$tracklogins = DB::table('tracklogins')
+                                    ->join('users', 'users.id', '=', 'tracklogins.user_id')->get();
+        
+
+		}else{
+
+			$tracklogins = DB::table('tracklogins')->orderBy('tracklogins.created_at','desc')
+                                    ->join('users', 'users.id', '=', 'tracklogins.user_id')->where('users.type',$type)->get();
+        
+
+		}
+
+
+        return view('AdminCP.reports.tracklogins.ajax',compact('tracklogins','users'));
 	
 	}
 

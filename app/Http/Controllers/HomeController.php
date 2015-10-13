@@ -245,7 +245,7 @@ protected $auth;
 
 	$diff1 = $date2->diff($date1); //refresh
 
-    if ($diff1->i  > 1) {
+    if ($diff1->i  > 10) {
 
          // Checking event_id key exist in session.
 					if (Session::has('event_id')) {
@@ -291,7 +291,7 @@ protected $auth;
 
     }else{
 
-    	 for ($i = 0; $i < 10; $i++) {
+    	 for ($i = 0; $i < 5; $i++) {
 		       flush();
 	           ob_flush();
 echo connection_status();

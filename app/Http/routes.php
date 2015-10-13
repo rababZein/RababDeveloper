@@ -90,6 +90,8 @@ Route::post('/home/outFromSystem','HomeController@outFromSystem');
 
 Route::get('/', 'HomeController@index');
 
+Route::post('users/ajaxsearchForloginhistory','UsersController@ajaxsearchForloginhistory');
+
 Route::get('/users/loginhistoryforall','UsersController@loginhistoryforall');
 
 Route::get('users/loginhistory/{id}','UsersController@loginhistory');
