@@ -36,7 +36,7 @@ window.onbeforeunload = function () {
                     console.log(result);
                   },
         error: function(jqXHR, textStatus, errorThrown) {
-            console.log(errorThrown);
+                    console.log(errorThrown);
                }
 
 
