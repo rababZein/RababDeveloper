@@ -38,6 +38,9 @@
                  <label class="radio-inline">
                         To : <input type="date" name="to" id="optionsRadiosInline1"  onclick="search()"> 
                  </label>
+         <br/>        
+
+         <span id='errorMsg' style="color:red" > From must be Less than To</span>        
 
          	
          </div>
@@ -111,6 +114,18 @@
 </div>
 </div>
 <script type="text/javascript">
+
+   $('#errorMsg').hide();
+
+   var from=$('input[name=from]').val();
+   var to=$('input[name=to]').val();
+
+   if (from != null && to != null ) {
+	   if (from > to ) { $('#errorMsg').show();} 
+	   else{ $('#errorMsg').hide(); }
+   }else{
+   		$('#errorMsg').hide();
+   }
 	
 window.onload = function() {
     
@@ -126,8 +141,7 @@ function search(){
     var type=$('input[name=type]:checked').val();
     var from=$('input[name=from]').val();
     var to=$('input[name=to]').val();
-   // alert(data);
-   //console.log(data);
+
 	$.ajax({
     url: '/users/ajaxsearchForloginhistory',
     type: 'POST',
