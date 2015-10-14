@@ -273,16 +273,12 @@ class UsersController extends Controller {
 	}
 
 	public function loginhistoryforall(){
-// 		$type='company';
-// 		$tracklogins = DB::table('tracklogins')
-//                                     ->join('users', 'users.id', '=', 'tracklogins.user_id')->where('users.type',$type)->get();
-// var_dump($tracklogins);
-//                                     exit();
+// 		
 		if (!$this->adminAuth()){
 			return view('errors.404');
 		}
 		$users=User::all();
-		$tracklogins=Tracklogin::find(Auth::User()->id)->orderBy('created_at','desc')->get();
+		$tracklogins=Tracklogin::orderBy('created_at','desc')->get();
 		return view('AdminCP.reports.tracklogins.index',compact('tracklogins','users'));
 	
 	}
@@ -290,27 +286,91 @@ class UsersController extends Controller {
 
 	public function ajaxsearchForloginhistory(){
 
-		$type=Request::get('data');
-//         $users=User::all();
-		if ($type=='all') {
-			# code...
-			//$tracklogins=Tracklogin::orderBy('created_at','desc')->get();
-			$tracklogins = DB::table('tracklogins')
-                                    ->join('users', 'users.id', '=', 'tracklogins.user_id')->get();
-        
+		$type=Request::get('type');
+		$from=Request::get('from');
+		$to=Request::get('to');
+		if(! empty($from) && ! empty($to) ){
 
-		}else{
 
-			$tracklogins = DB::table('tracklogins')->orderBy('tracklogins.created_at','desc')
-                                    ->join('users', 'users.id', '=', 'tracklogins.user_id')->where('users.type',$type)->get();
-        
+				if ($type=='all') {
+
+					$tracklogins = DB::table('tracklogins')->orderBy('tracklogins.created_at','desc')
+										->whereBetween('tracklogins.created_at', [$from, $to])
+	                                    ->join('users', 'users.id', '=', 'tracklogins.user_id')->get();
+	        
+
+				}else{
+
+					$tracklogins = DB::table('tracklogins')->orderBy('tracklogins.created_at','desc')
+										 ->whereBetween('tracklogins.created_at', [$from, $to])
+		                                 ->join('users', 'users.id', '=', 'tracklogins.user_id')->where('users.type',$type)->get();
+		        
+				}
+
+
+
+		}elseif(! empty($from) && empty($to)){
+
+			   if ($type=='all') {
+
+					$tracklogins = DB::table('tracklogins')->orderBy('tracklogins.created_at','desc')
+										->where('tracklogins.created_at', '>=',$from)
+	                                    ->join('users', 'users.id', '=', 'tracklogins.user_id')->get();
+	        
+
+				}else{
+
+					$tracklogins = DB::table('tracklogins')->orderBy('tracklogins.created_at','desc')
+										 ->where('tracklogins.created_at', '>=',$from)
+		                                 ->join('users', 'users.id', '=', 'tracklogins.user_id')->where('users.type',$type)->get();
+		        
+				}
+
+
+		}elseif( empty($from) && !empty($to)){
+
+			   if ($type=='all') {
+
+					$tracklogins = DB::table('tracklogins')->orderBy('tracklogins.created_at','desc')
+										->where('tracklogins.created_at', '<=',$to)
+	                                    ->join('users', 'users.id', '=', 'tracklogins.user_id')->get();
+	        
+
+				}else{
+
+					$tracklogins = DB::table('tracklogins')->orderBy('tracklogins.created_at','desc')
+										 ->where('tracklogins.created_at', '<=',$to)
+		                                 ->join('users', 'users.id', '=', 'tracklogins.user_id')->where('users.type',$type)->get();
+		        
+				}
+
+
+		}elseif( empty($from) && empty($to)){
+
+			   if ($type=='all') {
+
+					$tracklogins = DB::table('tracklogins')->orderBy('tracklogins.created_at','desc')
+	                                    ->join('users', 'users.id', '=', 'tracklogins.user_id')->get();
+	        
+
+				}else{
+
+					$tracklogins = DB::table('tracklogins')->orderBy('tracklogins.created_at','desc')
+		                                 ->join('users', 'users.id', '=', 'tracklogins.user_id')->where('users.type',$type)->get();
+		        
+				}
+
 
 		}
+		
+		return view('AdminCP.reports.tracklogins.ajax',compact('tracklogins','users'));
 
 
-        return view('AdminCP.reports.tracklogins.ajax',compact('tracklogins','users'));
 	
 	}
+
+
+
 
 
 

@@ -29,7 +29,21 @@
 		@section ('cotable_panel_body')
 
 		 <div class="form-group">
-                    <label class="col-md-4 control-label">Filter : </label>
+
+         <label class="col-md-4 control-label">Filter : </label>
+
+         		 <label class="radio-inline">
+                        From : <input type="date" name="from" id="optionsRadiosInline1"  onclick="search()" > 
+                 </label>
+                 <label class="radio-inline">
+                        To : <input type="date" name="to" id="optionsRadiosInline1"  onclick="search()"> 
+                 </label>
+
+         	
+         </div>
+
+		 <div class="form-group">
+                    <label class="col-md-4 control-label"> </label>
                      <label class="radio-inline">
                         <input type="radio" name="type" id="optionsRadiosInline1" value="all" onclick="search()" checked="true"> All
                     </label>
@@ -47,10 +61,12 @@
                
          </div> 
 
+      
+
          <div id="container">
          	
 
-         </div>
+        
 
 
 		
@@ -88,7 +104,7 @@
 	
 			</tbody>
 		</table>	
-	
+	 </div>
 		@endsection
 		@include('widgets.panel', array('header'=>true, 'as'=>'cotable'))
 	</div>
@@ -107,15 +123,19 @@ window.onload = function() {
  };
 
 function search(){
-    var data=$('input[name=type]:checked').val();
+    var type=$('input[name=type]:checked').val();
+    var from=$('input[name=from]').val();
+    var to=$('input[name=to]').val();
    // alert(data);
    //console.log(data);
 	$.ajax({
     url: '/users/ajaxsearchForloginhistory',
     type: 'POST',
-     data: {  
+    data: {  
 	   		 
-            data: data,
+            type: type,
+            from: from,
+            to:to
 	   	    },
     success: function(result) {
 
