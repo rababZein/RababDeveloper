@@ -168,6 +168,10 @@ Route::resource('/sections','SectionsController');
 
 Route::resource('/filestorage','FilesController');
 
+Route::post('/systemtracks/emailAutocomplete','SystemtracksController@emailAutocomplete');
+
+Route::post('/systemtracks/ajaxSearchForUserHistory','SystemtracksController@ajaxSearchForUserHistory');
+
 Route::get('/systemtracks/userhistory/{id}','SystemtracksController@userhistory');
 
 Route::get('/systemtracks/alluserhistory','SystemtracksController@alluserhistory');

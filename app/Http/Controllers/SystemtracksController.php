@@ -3,7 +3,8 @@
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
 
-use Illuminate\Http\Request;
+//use Illuminate\Http\Request;
+use Request;
 
 use App\Systemtrack;
 use Session;
@@ -169,6 +170,26 @@ class SystemtracksController extends Controller {
 		return view('AdminCP.reports.systemtracks.user',compact('systemtracks','users'));
 	
 		
+	}
+
+	public function ajaxSearchForUserHistory(){
+
+ 		$email=Request::get('email');
+	    $systemtracks = DB::table('systemtracks')->orderBy('systemtracks.created_at','desc')
+	                                             ->join('users', 'users.id', '=', 'systemtracks.user_id')
+	                                             ->where('users.email',$email)->get();
+	        
+	    return view('AdminCP.reports.systemtracks.userajax',compact('systemtracks'));
+	
+	}
+
+	public function emailAutocomplete(){
+		$email=Request::get('email');
+		//echo $email;
+		//echo "yarabfar7a";
+		$users=User::select('name')->where('email',$email)->get();
+		echo json_encode($users);
+
 	}
 
 

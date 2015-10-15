@@ -21,29 +21,29 @@ window.onload = function() {
 //     alert('yarab far7a');
 // };
 
-setInterval(function(){ 
+// setInterval(function(){ 
     
-     $.ajax({
-        url: '/home/outFromSystem' ,
-        type: 'POST',
-        data: {  
+//      $.ajax({
+//         url: '/home/outFromSystem' ,
+//         type: 'POST',
+//         data: {  
              
-            },
-        success: function(result) {
-                    console.log(result);
-                  },
-        error: function(jqXHR, textStatus, errorThrown) {
-                    console.log(errorThrown);
-               }
+//             },
+//         success: function(result) {
+//                     console.log(result);
+//                   },
+//         error: function(jqXHR, textStatus, errorThrown) {
+//                     console.log(errorThrown);
+//                }
 
 
 
 
 
-    });
+//     });
 
 
-}, 3000);
+// }, 50000);
 
     
 window.onbeforeunload = function () {
