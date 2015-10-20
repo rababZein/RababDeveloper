@@ -16,6 +16,9 @@ use App\Systemtrack;
 
 use Session;
 
+use App\File;
+use App\ExhibitionEventFile;
+
 class ExhibitioneventsController extends Controller {
 
 	public function __construct()
@@ -76,7 +79,7 @@ class ExhibitioneventsController extends Controller {
 		    $exhibitionevent->desc = Request::get('desc');
 		    $exhibitionevent->start_time = Request::get('start_time');
 		    $exhibitionevent->end_time = Request::get('end_time');
-		  //  $exhibitionevent->hall_id = Request::get('hall_id');
+		   // $exhibitionevent->hall_id = Request::get('hall_id');
 		    $exhibitionevent->exhibition_id = Request::get('exhibition_id');
 			$exhibitionevent->save();
 
@@ -84,6 +87,29 @@ class ExhibitioneventsController extends Controller {
 			$exhibitioneventhall->exhibition_event_id=$exhibitionevent->id;
 			$exhibitioneventhall->hall_id=Request::get('hall_id');
 			$exhibitioneventhall->save();
+
+			// File Storage 
+
+	        $file = new File;
+		    $file->name=Request::get('filename');
+		    $file->desc=Request::get('filedesc');
+		    $file->type=Request::get('filetype');
+			if (Request::hasFile('file')) { 
+				$destination='files/';
+				$filename=str_random(6)."_".Request::file('file')->getClientOriginalName();
+				Request::file('file')->move($destination,$filename);
+				$file->file=$filename;
+			}else{
+				$file->file=Request::get('file');
+			}
+            $file->save();
+
+            $exhibitioneventfile= new ExhibitionEventFile;
+            $exhibitioneventfile->exhibition_event_id=$exhibitionevent->id;
+            $exhibitioneventfile->file_id=$file->id;
+            $exhibitioneventfile->save();
+
+
 			return redirect('exhibitionevents');
 	    }
 	}

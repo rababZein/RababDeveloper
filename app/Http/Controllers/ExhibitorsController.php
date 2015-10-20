@@ -14,6 +14,9 @@ use App\Exhibitor;
 use Session;
 use App\Systemtrack;
 
+use App\File;
+use App\ExhibitorFile;
+
 
 class ExhibitorsController extends Controller {
 
@@ -295,7 +298,26 @@ class ExhibitorsController extends Controller {
 		    
 		    $exhibitor->save();
 
-		   
+		   // File Storage 
+
+	        $file = new File;
+		    $file->name=Request::get('filename');
+		    $file->desc=Request::get('filedesc');
+		    $file->type=Request::get('filetype');
+			if (Request::hasFile('file')) { 
+				$destination='files/';
+				$filename=str_random(6)."_".Request::file('file')->getClientOriginalName();
+				Request::file('file')->move($destination,$filename);
+				$file->file=$filename;
+			}else{
+				$file->file=Request::get('file');
+			}
+            $file->save();
+
+            $exhibitorfile= new ExhibitorFile;
+            $exhibitorfile->exhibitor_id=$exhibitor->id;
+            $exhibitorfile->file_id=$file->id;
+            $exhibitorfile->save();
 
 			
 			return redirect('exhibitors');

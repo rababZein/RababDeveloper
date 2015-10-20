@@ -4,11 +4,8 @@ use App\Http\Requests;
 use App\Http\Controllers\Controller;
 
 use Illuminate\Http\Request;
-//use Request;
-use Validator;
-use App\File;
 
-class FilesController extends Controller {
+class ExhibitionFilesController extends Controller {
 
 	/**
 	 * Display a listing of the resource.
@@ -18,8 +15,6 @@ class FilesController extends Controller {
 	public function index()
 	{
 		//
-		$files = File::all();
-		return view('files.index',compact('files'));
 	}
 
 	/**
@@ -30,7 +25,6 @@ class FilesController extends Controller {
 	public function create()
 	{
 		//
-		return view('files.create');
 	}
 
 	/**
@@ -38,36 +32,9 @@ class FilesController extends Controller {
 	 *
 	 * @return Response
 	 */
-	public function store(Request $request)
+	public function store()
 	{
 		//
-		// $v = Validator::make($request, [
-        
-  //       'type' => 'required',
-       
-  //       ]);
-       
-	    // if ($v->fails())
-	    // {
-	    //     return redirect()->back()->withErrors($v->errors())
-	    //     						 ->withInput();
-	    // }else{
-	    	//check for uploaded file and store it n public path
-		$file = new File;
-		        $file->name=$request->get('name');
-		        $file->desc=$request->get('desc');
-		        $file->type=$request->get('type');
-			if ($request->hasFile('file')) { 
-				$destination='files/';
-				$filename=str_random(6)."_".$request->file('file')->getClientOriginalName();
-				$request->file('file')->move($destination,$filename);
-				$file->file=$filename;
-			}else{
-				$file->file=$request->get('file');
-			}
-        $file->save();
-
-	   // }
 	}
 
 	/**

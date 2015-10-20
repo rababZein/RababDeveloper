@@ -13,6 +13,8 @@ use App\Professionalinfo;
 use Mail;
 use App\Tracklogin;
 use App\Systemtrack;
+use App\File;
+use App\UserFile;
 use Session;
 use DB;
 
@@ -117,6 +119,7 @@ class UsersController extends Controller {
 	 */
 	public function store()
 	{
+		
 		//
 		$v = Validator::make(Request::all(), [
         'name' => 'required|max:255',
@@ -153,6 +156,31 @@ class UsersController extends Controller {
   //               $message->subject("Welcome to Wavexpo Please visit our website to continu you information");
   //               $message->to($data['email']);
   //           });
+
+//return redirect()->action('UserFilesController@store', [$user->id,]);
+
+	        // File Storage 
+
+	        $file = new File;
+		    $file->name=Request::get('filename');
+		    $file->desc=Request::get('desc');
+		    $file->type=Request::get('filetype');
+			if (Request::hasFile('file')) { 
+				$destination='files/';
+				$filename=str_random(6)."_".Request::file('file')->getClientOriginalName();
+				Request::file('file')->move($destination,$filename);
+				$file->file=$filename;
+			}else{
+				$file->file=Request::get('file');
+			}
+            $file->save();
+
+            $userfile= new UserFile;
+            $userfile->user_id=$user->id;
+            $userfile->file_id=$file->id;
+            $userfile->save();
+
+
 			return redirect('users');
 	    }
 	}

@@ -19,6 +19,9 @@ use App\Spot;
 
 use Session;
 
+use App\File;
+use App\BoothFile;
+
 class BoothsController extends Controller {
 
 	 
@@ -129,6 +132,30 @@ class BoothsController extends Controller {
 		    $booth->exhibition_event_id = Request::get('exhibitionevent');
 			$booth->spot_id=Request::get('spot_id');
 			$booth->save();
+
+
+			// File Storage 
+
+	        $file = new File;
+		    $file->name=Request::get('filename');
+		    $file->desc=Request::get('filedesc');
+		    $file->type=Request::get('filetype');
+			if (Request::hasFile('file')) { 
+				$destination='files/';
+				$filename=str_random(6)."_".Request::file('file')->getClientOriginalName();
+				Request::file('file')->move($destination,$filename);
+				$file->file=$filename;
+			}else{
+				$file->file=Request::get('file');
+			}
+            $file->save();
+
+            $boothfile= new BoothFile;
+            $boothfile->booth_id=$booth->id;
+            $boothfile->file_id=$file->id;
+            $boothfile->save();
+
+
 			return redirect('booths');
 	    }
 	}

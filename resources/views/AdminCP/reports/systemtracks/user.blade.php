@@ -2,26 +2,8 @@
 @section('page_heading','System History')
 
 @section('section')
-<!-- <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>  
- --><!-- <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>  -->       
-
-  <link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
-  
-<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>        
 
 
-  <!--script src="//code.jquery.com/jquery-1.10.2.js"></script-->
-  
-
-
-  <script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
-
-
-<!-- 
-<link rel="stylesheet" href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.11.2/themes/smoothness/jquery-ui.css" /> 
-<script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.11.2/jquery-ui.min.js"></script>
-
- -->
 <meta name="_token" content="{{ app('Illuminate\Encryption\Encrypter')->encrypt(csrf_token()) }}" />
 
 
@@ -49,7 +31,7 @@
                        Email :  <input type="text" name="email" > 
                  </label>
 
-                 <input type="Search" placeholder="subject...." id="searchticket" class="form-control" /> 
+<input type="text" onclick="s();" placeholder="subject...." id="searchticket" class="form-control" /> 
 
                  <input type="button" value="Report" onclick="search()" >
          <br/> 
@@ -100,6 +82,14 @@
 	</div>
 </div>
 </div>
+
+
+
+
+
+ <link rel="stylesheet" href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8/themes/black-tie/jquery-ui.css" type="text/css" />
+<script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.9.2/jquery-ui.min.js"></script>
+
 <script type="text/javascript">
 
 window.onload = function() {
@@ -110,6 +100,8 @@ window.onload = function() {
                 }
             });
 
+
+       
  };
 	
 function search(){
@@ -141,34 +133,25 @@ alert(email);
 	}
 
 
+function s(){
 
-$('#searchticket').keyup(function(){
+$( "#searchticket" ).autocomplete( {
 
-	var x=$('#searchticket').val(); 
-//alert(x);
-	$.ajax({
-	    url: '/systemtracks/emailAutocomplete',
-	    type: 'post',
-	    data:{email:x},
+	source: [ "c++", "java", "php", "coldfusion", "javascript", "asp", "ruby" ]
 
-	    success: function(result) {
+} );
 
-			  names=JSON.parse(result);
+}
 
-
-			//  var availableTags =subjects;
-			  $( "#searchticket" ).autocomplete({
-			      // source: names
-			     //source:result
-			  });
-
-	console.log(result);
-		},
-		error: function(jqXHR, textStatus, errorThrown) {
-	        console.log(jqXHR.error);
-	    }
-	});
-});
 
 </script>
 @stop
+
+
+
+
+
+
+
+
+

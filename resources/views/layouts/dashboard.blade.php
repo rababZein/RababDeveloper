@@ -1,4 +1,4 @@
-<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>  
+ <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>  
 
 <meta name="_token" content="{{ app('Illuminate\Encryption\Encrypter')->encrypt(csrf_token()) }}" />
 
@@ -15,11 +15,6 @@ window.onload = function() {
 
  };
 
-
-//  window.onbeforeunload = function () {
-//     //return "Do you really want to close?";
-//     alert('yarab far7a');
-// };
 
 // setInterval(function(){ 
     

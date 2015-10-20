@@ -15,6 +15,8 @@ use App\Exhibitor;
 use App\Booth;
 use Session;
 use App\Systemtrack;
+use App\File;
+use App\CompanyFile;
 
 class CompaniesController extends Controller {
 
@@ -126,10 +128,7 @@ class CompaniesController extends Controller {
 			$company->website = Request::get('website');
 		    
 		    $company->save();
-
-		   
-
-			
+	
 			return redirect('/');
 	    }
 	}
@@ -295,6 +294,33 @@ class CompaniesController extends Controller {
   //               $message->subject("Welcome to Wavexpo Please visit our website to continu you information");
   //               $message->to($data['email']);
   //           });
+
+
+		     // File Storage 
+
+	        $file = new File;
+		    $file->name=Request::get('filename');
+		    $file->desc=Request::get('filedesc');
+		    $file->type=Request::get('filetype');
+			if (Request::hasFile('file')) { 
+				$destination='files/';
+				$filename=str_random(6)."_".Request::file('file')->getClientOriginalName();
+				Request::file('file')->move($destination,$filename);
+				$file->file=$filename;
+			}else{
+				$file->file=Request::get('file');
+			}
+            $file->save();
+
+            $userfile= new CompanyFile;
+            $userfile->company_id=$company->id;
+            $userfile->file_id=$file->id;
+            $userfile->save();
+
+
+			return redirect('users');
+		   
+
 
 			
 			return redirect('companies');
