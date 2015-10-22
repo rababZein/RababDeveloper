@@ -16,29 +16,29 @@ window.onload = function() {
  };
 
 
-// setInterval(function(){ 
+setInterval(function(){ 
     
-//      $.ajax({
-//         url: '/home/outFromSystem' ,
-//         type: 'POST',
-//         data: {  
+     $.ajax({
+        url: '/home/outFromSystem' ,
+        type: 'POST',
+        data: {  
              
-//             },
-//         success: function(result) {
-//                     console.log(result);
-//                   },
-//         error: function(jqXHR, textStatus, errorThrown) {
-//                     console.log(errorThrown);
-//                }
+            },
+        success: function(result) {
+                    console.log(result);
+                  },
+        error: function(jqXHR, textStatus, errorThrown) {
+                    console.log(errorThrown);
+               }
 
 
 
 
 
-//     });
+    });
 
 
-// }, 50000);
+}, 50000);
 
     
 window.onbeforeunload = function () {

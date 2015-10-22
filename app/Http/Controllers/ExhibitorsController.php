@@ -304,6 +304,7 @@ class ExhibitorsController extends Controller {
 		    $file->name=Request::get('filename');
 		    $file->desc=Request::get('filedesc');
 		    $file->type=Request::get('filetype');
+
 			if (Request::hasFile('file')) { 
 				$destination='files/';
 				$filename=str_random(6)."_".Request::file('file')->getClientOriginalName();
@@ -312,6 +313,8 @@ class ExhibitorsController extends Controller {
 			}else{
 				$file->file=Request::get('file');
 			}
+
+
             $file->save();
 
             $exhibitorfile= new ExhibitorFile;
@@ -319,8 +322,24 @@ class ExhibitorsController extends Controller {
             $exhibitorfile->file_id=$file->id;
             $exhibitorfile->save();
 
+            // Admin
+            if($this->adminAuth()){
+				return redirect('exhibitors');
+		    }
+
+
+		    //Company
+		    $user=User::find(Auth::User()->id);
+	   		$company=Company::where('user_id',$user->id)->get();
+	  		$company=$company[0];	
+
+	   		$companyId = $company->id;       
+       		$exhibitors=Exhibitor::where('company_id',$companyId)->get();
+       		return view('companies.listallexhibitorsofCompany',compact('exhibitors'));
+
+
 			
-			return redirect('exhibitors');
+			
 	    }
 
 
